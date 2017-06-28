@@ -20,6 +20,9 @@
           <h1>{{ site.title | default: site.github.repository_name }}</h1>
           <h2>{{ site.description | default: site.github.project_tagline }}</h2>
         </header>
+	<section id="photo">
+	      <div id="picbox"><img src="https://ddervs.github.io/Danial_Photo.jpg" alt="dannyboy" style="width:30%;"></div>
+        </section>
         <section id="downloads" class="clearfix">
           {% if site.show_downloads %}
           <a href="{{ site.github.zip_url }}" id="download-zip" class="button"><span>Download .zip</span></a>
@@ -30,7 +33,7 @@
 	  {% else %}
           <a href="{{ site.github.owner_url }}" id="view-on-github" class="button"><span>View on GitHub</span></a>
 	  {% endif %}
-		<div id="picbox"><img src="https://ddervs.github.io/Danial_Photo.jpg" alt="dannyboy" style="width:20%;"></div>
+	
         </section>
         <hr>
         <section id="main_content">
