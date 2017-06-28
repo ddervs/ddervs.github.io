@@ -2,6 +2,11 @@
 ---
 
 @import "{{ site.theme }}";
-#picbox{
-  padding-left:20px;
+img {
+    display: block;
+    margin: auto;
+    width:25%;
+}
+header {
+  text-align: center;
 }
