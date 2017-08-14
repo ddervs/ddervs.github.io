@@ -1,4 +1,0 @@
-- HHL Lecture
-- MRes Thesis
-
-Talk about code n that, UCL, web admin, MATLAB course, outreach (QSoP and Graveney)
