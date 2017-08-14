@@ -25,7 +25,7 @@ Here are some papers I've written. I've included a [notes](#notes) section at th
     
 
 - [Quantum Inspired Algorithms For Graph Matching (Master's Thesis).](https://github.com/ddervs/ddervs.github.io/raw/master/assets/pdfs/GraphKernels.pdf)
-    - *Short Summary:* Graph kernels are a method for recognising patterns in data defined as graphs. In this work I define a graph kernel inspired by the theory of quantum walks, that compares favourably with state of the art* methods in graph classification tasks.
+    - *Short Summary:* Graph kernels are a method for recognising patterns in data defined as graphs. In this work I define a graph kernel inspired by the theory of quantum walks, that compares favourably with state of the art* methods in graph classification.
     
         <sub style="font-size:60%">\*at the time of writing. This probably isn't true anymore... 😕</sub>
  
@@ -67,7 +67,7 @@ TODO: Graph definition + picture
 -->
 ## Graphs
 
-Since I work a lot with graphs and talk about them a lot, let's define what a graph actually is. Here's a picture of a graph:
+Since I work a lot with graphs and talk about them all the time, let's define what a graph actually is. Here's a picture of a graph:
 
 <center>
 <img src="assets/pdfs/graph.png" alt="Drawing" style="width:30%;"/>
