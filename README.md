@@ -24,7 +24,7 @@ TODO: Simplified abstract
 
 - [Weak Modular Product of Bipartite Graphs, Bicliques and Isomorphism.](https://scirate.com/arxiv/1707.05179)
 
-- [Quantum Inspired Algorithms For Graph Matching (Master's Thesis).](https://github.com/ddervs/ddervs.github.io/tree/master/assets/pdfs/GraphKernels.pdf)
+- [Quantum Inspired Algorithms For Graph Matching (Master's Thesis).](https://github.com/ddervs/ddervs.github.io/tree/raw/master/assets/pdfs/GraphKernels.pdf)
  
 
 # Teaching
@@ -33,7 +33,7 @@ I try to involve myself in teaching at UCL as much as I can. These activities in
 
 - I demonstrate for the [`MATLAB` course](http://ucl-cs-grad.github.io/matlabgrad/) for the UCL Computer Science Department. This course is designed to help graduate students unfamiliar with programming to be able to carry out and analyse the experiments for their research using `MATLAB`.
 
-- In March 2017, I gave a guest lecture for the Quantum Computation course in the [CDT in Quantum Technologies](www.uclq.org/centre-for-doctoral-training/) on the [*HHL algorithm*](https://en.wikipedia.org/wiki/Quantum_algorithm_for_linear_systems_of_equations). This is a quantum algorithm for solving linear systems of equations that *under certain conditions* is exponentially faster than any classical method. My typed notes can be found [here](https://github.com/ddervs/ddervs.github.io/tree/master/assets/pdfs/HHL.pdf).
+- In March 2017, I gave a guest lecture for the Quantum Computation course in the [CDT in Quantum Technologies](www.uclq.org/centre-for-doctoral-training/) on the [*HHL algorithm*](https://en.wikipedia.org/wiki/Quantum_algorithm_for_linear_systems_of_equations). This is a quantum algorithm for solving linear systems of equations that *under certain conditions* is exponentially faster than any classical method. My typed notes can be found [here](https://github.com/ddervs/ddervs.github.io/tree/raw/master/assets/pdfs/HHL.pdf).
 
 # Outreach
 
@@ -41,7 +41,7 @@ I'm a big fan of communicating science to non-specialists. Here are some of the 
 
 ## Talks
 
-- In February 2017, I gave a talk to a group of A-level students at [Graveney School](http://www.graveney.org) in Tooting, London. The talk was a general introduction to Quantum Computation, titled *The Future of Computing in a Quantum Age*. The slides can be found [here](https://github.com/ddervs/ddervs.github.io/tree/master/assets/pdfs/Graveney_Talk.pdf).
+- In February 2017, I gave a talk to a group of A-level students at [Graveney School](http://www.graveney.org) in Tooting, London. The talk was a general introduction to Quantum Computation, titled *The Future of Computing in a Quantum Age*. The slides can be found [here](https://github.com/ddervs/ddervs.github.io/tree/raw/master/assets/pdfs/Graveney_Talk.pdf).
 
 
 ## Quantum Secrets of Photosynthesis
