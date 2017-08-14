@@ -21,13 +21,13 @@ I also program in various languages (check out my [GitHub profile](https://githu
 Here are some papers I've written. I've included a [notes](#notes) section at the bottom of the page to try and help unpack the jargon.
 
 - [Weak Modular Product of Bipartite Graphs, Bicliques and Isomorphism.](https://scirate.com/arxiv/1707.05179)
-    - *Short Summary:* In this joint paper with [Simone Severini](http://www.ucl.ac.uk/~ucapsse/), we resurrect a graph product from the '70s which we use to make an algorithm for the problem of *bipartite graph isomorphism*. We prove that in certain restricted cases our algorithm is an efficient method for solving this problem.
+    - *Short Summary:* In this joint paper with [Simone Severini](http://www.ucl.ac.uk/~ucapsse/), we resurrect a graph product from the '70s which we use to make an algorithm for the problem of bipartite graph isomorphism. We prove that in certain restricted cases our algorithm is an efficient method for solving this problem.
     
 
 - [Quantum Inspired Algorithms For Graph Matching (Master's Thesis).](https://github.com/ddervs/ddervs.github.io/raw/master/assets/pdfs/GraphKernels.pdf)
     - *Short Summary:* Graph kernels are a method for recognising patterns in data defined as graphs. In this work I define a graph kernel inspired by the theory of quantum walks, that compares favourably with state of the art* methods in graph classification tasks.
     
-        <sub>\*at the time of writing. This probably isn't true anymore... 😕</sub>
+        <sub style="font-size:60%">\*at the time of writing. This probably isn't true anymore... 😕</sub>
  
 
 # Teaching
@@ -88,9 +88,9 @@ One way to work with graphs is using an *adjacency list*, a list of each vertex,
 ## Notes on papers
 
 - [Weak Modular Product of Bipartite Graphs, Bicliques and Isomorphism.](https://scirate.com/arxiv/1707.05179)
-    - A graph product is a particular way of combining two graphs to form a larger graph, with edges on the larger graph being present only if certain conditions are satisfied by the edges in the two smaller graphs.
-    - A bipartite graph is a graph whose vertices can be coloured in such a way that no adjacent vertices have the same colour with only two colours.
-    - Graph isomorphism is the problem if determining if two graphs are the same (i.e. have the same edges) up to a relabelling of the vertices. Doing this for bipatite graphs is as hard as for the general case. This is an interesting problem because in practise it's easy, but no one can find a generically 'fast' algorithm or prove that such an algorithm doesn't exist. Usually we know one way or the other. 
+    - A *graph product* is a particular way of combining two graphs to form a larger graph, with edges on the larger graph being present only if certain conditions are satisfied by the edges in the two smaller graphs.
+    - A *bipartite graph* is a graph whose vertices can be coloured in such a way that no adjacent vertices have the same colour with only two colours.
+    - *Graph isomorphism* is the problem if determining if two graphs are the same (i.e. have the same edges) up to a relabelling of the vertices. Doing this for bipatite graphs is as hard as for the general case. This is an interesting problem because in practise it's easy, but no one can find a generically 'fast' algorithm or prove that such an algorithm doesn't exist. Usually we know one way or the other. 
     
 - [Quantum Inspired Algorithms For Graph Matching (Master's Thesis).](https://github.com/ddervs/ddervs.github.io/raw/master/assets/pdfs/GraphKernels.pdf)
     - A *graph kernel* is a certain kind of function that takes two graphs and outputs a number that tells you how similar they are. 
