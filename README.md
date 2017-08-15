@@ -27,7 +27,7 @@ Here are some papers I've written. I've included a [notes](#notes) section at th
 - [Quantum Inspired Algorithms For Graph Matching (Master's Thesis).](https://github.com/ddervs/ddervs.github.io/raw/master/assets/pdfs/GraphKernels.pdf)
     - *Short Summary:* Graph kernels are a method for recognising patterns in data defined as graphs. In this work I define a graph kernel inspired by the theory of quantum walks, that compares favourably with state of the art* methods in graph classification.
     
-        <sub style="font-size:60%">\*at the time of writing. This probably isn't true anymore... 😕</sub>
+        <sub style="font-size:60%">\*at the time of writing. This probably isn't true anymore in a field that moves so quickly... 😕</sub>
  
 
 # Teaching
