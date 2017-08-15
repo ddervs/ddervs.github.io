@@ -18,7 +18,7 @@ I also program in various languages (check out my [GitHub profile](https://githu
 
 # Papers
 
-Here are some papers I've written. I've included a [notes](#notes) section at the bottom of the page to try and help unpack the jargon.
+Here are some papers I've written with a high-level overview of what's in them. I've included a [notes](#notes) section at the bottom of the page to help unpack the jargon.
 
 - [Weak Modular Product of Bipartite Graphs, Bicliques and Isomorphism.](https://scirate.com/arxiv/1707.05179)
     - *Short Summary:* In this joint paper with [Simone Severini](http://www.ucl.ac.uk/~ucapsse/), we resurrect a graph product from the '70s which we use to make an algorithm for the problem of bipartite graph isomorphism. We prove that in certain restricted cases our algorithm is an efficient method for solving this problem.
@@ -67,15 +67,15 @@ TODO: Graph definition + picture
 -->
 ## Graphs
 
-Since I work a lot with graphs and talk about them all the time, let's define what a graph actually is. Here's a picture of a graph:
+Since I work a lot with graphs and talk about them all the time, let's define what a graph actually is. Here's a picture of a graph.
 
 <center>
 <img src="assets/pdfs/graph.png" alt="Drawing" style="width:30%;"/>
 </center>
 
-The circles labelled by numbers are called *vertices* and the links between them are called *edges*. We **only** care about the *topology* of the graph, that is, which vertices are connected and which aren't. Where they lie in the plane of our drawing doesn't matter, you can draw a graph however you like as long as you keep the edges the same.
+The circles labelled by numbers are called *vertices* and the links between them are called *edges*. We **only** care about the *topology* of the graph, that is, which vertices are connected and which vertices aren't. Where they lie in the plane of our drawing doesn't matter, you can draw a graph however you like as long as the edges respect the connections between vertices.
 
-One way to work with graphs is using an *adjacency list*, a list of each vertex, followed by its neighbours. For example, we would represent the graph above as:
+One way to work with graphs is using an *adjacency list*: a list of each vertex, followed by its neighbours. For example, we would represent the graph above as
 ```
 [[1, [2,3,4,5]],
  [2, [1,3,4,5]],
@@ -89,10 +89,10 @@ One way to work with graphs is using an *adjacency list*, a list of each vertex,
 
 - [Weak Modular Product of Bipartite Graphs, Bicliques and Isomorphism.](https://scirate.com/arxiv/1707.05179)
     - A *graph product* is a particular way of combining two graphs to form a larger graph, with edges on the larger graph being present only if certain conditions are satisfied by the edges in the two smaller graphs.
-    - A *bipartite graph* is a graph whose vertices can be coloured in such a way that no adjacent vertices have the same colour with only two colours.
-    - *Graph isomorphism* is the problem if determining if two graphs are the same (i.e. have the same edges) up to a relabelling of the vertices. Doing this for bipatite graphs is as hard as for the general case. This is an interesting problem because in practise it's easy, but no one can find a generically 'fast' algorithm or prove that such an algorithm doesn't exist. Usually we know one way or the other. 
+    - A *bipartite graph* is a graph whose vertices can be coloured in such a way that no adjacent vertices have the same colour, using only two colours.
+    - *Graph isomorphism* is the problem if determining if two graphs are the same (i.e. have the same edges) up to a relabelling of the vertices. Doing this for bipartite graphs is as hard as for the general case. This is an interesting problem because in practise it's easy, but no one can find a generically 'fast' algorithm or prove that such an algorithm doesn't exist. Usually we know one way or the other. 
     
 - [Quantum Inspired Algorithms For Graph Matching (Master's Thesis).](https://github.com/ddervs/ddervs.github.io/raw/master/assets/pdfs/GraphKernels.pdf)
-    - A *graph kernel* is a certain kind of function that takes two graphs and outputs a number that tells you how similar they are. 
+    - A *graph kernel* is a function that takes two graphs and outputs a number that tells you how similar they are. 
     - A *quantum walk* describes the motion of a quantum particle on a graph structure and is used in many quantum algorithms. This work is a classical algorithm using the mathematics describing a quantum walk. 
     - The task of *graph classification* is a machine learning task where we are given a large number of graphs, each with a known label, say `yes` or `no`. Then, given all this data the computer's job is to classify new graphs as `yes`/`no` as quickly and accurately as possible.
