@@ -62,9 +62,6 @@ In fact, the exhibition was such a success that it continued on to [Glastonbury 
 
 # Notes <a name="notes"></a>
 
-<!---
-TODO: Graph definition + picture
--->
 ## Graphs
 
 Since I work a lot with graphs and talk about them all the time, let's define what a graph actually is. Here's a picture of a graph.
