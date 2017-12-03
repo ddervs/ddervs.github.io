@@ -32,7 +32,7 @@ Here are some papers I've written with a high-level overview of what's in them. 
 
 # Teaching
 
-I try to involve myself in teaching at UCL as much as I can. These activities include:
+I try to involve myself in teaching at UCL as much as I can.
 
 - I demonstrate for the [`MATLAB` course](http://ucl-cs-grad.github.io/matlabgrad/) for the UCL Computer Science Department. This course is designed to help graduate students unfamiliar with programming to be able to carry out and analyse the experiments for their research using `MATLAB`.
 
@@ -49,7 +49,7 @@ I'm a big fan of communicating science to non-specialists. Here are some of the 
 
 ## Quantum Secrets of Photosynthesis
 
-My colleagues in [Alexandra Olaya-Castro's Group](http://www.ucl.ac.uk/~ucapaol/index.html) in the Physics department at UCL have an outreach programme for their research, the [Quantum Secrets of Photosynthesis](http://www.ucl.ac.uk/~ucapaol/outreach.html). They describe their what they do most elegantly:
+My colleagues in [Alexandra Olaya-Castro's Group](http://www.ucl.ac.uk/~ucapaol/index.html) in the Physics department at UCL have an outreach programme for their research, the [Quantum Secrets of Photosynthesis](http://www.ucl.ac.uk/~ucapaol/outreach.html). They describe what they do most elegantly:
 >Our research aims to elucidate fundamental quantum principles underlying energy capture, transfer and conversion at the biomolecular level. 
 
 In the summer of 2016, I volunteered at their exhibit for the [Royal Society Summer Science Exhibition](https://royalsociety.org/science-events-and-lectures/2016/summer-science-exhibition/), where we wowed the public with interactive displays illuminating how plants and bacteria use quantum mechanics to absorb and transfer energy more efficiently than thought possible.
