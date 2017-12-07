@@ -91,7 +91,7 @@ One way to work with graphs is using an *adjacency list*: a list of each vertex,
 ## Notes on papers
 
 - [For every quantum walk there is a (classical) lifted Markov chain with the same mixing time](https://scirate.com/arxiv/1712.02318)
-    - A *Markov chain* is another name for a random walk on a graph. You start at some vertex, then with some predefined probability use move along one of the edges of the graph to an adjacent vertex. Continue this process for some time $T$.
+    - A *Markov chain* is another name for a random walk on a graph. You start at some vertex, then with some predefined probability use move along one of the edges of the graph to an adjacent vertex. Continue this process for some time *T*.
     - A *quantum walk* is the quantum analogue of a discrete-time random walk on a graph. At each timestep a quantum "coin" is flipped and then the walker moves around the vertices of the graph in superposition. After a certain number of timesteps we measure the location of the walker to draw a sample.
     - When a random walk (quantum or classical) has *mixed*, this means that sampling from the distribution is equivalent to sampling from the infinite-time behaviour of the walk. The *mixing time* is how many timesteps it takes to mix.
     - A *lifting* of a Markov chain is a random walk on a larger, "lifted", graph. For each vertex in the original graph we assign at least one vertex in the lifted graph and every vertex in the lifted graph is associated to a vertex in the original graph. There can only be an edge between two vertices in the lifted graph if there is an edge in the original graph between the associated vertices.
