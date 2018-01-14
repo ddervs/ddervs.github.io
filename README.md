@@ -33,6 +33,11 @@ Here are some papers I've written with a high-level overview of what's in them. 
     
         <sub style="font-size:60%">\*at the time of writing. This probably isn't true anymore in a field that moves so quickly... 😕</sub>
  
+# Blog
+
+- [Is it a banger? Audio classification in tensorflow](https://nbviewer.jupyter.org/github/ddervs/is_it_a_banger/blob/master/scripts/is_it_a_banger.ipynb) In this jupyter notebook, I investigate using a deep neural network to classify audio data as a 'banger' or 'not_a_banger', inspired by _Parks and Recreation_'s [Tom Haverford](https://en.wikipedia.org/wiki/Tom_Haverford).
+
+- [Is it a banger? - Make your own dataset](https://nbviewer.jupyter.org/github/ddervs/is_it_a_banger/blob/master/scripts/load_files.ipynb?flush_cache=true) The companion notebook to [_Is it a banger?_](https://nbviewer.jupyter.org/github/ddervs/is_it_a_banger/blob/master/scripts/is_it_a_banger.ipynb), this shows how to create the dataset used in the article.
 
 # Teaching
 
