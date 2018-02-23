@@ -20,6 +20,9 @@ I also program in various languages (check out my [GitHub profile](https://githu
 
 Here are some papers I've written with a high-level overview of what's in them. I've included a [notes](#notes) section at the bottom of the page to help unpack the jargon.
 
+- [Quantum linear systems algorithms: a primer](https://scirate.com/arxiv/1802.08227)
+    - *Short summary* This is a review paper (written jointly with Mark Herbster, Peter Mountney, Simone Severini, Naïri Usher and Leonard Wossnig) focusing on algorithms for solving linear systems of equations on a quantum computer. The aim of the paper is to get a resdearcher in the field of classical linear systems solvers up to speed with the quantum algorithms used for this task.
+
 - [For every quantum walk there is a (classical) lifted Markov chain with the same mixing time](https://scirate.com/arxiv/1712.02318)
     - *Short Summary:* Drawing samples from a probability distribution is an important computational task, used in fields such as randomised algorithms and machine learning. Quantum walks are an approach using a quantum computer that aim to speed up this task. In this paper I construct an equivalent classical method, that is, a random walk that mixes in the same number of timesteps, using a technique called _lifting_.
     
@@ -54,6 +57,8 @@ I try to involve myself in teaching at UCL as much as I can.
 I'm a big fan of communicating science to non-specialists. Here are some of the projects I've been involved with in public engagement.
 
 ## Talks
+
+- In February 2018, I gave a talk to year 9 students about careers in science, as part of the [TechGirls](http://www.wearetechgirls.com) Challenge 2017. The talk was a small part of a larger event, in which the students got to experiment with the [IBM Quantum Experience](https://quantumexperience.ng.bluemix.net/qx/experience).
 
 - In February 2017, I gave a talk to a group of A-level students at [Graveney School](http://www.graveney.org) in Tooting, London. The talk was a general introduction to Quantum Computation, titled *The Future of Computing in a Quantum Age*. The slides can be found [here](https://github.com/ddervs/ddervs.github.io/raw/master/assets/pdfs/Graveney_Talk.pdf).
 
@@ -94,6 +99,9 @@ One way to work with graphs is using an *adjacency list*: a list of each vertex,
 
 
 ## Notes on papers
+
+- [Quantum linear systems algorithms: a primer](https://scirate.com/arxiv/1802.08227)
+    - A *linear system of equations* is a collection of two or more linear equations involving the same set of variables. The typical representation for such a system is $A \cdot x = b$, where $A$ is a matrix and $x$, $b$ are vectors. $A$ and $b$ are given to us and our job is to find $x$. The solution is $x = A^{-1}b$, where $A^{-1}$ is the *inverse* of $A$. There are many practical issues to computing this inverse matrix, discussed in the paper.
 
 - [For every quantum walk there is a (classical) lifted Markov chain with the same mixing time](https://scirate.com/arxiv/1712.02318)
     - A *Markov chain* is another name for a random walk on a graph. You start at some vertex, then with some predefined probability use move along one of the edges of the graph to an adjacent vertex. Continue this process for some time *T*.
