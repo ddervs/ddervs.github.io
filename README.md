@@ -101,7 +101,7 @@ One way to work with graphs is using an *adjacency list*: a list of each vertex,
 ## Notes on papers
 
 - [Quantum linear systems algorithms: a primer](https://scirate.com/arxiv/1802.08227)
-    - A *linear system of equations* is a collection of two or more linear equations involving the same set of variables. The typical representation for such a system is $A \cdot x = b$, where $A$ is a matrix and $x$, $b$ are vectors. $A$ and $b$ are given to us and our job is to find $x$. The solution is $x = A^{-1}b$, where $A^{-1}$ is the *inverse* of $A$. There are many practical issues to computing this inverse matrix, discussed in the paper.
+    - A *linear system of equations* is a collection of two or more linear equations involving the same set of variables. The typical representation for such a system is $A x = b$, where $A$ is a matrix and $x$, $b$ are vectors. $A$ and $b$ are given to us and our job is to find $x$. The solution is $x = A^{-1} b$, where $A^{-1}$ is the *inverse* of $A$. There are many practical issues to computing this inverse matrix, discussed in the paper.
 
 - [For every quantum walk there is a (classical) lifted Markov chain with the same mixing time](https://scirate.com/arxiv/1712.02318)
     - A *Markov chain* is another name for a random walk on a graph. You start at some vertex, then with some predefined probability use move along one of the edges of the graph to an adjacent vertex. Continue this process for some time *T*.
