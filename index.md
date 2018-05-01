@@ -42,7 +42,7 @@ Here are some papers I've written with a high-level overview of what's in them. 
  
 # Blog
 
-These posts are a technical look at not so technical topics. 
+A technical look at not so technical topics. 
 
 - [Markov decision processes and life: or why we are all doomed by physics to make bad decisions](https://ddervs.github.io/2018/05/01/markov-decision-processes-and-life) This post is a tongue-in-cheek look at using complexity theory to justify poor decision-making in our day to day lives.
 

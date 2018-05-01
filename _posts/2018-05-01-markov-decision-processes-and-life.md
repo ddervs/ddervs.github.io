@@ -4,7 +4,12 @@ title: Markov decision processes and life - why we are all doomed by physics to 
 
 # Blog
 
+A technical look at not so technical topics. 
+
 ### [Home](https://ddervs.github.io/)
+
+
+-----
 
 ## Markov decision processes and life: or why we are all doomed by physics to make bad decisions
 
