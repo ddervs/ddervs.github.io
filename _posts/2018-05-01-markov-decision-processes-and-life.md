@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Markov decision processes and life - why we are all doomed by physics to make bad decisions
 ---
 
