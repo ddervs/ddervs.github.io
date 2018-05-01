@@ -42,6 +42,10 @@ Here are some papers I've written with a high-level overview of what's in them. 
  
 # Blog
 
+These posts are a technical look at not so technical topics. 
+
+- [Markov decision processes and life: or why we are all doomed by physics to make bad decisions](https://ddervs.github.io/2018/05/01/markov-decision-processes-and-life) This post is a tongue-in-cheek look at using complexity theory to justify poor decision-making in our day to day lives.
+
 - [Is it a banger? Audio classification in tensorflow](https://nbviewer.jupyter.org/github/ddervs/is_it_a_banger/blob/master/scripts/is_it_a_banger.ipynb) In this jupyter notebook, I investigate using a deep neural network to classify audio data as a 'banger' or 'not_a_banger', inspired by _Parks and Recreation_'s [Tom Haverford](https://en.wikipedia.org/wiki/Tom_Haverford).
 
 - [Is it a banger? - Make your own dataset](https://nbviewer.jupyter.org/github/ddervs/is_it_a_banger/blob/master/scripts/load_files.ipynb?flush_cache=true) The companion notebook to [_Is it a banger?_](https://nbviewer.jupyter.org/github/ddervs/is_it_a_banger/blob/master/scripts/is_it_a_banger.ipynb), this shows how to create the dataset used in the article.
