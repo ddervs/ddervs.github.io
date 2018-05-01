@@ -27,8 +27,8 @@ Here are some papers I've written with a high-level overview of what's in them. 
 - [Quantum linear systems algorithms: a primer](https://scirate.com/arxiv/1802.08227)
     - *Short summary* This is a review paper (written jointly with Mark Herbster, Peter Mountney, Simone Severini, Naïri Usher and Leonard Wossnig) focusing on algorithms for solving linear systems of equations on a quantum computer. The aim of the paper is to get a resdearcher in the field of classical linear systems solvers up to speed with the quantum algorithms used for this task.
 
-- [For every quantum walk there is a (classical) lifted Markov chain with the same mixing time](https://scirate.com/arxiv/1712.02318)
-    - *Short Summary:* Drawing samples from a probability distribution is an important computational task, used in fields such as randomised algorithms and machine learning. Quantum walks are an approach using a quantum computer that aim to speed up this task. In this paper I construct an equivalent classical method, that is, a random walk that mixes in the same number of timesteps, using a technique called _lifting_.
+- [For every quantum walk there is a (classical) lifted Markov chain with faster mixing time](https://scirate.com/arxiv/1712.02318)
+    - *Short Summary:* Drawing samples from a probability distribution is an important computational task, used in fields such as randomised algorithms and machine learning. Quantum walks are an approach using a quantum computer that aim to speed up this task. In this paper I show that there is a classical method that is in some sense superior, that is, a random walk that mixes in fewer timesteps, using a technique called _lifting_.
     
     
 - [Weak Modular Product of Bipartite Graphs, Bicliques and Isomorphism.](https://scirate.com/arxiv/1707.05179)
@@ -111,7 +111,7 @@ One way to work with graphs is using an *adjacency list*: a list of each vertex,
 - [Quantum linear systems algorithms: a primer](https://scirate.com/arxiv/1802.08227)
     - A *linear system of equations* is a collection of two or more linear equations involving the same set of variables. The typical representation for such a system is $A x = b$, where $A$ is a matrix and $x$, $b$ are vectors. $A$ and $b$ are given to us and our job is to find $x$. The solution is $x = A^{-1} b$, where $A^{-1}$ is the *inverse* of $A$. There are many practical issues to computing this inverse matrix, discussed in the paper.
 
-- [For every quantum walk there is a (classical) lifted Markov chain with the same mixing time](https://scirate.com/arxiv/1712.02318)
+- [For every quantum walk there is a (classical) lifted Markov chain with faster same mixing time](https://scirate.com/arxiv/1712.02318)
     - A *Markov chain* is another name for a random walk on a graph. You start at some vertex, then with some predefined probability use move along one of the edges of the graph to an adjacent vertex. Continue this process for some time *T*.
     - A *quantum walk* is the quantum analogue of a discrete-time random walk on a graph. At each timestep a quantum "coin" is flipped and then the walker moves around the vertices of the graph in superposition. After a certain number of timesteps we measure the location of the walker to draw a sample.
     - When a random walk (quantum or classical) has *mixed*, this means that sampling from the distribution is equivalent to sampling from the infinite-time behaviour of the walk. The *mixing time* is how many timesteps it takes to mix.
