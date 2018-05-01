@@ -4,14 +4,14 @@ title: Markov decision processes and life - why we are all doomed by physics to 
 
 # Blog
 
-<a href="https://ddervs.github.io/"><h3>Home</h3></a>
+### [Home](https://ddervs.github.io/)
 
 ## Markov decision processes and life: or why we are all doomed by physics to make bad decisions
 
 
-$\newcommand{\P}{\ensuremath\mathsf{P}}$
-$\newcommand{\BQP}{\ensuremath\mathsf{BQP}}$
-$\newcommand{\PSPACE}{\ensuremath\mathsf{PSPACE}}$
+$\newcommand{\P}{\mathsf{P}}$
+$\newcommand{\BQP}{\mathsf{BQP}}$
+$\newcommand{\PSPACE}{\mathsf{PSPACE}}$
 
 In life it seems as if it’s always tough to make the right decision, or at least it’s often difficult to do so due to some known or unknown incurred cost. Many a time the palm of my hand has swung lugubriously to my forehead after some blunder I’d like to forget about (usually it’s something I *have* forgotten about...). Alas, maybe there is hope, or at least consolation. Perhaps this isn't due to some personal deficiency, but in fact follows inevitably from the laws of the universe, which conspire to make us bad decision-makers. In this post we will think about this question through the lens of *Markov decision processes* and, with some shaky reasoning, once and for all absolve ourselves of all responsibility for any of the poor decisions we make.
 
