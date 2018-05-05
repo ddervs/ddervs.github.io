@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Danial Dervovic</title>
+    <description>Personal website, blog.
+</description>
+    <link>https://ddervs.github.io/jekyll-theme-hackcss</link>
+    <atom:link href="https://ddervs.github.io/jekyll-theme-hackcss/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sat, 05 May 2018 16:42:53 +0100</pubDate>
+    <lastBuildDate>Sat, 05 May 2018 16:42:53 +0100</lastBuildDate>
+    <generator>Jekyll v3.2.0</generator>
+    
+      <item>
+        <title>Markov decision processes and life - why we are all doomed by physics to make bad decisions</title>
+        <description>&lt;p&gt;$\newcommand{\P}{\mathsf{P}}$
+$\newcommand{\BQP}{\mathsf{BQP}}$
+$\newcommand{\PSPACE}{\mathsf{PSPACE}}$&lt;/p&gt;
+
+&lt;p&gt;In life it seems as if it’s always tough to make the right decision, or at least it’s often difficult to do so due to some known or unknown incurred cost. Many a time the palm of my hand has swung lugubriously to my forehead after some blunder I’d like to forget about (usually it’s something I &lt;em&gt;have&lt;/em&gt; forgotten about…). Alas, maybe there is hope, or at least consolation. Perhaps this isn’t due to some personal deficiency, but in fact follows inevitably from the laws of the universe, which conspire to make us bad decision-makers. In this post we will think about this question through the lens of &lt;em&gt;Markov decision processes&lt;/em&gt; and, with some shaky reasoning, once and for all absolve ourselves of all responsibility for any of the poor decisions we make.&lt;/p&gt;
+
+&lt;p&gt;In a Markov decision process $M$ we are given a finite set of states $S$, and we start with a state $s_0 \in S$. Accordingly, at a time $t \in \mathbb{N}$ we are in the state $s_t \in S$. For every $s \in S$ we are allowed a finite set of decisions $D_s$. A particular decision $i\in D_s$ made at time $t$ incurs a cost $c(s, i ,t)$, and our next state $s’$ is decided randomly, according to a probability distribution $p(s, s’, i ,t)$. A &lt;em&gt;policy&lt;/em&gt; $\delta: S \times \mathbb{N} \to \cup_s D_s$ is a mapping from a given state $s$ and time $t$ to a decision $\delta(s,t) \in D_s$.&lt;/p&gt;
+
+&lt;p&gt;The problem we are interested in solving is minimising the expectation of the total cost $\sum_{t=0}^T c(s_t, \delta(s_t, t), t )$ over some finite time horizon $T\in \mathbb{N}$, by finding an optimal policy $\delta$. We’ll call this problem of computing $\delta$ the &lt;em&gt;finite-time Markov decision process problem&lt;/em&gt; (FTMDP). This problem has been known for a long time to be in $\P$, so polynomial-time solvable, via reduction to linear programming. So far this is good news, if we apply this as a model for real decision-making. However, there is a variant of this problem known as &lt;em&gt;partially observed FTMDP&lt;/em&gt; (pFTMDP) that we are going to concern ourselves with. In this variant, at time $t$, we don’t know which state $s_t\in S$ we are in, rather we know that we lie in a subset of $S$, $z \in \Pi$, where $\Pi = {z_1, z_2, \ldots, z_k}$ is a partition of $S$, that is, the $z_i$’s are disjoint and their union is $S$.&lt;/p&gt;
+
+&lt;p&gt;Papadimitrou and Tsitsiklis in 1987 showed (thanks to Josh Lockhart for showing me this paper) that the computational complexity of pFTMDP is $\PSPACE$-complete. That is, unless $\P=\PSPACE$, there is no polynomial-time classical algorithm that can tell us if a particular expected cost can be achieved in the partial observation setting. Moreover, unless $\BQP=\PSPACE$ then not even a quantum computer can answer this question in polynomial time. Taken dramatically, this means that the best machines the universe has to offer are hopeless in the face of pFTMDP.&lt;/p&gt;
+
+&lt;p&gt;Now let us extrapolate this result wildly to the messy domain of meatspace, where we envisage a human life as some Markov decision process $M_{\text{life}}$. I will now make a lazy attempt to justify this model. Surely we are always unsure of which state &lt;em&gt;precisely&lt;/em&gt; we are in, however we wish to define our state space $S$ (a numeric scale of 1-100, ASCII-encoded bitstring of our deepest, darkest thoughts) and cost $c$ (monetary cost, how many of our hairs fall out). We do probably know roughly which subset of states we are in (between 70 and 80 out of 100, generally feeling good, ‘I’m hungry’ etc…), with the collection of subsets corresponding to our partition $\Pi$.  I think we can all at least to some extent agree that the next state of one’s life is decided at random, by some implicit probability distribution $p$.&lt;/p&gt;
+
+&lt;p&gt;It seems that even in the unlikely scenario that we know all of the state transition probabilities and incurred costs that it is hopeless for us to make good decisions. Why? Well we want to live our best lives, and of course that means computing an optimal policy $\delta_{\text{life}}$ for the Markov decision process $M_{\text{life}}$ described in the previous paragraph, taking $t=0$ as birth and $T$ as some finite time significantly larger than a typical lifetime (presumably moving to the state $s={\text{dead}}$ incurs a high cost). Now even asking if we can get a policy with expected total cost above or below a certain value seems to be forbidden by physics, since it’s overwhelmingly likely that $\BQP \neq \PSPACE$ and pFTMDP is $\PSPACE$-complete. So it’s curtains for producing the policy itself.&lt;/p&gt;
+
+&lt;p&gt;What do we take from this? I would take this as a consolation for any bad decisions taken and perhaps even as a hand-wavy excuse! I mean, if the universe wanted us to make good decisions, then surely pFTMDP would be in $\P$? Nowadays, if anyone asks why I’ve done something stupid now I simply tell them I didn’t have a $\PSPACE$ oracle to hand. Somehow that doesn’t seem to go down so well…&lt;/p&gt;
+</description>
+        <pubDate>Tue, 01 May 2018 17:24:23 +0100</pubDate>
+        <link>https://ddervs.github.io/jekyll-theme-hackcss/2018/05/01/markov-decision-processes-and-life.html</link>
+        <guid isPermaLink="true">https://ddervs.github.io/jekyll-theme-hackcss/2018/05/01/markov-decision-processes-and-life.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Is it a banger? Audio classification in tensorflow</title>
+        <description>&lt;div align=&quot;middle&quot;&gt;&lt;img src=&quot;/jekyll-theme-hackcss/assets/is_it_a_banger_files/Tom_Haverford.gif&quot; /&gt;&lt;/div&gt;
+
+&lt;p&gt;In &lt;em&gt;Parks and Recreation&lt;/em&gt; Season 6 Episode 18 “Prom”, Tom Haverford famously tells us about his test of whether a song is a “banger” or not. There are many questions in this test: “does it feature any acoutic instruments?”, “how many drops?”, “how dope are the drops?” etc.&lt;/p&gt;
+
+&lt;p&gt;I think we can make his test even more rigorous: why don’t we use a deep neural network, trained on examples of bangers (and non-bangers), to tell us if a song is banger or not?&lt;/p&gt;
+
+&lt;p&gt;In this jupyter notebook, we’re going to construct, train and test this neural network.&lt;/p&gt;
+
+&lt;h2 id=&quot;initial-environment&quot;&gt;Initial Environment&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import matplotlib.pyplot as plt
+import librosa.display
+import numpy as np
+np.random.seed(1337)
+import pandas as pd
+%matplotlib inline
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;the-dataset&quot;&gt;The Dataset&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;df = pd.read_pickle(&quot;../data/processed_dataset.pkl&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This data set was generated using the instructions in &lt;a href=&quot;https://nbviewer.jupyter.org/github/ddervs/is_it_a_banger/blob/master/scripts/load_files.ipynb&quot;&gt;this notebook&lt;/a&gt;. Let’s take a look.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;df[:9]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div&gt;
+&lt;style&gt;
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+&lt;/style&gt;
+&lt;table border=&quot;1&quot; class=&quot;dataframe&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&quot;text-align: right;&quot;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;audio&lt;/th&gt;
+      &lt;th&gt;label&lt;/th&gt;
+      &lt;th&gt;label_one_hot&lt;/th&gt;
+      &lt;th&gt;log_specgram&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Cliff Richard - Greatest Hits 1958-1962 (Not Now Music) [Full Album]_0415.wav&lt;/th&gt;
+      &lt;td&gt;[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...&lt;/td&gt;
+      &lt;td&gt;not_a_banger&lt;/td&gt;
+      &lt;td&gt;[1.0, 0.0]&lt;/td&gt;
+      &lt;td&gt;[[-80.0, -54.1524, -35.3907, -33.0633, -39.626...&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Selected New Year Mix_0121.wav&lt;/th&gt;
+      &lt;td&gt;[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...&lt;/td&gt;
+      &lt;td&gt;banger&lt;/td&gt;
+      &lt;td&gt;[0.0, 1.0]&lt;/td&gt;
+      &lt;td&gt;[[-67.3112, -51.5708, -53.4622, -72.6484, -80....&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Rihanna - Stay ft. Mikky Ekko_0036.wav&lt;/th&gt;
+      &lt;td&gt;[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...&lt;/td&gt;
+      &lt;td&gt;not_a_banger&lt;/td&gt;
+      &lt;td&gt;[1.0, 0.0]&lt;/td&gt;
+      &lt;td&gt;[[-64.2413, -50.564, -57.0061, -37.2135, -37.0...&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;The Lumineers - Slow It Down (Live on KEXP)_0049.wav&lt;/th&gt;
+      &lt;td&gt;[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...&lt;/td&gt;
+      &lt;td&gt;not_a_banger&lt;/td&gt;
+      &lt;td&gt;[1.0, 0.0]&lt;/td&gt;
+      &lt;td&gt;[[-80.0, -73.9336, -59.1297, -49.4456, -45.314...&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Passenger _ Let Her Go (Official Video)_0016.wav&lt;/th&gt;
+      &lt;td&gt;[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...&lt;/td&gt;
+      &lt;td&gt;not_a_banger&lt;/td&gt;
+      &lt;td&gt;[1.0, 0.0]&lt;/td&gt;
+      &lt;td&gt;[[-80.0, -79.4122, -63.2455, -56.2228, -56.834...&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Low Steppa - Vocal Loop (Premiere)_0032.wav&lt;/th&gt;
+      &lt;td&gt;[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...&lt;/td&gt;
+      &lt;td&gt;banger&lt;/td&gt;
+      &lt;td&gt;[0.0, 1.0]&lt;/td&gt;
+      &lt;td&gt;[[-65.6515, -31.3697, -21.9142, -25.2813, -61....&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Stardust - Music Sounds Better (Mistrix Dub) (Free Download)_0049.wav&lt;/th&gt;
+      &lt;td&gt;[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...&lt;/td&gt;
+      &lt;td&gt;banger&lt;/td&gt;
+      &lt;td&gt;[0.0, 1.0]&lt;/td&gt;
+      &lt;td&gt;[[-80.0, -80.0, -78.6725, -79.2538, -80.0, -80...&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Ed Sheeran - Thinking Out Loud [Official Video]_0033.wav&lt;/th&gt;
+      &lt;td&gt;[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...&lt;/td&gt;
+      &lt;td&gt;not_a_banger&lt;/td&gt;
+      &lt;td&gt;[1.0, 0.0]&lt;/td&gt;
+      &lt;td&gt;[[-80.0, -65.3586, -53.2574, -44.407, -50.1324...&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Best Of 2017 Tech House Yearmix_0145.wav&lt;/th&gt;
+      &lt;td&gt;[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...&lt;/td&gt;
+      &lt;td&gt;banger&lt;/td&gt;
+      &lt;td&gt;[0.0, 1.0]&lt;/td&gt;
+      &lt;td&gt;[[-80.0, -57.0543, -39.8118, -61.7071, -38.360...&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We can see in the first column the names of the tracks (in &lt;code class=&quot;highlighter-rouge&quot;&gt;.wav&lt;/code&gt; format) with a numeric identifier at the end. Each track has been clipped into 5 second segments (at 22.05kHz sample rate) and the identifier tells us which segment we have.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;audio&lt;/code&gt; column is a numpy array with the audio sample values.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;label&lt;/code&gt; column tells us if the given file is labelled as a banger or not. For the most part, the labels are obvious to us (but not the machine): Ed Sheeran, The Lumineers, Cliff Richard… clearly NOT A BANGER. Various tech house mixes and artists - BANGERZ.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;label_one_hot&lt;/code&gt; column gives us the vectorised, “one-hot” encoding of the label. &lt;code class=&quot;highlighter-rouge&quot;&gt;[0.0, 1.0] == banger&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;[1.0, 0.0] == not_a_banger&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The final column, &lt;code class=&quot;highlighter-rouge&quot;&gt;log_specgram&lt;/code&gt;, is the most interesting and what will comprise our features input to the neural net. It comprises the &lt;em&gt;log spectrogram&lt;/em&gt; of the audio signal. This is the absolute value squared &lt;a href=&quot;https://en.wikipedia.org/wiki/Short-time_Fourier_transform&quot;&gt;Short Time Fourier Transform&lt;/a&gt; of the audio signal. This gives us the frequency content of the signal within short time windows.&lt;/p&gt;
+
+&lt;p&gt;We’re going to use a common image classification tool, a ConvNet, on the log spectrogram image to do our classification.&lt;/p&gt;
+
+&lt;p&gt;Let’s take a closer look at the dataset.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bangerz = df.loc[df['label'] == &quot;banger&quot;]
+clangerz = df.loc[df['label'] == &quot;not_a_banger&quot;]
+num_bangerz = bangerz.index.size
+num_clangerz = clangerz.index.size
+
+print(&quot;Dataset has %g audio clips.&quot; % df.index.size)
+print( &quot;This is split between %g \&quot;banger\&quot;s and %g \&quot;not_a_banger\&quot;s&quot; % (num_bangerz, num_clangerz) )
+
+Dataset has 875 audio clips.
+This is split between 422 &quot;banger&quot;s and 453 &quot;not_a_banger&quot;s
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;So we are split more-or-less 50:50 between bangers and clangers. Now we want to look at the audio signal and log spectrogram for some examples.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;def plot_waveforms(df, idx):
+    audio = df.iloc[idx].audio
+    log_specgram = df.iloc[idx].log_specgram
+    filename = df.iloc[idx].name
+    label = df.iloc[idx].label
+    # audio is np.array holding sample values, log_specgram is 2-dim np.array
+    plt.figure(figsize=(15,6))
+    plt.subplot(1, 2, 1)
+    librosa.display.waveplot(audio, sr=22050)
+    plt.subplot(1, 2, 2)
+    librosa.display.specshow(log_specgram, x_axis='time',y_axis='log')
+    plt.colorbar(format='%+2.0f dB')
+    plt.suptitle(filename + &quot;, label = \&quot;&quot; + label + &quot;\&quot;.&quot;)
+
+
+
+[plot_waveforms(bangerz, i) for i in [0, 1, 2]];
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/jekyll-theme-hackcss/assets/is_it_a_banger_files/is_it_a_banger_13_0.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/jekyll-theme-hackcss/assets/is_it_a_banger_files/is_it_a_banger_13_1.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/jekyll-theme-hackcss/assets/is_it_a_banger_files/is_it_a_banger_13_2.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
+
+&lt;div style=&quot;padding-top:1cm;&quot;&gt;&lt;/div&gt;
+&lt;p&gt;We can see for the first two bangers sharp, rhythmic, percussive signal, focused on the low end of the frequency spectrum. This is the kick drum!&lt;/p&gt;
+
+&lt;p&gt;In the third banger, we are likely in a section where the producer has used a high-pass filter, since there is virtually no low-frequency content here, yet we can still see some regularity from the kick in the higher end of the spectrum.&lt;/p&gt;
+
+&lt;p&gt;Now for the clangers!&lt;/p&gt;
+&lt;div style=&quot;padding-bottom:1cm;&quot;&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[plot_waveforms(clangerz, i) for i in [0, 1, 2]];
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/jekyll-theme-hackcss/assets/is_it_a_banger_files/is_it_a_banger_15_0.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/jekyll-theme-hackcss/assets/is_it_a_banger_files/is_it_a_banger_15_1.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/jekyll-theme-hackcss/assets/is_it_a_banger_files/is_it_a_banger_15_2.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
+
+&lt;div style=&quot;padding-top:1cm;&quot;&gt;&lt;/div&gt;
+&lt;p&gt;Here we see a less percussive, rhythic signal across the board, with far less low-frequency content.&lt;/p&gt;
+
+&lt;p&gt;Hopefully our ConvNet will be able to use this to its advantage.&lt;/p&gt;
+&lt;div style=&quot;padding-bottom:1cm;&quot;&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;establish-baseline&quot;&gt;Establish baseline&lt;/h3&gt;
+
+&lt;p&gt;We can calculate a baseline classification accuracy, if we just choose the majority label in the dataset for any example. This is the accuracy we need to beat.&lt;/p&gt;
+
+&lt;p&gt;Ideally, we should run “Haverford’s algorithm” and compare, but I really didn’t feel like doing this for 875 examples! Volunteers welcome…&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;naive_accuracy = (max(num_bangerz, num_clangerz) / (float)(df.index.size))
+print (&quot;This is the accuracy if we always guess max{#banger, #not_a_banger}: %.3f&quot; % naive_accuracy)
+
+This is the accuracy if we always guess max{#banger, #not_a_banger}: 0.518
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;form-the-training-and-testing-data-sets&quot;&gt;Form the training and testing data sets¶&lt;/h3&gt;
+
+&lt;p&gt;Let’s set aside 80% of the data for training and 20% for testing.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;train_frac = 0.8
+
+def split_train_test(df, train_frac=0.8):
+    include = np.random.rand(*df.index.shape)
+    is_train = include &amp;lt; train_frac
+    train_data = df[is_train]
+    test_data = df[~is_train]
+    return train_data, test_data
+                
+train_data, test_data = split_train_test(df, train_frac)
+
+
+print( &quot;Training data has %g clips, test data has %g clips.&quot; % (train_data.index.size, test_data.index.size))
+
+Training data has 711 clips, test data has 164 clips.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;tensorflow&quot;&gt;Tensorflow&lt;/h2&gt;
+
+&lt;p&gt;Having prepped the training and test datasets, we’re ready to set up our ConvNet. We will closely follow the structure of the tensorflow &lt;a href=&quot;https://www.tensorflow.org/get_started/mnist/pros&quot;&gt;deep MNIST&lt;/a&gt; example neural net with some small modifications – if it ain’t broke, don’t fix it!&lt;/p&gt;
+
+&lt;p&gt;The deep network will look something like this:&lt;/p&gt;
+
+&lt;div align=&quot;middle&quot;&gt;&lt;img src=&quot;/jekyll-theme-hackcss/assets/is_it_a_banger_files/ConvNet.png&quot; width=&quot;85%&quot; /&gt;&lt;/div&gt;
+
+&lt;p&gt;We feed the image of the log spectrogram into a convolutional layer, &lt;code class=&quot;highlighter-rouge&quot;&gt;conv1&lt;/code&gt;, followed by a max-pooling layer, &lt;code class=&quot;highlighter-rouge&quot;&gt;hpool1&lt;/code&gt;, which reduces the size of the image. We then feed this image into another convolutional layer, &lt;code class=&quot;highlighter-rouge&quot;&gt;conv2&lt;/code&gt;, followed by another max-pooling layer, &lt;code class=&quot;highlighter-rouge&quot;&gt;hpool2&lt;/code&gt;, which reduces the image size further. We then have two consecutive fully connected layers, &lt;code class=&quot;highlighter-rouge&quot;&gt;fc1&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;fc2&lt;/code&gt;, between which we use dropout (this randomly removes edges during each epoch of training to mitigate overfitting). Finally, we classify.&lt;/p&gt;
+
+&lt;p&gt;We’re going to use the ADAM adaptive moment optimizer, with a cross-entropy cost function.&lt;/p&gt;
+
+&lt;h3 id=&quot;setup&quot;&gt;Setup&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import tensorflow as tf
+tf.set_random_seed(1234)
+
+
+# convolution params
+log_specgram_shape = df.iloc[0][&quot;log_specgram&quot;].shape
+CONV_STRIDE_LENGTH = 1
+CONV_WINDOW_LENGTH = 5
+MAX_POOL_STRIDE_LENGTH = 2
+
+# features
+CONV_1_NUM_FEATURES = 32
+CONV_2_NUM_FEATURES = 16
+DENSE_NUM_FEATURES = 256
+
+# training
+NUM_LABELS = df.label.unique().size
+BATCH_SIZE = 50
+NUM_EPOCHS = 1000
+LEARNING_RATE = 1e-4
+LOG_TRAIN_STEPS = 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;draw-the-computational-graph&quot;&gt;Draw the computational graph&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# This node is where we feed a batch of the training data and labels at each training step
+x = tf.placeholder(tf.float32,shape=(None, *log_specgram_shape, 1))
+y_ = tf.placeholder(tf.float32, shape=(None, len(df.label.unique())))
+
+
+# Weight initialisation functions
+ 
+# small noise for symmetry breaking and non-zero gradients
+def weight_variable(shape):
+    initial = tf.truncated_normal(shape, stddev=0.1)
+    return tf.Variable(initial)
+
+# ReLU neurons - initialise with small positive bias to stop 'dead' neurons
+def bias_variable(shape):
+    initial = tf.constant(0.1, shape=shape)
+    return tf.Variable(initial)
+
+
+def conv2d(x, W):  
+    return tf.nn.conv2d(x, W, strides=[1, CONV_STRIDE_LENGTH, CONV_STRIDE_LENGTH, 1], padding='SAME')
+
+# ksize is filter size
+def max_pool_2x2(x):
+    return tf.nn.max_pool(x, ksize=[1, MAX_POOL_STRIDE_LENGTH, MAX_POOL_STRIDE_LENGTH, 1],
+                        strides=[1, MAX_POOL_STRIDE_LENGTH, MAX_POOL_STRIDE_LENGTH, 1], padding='SAME')
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;first-convolutional-layer&quot;&gt;First Convolutional Layer&lt;/h4&gt;
+&lt;p&gt;We can now implement our first layer. It will consist of convolution, followed by max pooling. The convolution will compute &lt;code class=&quot;highlighter-rouge&quot;&gt;CONV_1_NUM_FEATURES&lt;/code&gt; features for each &lt;code class=&quot;highlighter-rouge&quot;&gt;CONV_WINDOW_LENGTH&lt;/code&gt; $\times$ &lt;code class=&quot;highlighter-rouge&quot;&gt;CONV_WINDOW_LENGTH&lt;/code&gt; patch. Its weight tensor will have a shape of &lt;code class=&quot;highlighter-rouge&quot;&gt;[CONV_WINDOW_LENGTH, CONV_WINDOW_LENGTH, 1, CONV_1_NUM_FEATURES]&lt;/code&gt;. The first two dimensions are the patch size, the next is the number of input channels (mono audio, so &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt;), and the last is the number of output channels. We will also have a bias vector with a component for each output channel.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;W_conv1 = weight_variable([CONV_WINDOW_LENGTH, CONV_WINDOW_LENGTH, 1, CONV_1_NUM_FEATURES])
+b_conv1 = bias_variable([CONV_1_NUM_FEATURES])
+
+
+h_conv1 = tf.nn.relu(conv2d(x, W_conv1) + b_conv1)
+h_pool1 = max_pool_2x2(h_conv1)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;second-convolutional-layer&quot;&gt;Second Convolutional Layer&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;W_conv2 = weight_variable([CONV_WINDOW_LENGTH, CONV_WINDOW_LENGTH, CONV_1_NUM_FEATURES, CONV_2_NUM_FEATURES])
+b_conv2 = bias_variable([CONV_2_NUM_FEATURES])
+
+h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)
+h_pool2 = max_pool_2x2(h_conv2)
+
+# 2x2 maxpool gives image dimensions np.ceil(np.array(log_specgram_shape)/2).astype(int)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;densely-connected-layer&quot;&gt;Densely Connected Layer&lt;/h4&gt;
+
+&lt;p&gt;Now that the image size has been reduced, we add a fully-connected layer with 256 neurons. We reshape the tensor from the pooling layer into a batch of vectors, multiply by a weight matrix, add a bias, and apply a ReLU activation function.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;def scale_shape_maxpool2x2(shape_tuple):
+    return np.ceil(np.array(shape_tuple)/2).astype(int)
+
+log_specgram_shape_reduced = scale_shape_maxpool2x2(scale_shape_maxpool2x2(log_specgram_shape))
+
+W_fc1 = weight_variable([np.prod(log_specgram_shape_reduced) * CONV_2_NUM_FEATURES, DENSE_NUM_FEATURES])
+b_fc1 = bias_variable([DENSE_NUM_FEATURES])
+
+h_pool2_flat = tf.reshape(h_pool2, [-1, np.prod(log_specgram_shape_reduced) * CONV_2_NUM_FEATURES])
+h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;dropout&quot;&gt;Dropout&lt;/h4&gt;
+
+&lt;p&gt;To reduce overfitting, we will apply dropout before the readout layer. We create a &lt;code class=&quot;highlighter-rouge&quot;&gt;placeholder&lt;/code&gt; for the probability that a neuron’s output is kept during dropout. This allows us to turn dropout on during training, and turn it off during testing.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;keep_prob = tf.placeholder(tf.float32)
+h_fc1_drop = tf.nn.dropout(h_fc1, keep_prob)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;readout-layer&quot;&gt;Readout Layer&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;W_fc2 = weight_variable([DENSE_NUM_FEATURES, NUM_LABELS])
+b_fc2 = bias_variable([NUM_LABELS])
+
+y_conv = tf.matmul(h_fc1_drop, W_fc2) + b_fc2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;training&quot;&gt;Training&lt;/h3&gt;
+
+&lt;h4 id=&quot;batching-function&quot;&gt;Batching function&lt;/h4&gt;
+&lt;p&gt;We need a function to feed in batches of data for training.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;def return_batch(df, batch_size=10):
+    batch_df = df.sample(batch_size)
+    x = np.vstack(batch_df[&quot;log_specgram&quot;]).reshape(batch_df.index.size, *log_specgram_shape, 1).astype(np.float32)
+    y = np.vstack(batch_df[&quot;label_one_hot&quot;]).astype(np.float32)
+    return x, y
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;time-logging&quot;&gt;Time logging&lt;/h4&gt;
+&lt;p&gt;We want some rough idea of how long training is going to take. On my laptop it was around 14 hours! 😱&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import time
+
+def estimate_time_remaining(time_in, current_step, steps_gap, total_steps):
+    current_time = time.time() - time_in
+    time_per_step = current_time / steps_gap
+    time_remaining = (total_steps - current_step) * time_per_step
+    m, s = divmod(time_remaining, 60)
+    h, m = divmod(m, 60)
+    print(&quot;Approximately %d hours, %02d minutes, %02d seconds remaining.&quot; % (h, m, s))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;train-and-evaluate-the-model&quot;&gt;Train and Evaluate the Model&lt;/h4&gt;
+
+&lt;p&gt;We’re using the numerically stable &lt;code class=&quot;highlighter-rouge&quot;&gt;tf.nn.softmax_cross_entropy_with_logits&lt;/code&gt; function here. This is the long part.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cross_entropy = tf.reduce_mean(
+    tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits=y_conv))
+train_step = tf.train.AdamOptimizer(LEARNING_RATE).minimize(cross_entropy)
+correct_prediction = tf.equal(tf.argmax(y_conv, 1), tf.argmax(y_, 1))
+accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+
+sess = tf.Session()
+sess.run(tf.global_variables_initializer())
+
+with sess.as_default():
+    current_time = time.time()
+    for i in range(NUM_EPOCHS):
+        batch = return_batch(train_data, BATCH_SIZE)
+        
+        # logging
+        if i % LOG_TRAIN_STEPS == 0:
+            train_accuracy = accuracy.eval(feed_dict={x: batch[0], y_: batch[1], keep_prob: 1.0})
+            print('Epoch %d, training accuracy %.3f' % (i, train_accuracy))
+            estimate_time_remaining(current_time, i, LOG_TRAIN_STEPS, NUM_EPOCHS)
+            current_time = time.time()
+
+        train_step.run(feed_dict={x: batch[0], y_: batch[1], keep_prob: 0.5})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;em&gt;Note&lt;/em&gt;: I’ve deleted the output of the above cell to keep the script short.&lt;/p&gt;
+
+&lt;h4 id=&quot;save-model-and-variables&quot;&gt;Save model and variables&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;with sess.as_default():
+    saver = tf.train.Saver()
+    save_path = saver.save(sess, &quot;../data/model.ckpt&quot;)
+    print(&quot;Model saved in file: %s&quot; % save_path)
+
+Model saved in file: ../data/model.ckpt
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;testing&quot;&gt;Testing&lt;/h3&gt;
+
+&lt;p&gt;Now we have a trained model, we want to test out how well it works on the test set.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;with sess.as_default():
+    test_batch = return_batch(test_data, test_data.index.size)
+    test_accuracy = accuracy.eval(feed_dict={x: test_batch[0], y_: test_batch[1], keep_prob: 1.0})
+    print(&quot;Test accuracy: %.3f&quot; % test_accuracy)
+
+Test accuracy: 0.915
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Yay! We have done a lot better than the baseline of 0.518.&lt;/p&gt;
+
+&lt;div align=&quot;middle&quot; style=&quot;padding-top:0.5cm&quot;&gt;&lt;img src=&quot;/jekyll-theme-hackcss/assets/is_it_a_banger_files/great_success.gif&quot; width=&quot;40%&quot; /&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;whats-next&quot;&gt;What’s Next?&lt;/h2&gt;
+
+&lt;p&gt;It looks like our initial attempt with a ConvNet trained on log spectrogram data has worked well as a first attempt. However, there are a bunch of things we could think about to improve things:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;Feature selection&lt;/em&gt;: the &lt;code class=&quot;highlighter-rouge&quot;&gt;librosa&lt;/code&gt; library which generated the log spectrogram can compute a whole host of different audio features such as mel spectrogram and decompositions of the signal into percussive and melodic components.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;Inspecting misclassified data&lt;/em&gt;: digging in to which audio clips were misclassified might give us insight into why they were misclassified. We could use this information to improve the model.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;ConvNet&lt;/em&gt;: There are plenty of hyperparameters to tune here and even the architecture can be changed. Thinking more carefully about the structure of the input features and what design to use could help here.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;Other models&lt;/em&gt;: perhaps another machine learning model, such as SVM or nearest neighbours classification could be more effective (and certainly would be quicker!)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Thanks for reading, and as Tommy H would say, keep it 💯.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 18 Jan 2018 12:14:01 +0000</pubDate>
+        <link>https://ddervs.github.io/jekyll-theme-hackcss/2018/01/18/is-it-a-banger.html</link>
+        <guid isPermaLink="true">https://ddervs.github.io/jekyll-theme-hackcss/2018/01/18/is-it-a-banger.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Is it a banger? Make your own dataset</title>
+        <description>&lt;p&gt;These are some brief instructions on how to make the dataset I used in the article &lt;a href=&quot;https://nbviewer.jupyter.org/github/ddervs/is_it_a_banger/blob/master/scripts/is_it_a_banger.ipynb&quot;&gt;Is it a banger?&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I’m also going to assume you have downloaded the files in the &lt;a href=&quot;https://github.com/ddervs/is_it_a_banger&quot;&gt;GitHub repository&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;folder-structure&quot;&gt;Folder structure&lt;/h2&gt;
+
+&lt;p&gt;We want to create a directory called &lt;code class=&quot;highlighter-rouge&quot;&gt;data&lt;/code&gt;, with a subdirectory for each label, e.g.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;data
+├── label_1
+├── label_2
+├──    ·
+├──    ·
+├──    ·
+└── label_k
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;In each label subdirectory, we have a text-file, where each line is the URL of a YouTube track or playlist with the relevant audio data.&lt;/p&gt;
+
+&lt;p&gt;For the article, we simply have&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;data
+├── banger
+│   └── URL_banger.txt
+└── not_a_banger
+    └── URL_not_a_banger.txt
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;You can see the URLs used in the article at &lt;a href=&quot;https://github.com/ddervs/is_it_a_banger/blob/master/data/banger/URL_banger.txt&quot;&gt;URL_banger.txt&lt;/a&gt; and &lt;a href=&quot;https://github.com/ddervs/is_it_a_banger/blob/master/data/not_a_banger/URL_not_a_banger.txt&quot;&gt;URL_not_a_banger.txt&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;We then need to run the following command in the directory &lt;code class=&quot;highlighter-rouge&quot;&gt;is_it_a_banger/scripts/&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./scripts/prepare_data_files.sh data 5
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;where &lt;code class=&quot;highlighter-rouge&quot;&gt;5&lt;/code&gt; is the audio segment length in seconds. Note that this script requires &lt;code class=&quot;highlighter-rouge&quot;&gt;ffmpeg&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;youtube-dl&lt;/code&gt; to work.&lt;/p&gt;
+
+&lt;p&gt;After running the script, you should have in each label subdirectory a bunch of 5 second &lt;code class=&quot;highlighter-rouge&quot;&gt;.wav&lt;/code&gt; audio files.&lt;/p&gt;
+
+&lt;p&gt;We then need the following python to generate the pandas DataFrame from the generated audio files.&lt;/p&gt;
+
+&lt;h2 id=&quot;imports&quot;&gt;Imports&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import os
+import glob
+import librosa
+import numpy as np
+np.random.seed(1234)
+import pandas as pd
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;get-filenames-and-directories&quot;&gt;Get filenames and directories&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;parent_dir = '../data'
+parent_dir_contents = [os.path.join(parent_dir, dirname) for dirname in os.listdir(parent_dir)]
+sub_dirs = [filename if os.path.isdir(filename) else None for filename in parent_dir_contents]
+sub_dirs = list(filter(None.__ne__, sub_dirs))
+labels_list = [os.path.relpath(path, parent_dir) for path in sub_dirs]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;extract-features&quot;&gt;Extract Features&lt;/h2&gt;
+
+&lt;p&gt;We’re going to use the &lt;code class=&quot;highlighter-rouge&quot;&gt;librosa&lt;/code&gt; library for processing the audio signal. We’ll keep the raw audio samples and compute a log spectrogram.&lt;/p&gt;
+
+&lt;p&gt;Note that we clip samples at the end of the audio file, as the combination of running &lt;code class=&quot;highlighter-rouge&quot;&gt;ffmpeg&lt;/code&gt; earlier and resampling to 22.05kHz means the audio sample arrays don’t have uniform length.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;def extract_features(file_name, sample_rate=22050, segment_time=5, samples_to_clip=500):
+    audio, sample_rate = librosa.load(file_name, sr=sample_rate)
+    end_idx = (sample_rate * segment_time) - samples_to_clip # remove some end samples as not strictly uniform size
+    audio = audio[0:end_idx]
+    log_specgram = librosa.logamplitude(np.abs(librosa.stft(audio))**2, ref_power=np.max)
+    features = {&quot;audio&quot;: audio, &quot;log_specgram&quot;: log_specgram}
+    return features
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;turn-labels-into-one-hot-vector-encoding&quot;&gt;Turn labels into ‘one-hot’ vector encoding&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;def one_hot_encode(label, labels_list):
+    n_labels = len(labels_list)
+    one_hot_encoded = np.zeros(n_labels)
+    for idx, cmp in enumerate(labels_list):
+        if label == cmp:
+            one_hot_encoded[idx] = 1                     
+    return one_hot_encoded
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;trim-file-list&quot;&gt;Trim file list&lt;/h2&gt;
+
+&lt;p&gt;Only include a fraction of audio files for a given track to avoid training set 1) having too many highly correlated data points, and 2) having too large a file size.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;def trim_file_list(fnames_list, p_include=1.0):
+    fnames_list = np.asarray(fnames_list)
+    include = np.random.rand(*fnames_list.shape)
+    fnames_list = fnames_list[include &amp;lt; p_include]
+    return fnames_list
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;build-dataframe-from-files&quot;&gt;Build DataFrame from files&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;def parse_audio_files(parent_dir, sub_dirs_list, labels_list, file_ext='*.wav', p_include=1.0,\
+                      sample_rate=22050, segment_time=5, samples_to_clip=500):
+    data = []
+    index = []
+    for label_idx, sub_dir in enumerate(sub_dirs_list):
+        fnames_list = glob.glob(os.path.join(sub_dir, file_ext))
+        fnames_list = trim_file_list(fnames_list, p_include=p_include)
+        for fname in fnames_list:
+            print(&quot;Processing &quot; + os.path.basename(fname))
+            features = extract_features(fname, segment_time=segment_time, \
+                                        sample_rate=sample_rate, samples_to_clip=samples_to_clip)
+            label = labels_list[label_idx]
+            label_one_hot = one_hot_encode(label, labels_list)
+            features['label'] = label
+            features[&quot;label_one_hot&quot;] = label_one_hot
+            data.append(features)
+            index.append(os.path.basename(fname))
+    return pd.DataFrame(data, index=index)
+
+
+df = parse_audio_files(parent_dir, sub_dirs, labels_list, p_include=0.1, segment_time=5, samples_to_clip=1100)
+df = df.iloc[np.random.permutation(len(df))] # shuffle rows
+df.to_pickle(os.path.join(parent_dir, 'processed_dataset.pkl'))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Thu, 18 Jan 2018 12:14:01 +0000</pubDate>
+        <link>https://ddervs.github.io/jekyll-theme-hackcss/2018/01/18/is-it-a-banger-load-files.html</link>
+        <guid isPermaLink="true">https://ddervs.github.io/jekyll-theme-hackcss/2018/01/18/is-it-a-banger-load-files.html</guid>
+        
+        
+      </item>
+    
+  </channel>
+</rss>

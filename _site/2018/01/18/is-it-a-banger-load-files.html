@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/jekyll-theme-hackcss/favicon.png">
+
+  <!-- Meta information -->
+  <title>Is it a banger? Make your own dataset</title>
+  <meta name="description"
+        content="These are some brief instructions on how to make the dataset I used in the article Is it a banger?.">
+  <link rel="canonical"
+        href="https://ddervs.github.io/jekyll-theme-hackcss/2018/01/18/is-it-a-banger-load-files.html" />
+
+  <!-- hack.css -->
+  <link rel="stylesheet" href="https://npmcdn.com/hack/dist/hack.css" />
+  
+
+  <!-- Prism.js -->
+  <link rel="stylesheet" href="https://npmcdn.com/prismjs@1.5.1/themes/prism.css" />
+
+  <!-- Custom style -->
+  <link rel="stylesheet" href="/jekyll-theme-hackcss/css/main.css" />
+
+  <!-- Feed -->
+  <link rel="alternate" type="application/rss+xml" title="Danial Dervovic"
+        href="/jekyll-theme-hackcss/feed.xml" />
+
+  <!-- 'jekyll-seo' plugin -->
+  <!-- Begin Jekyll SEO tag v2.0.0 -->
+<title>Is it a banger? Make your own dataset - Danial Dervovic</title>
+<meta property="og:title" content="Is it a banger? Make your own dataset" />
+<meta name="description" content="These are some brief instructions on how to make the dataset I used in the article Is it a banger?." />
+<meta property="og:description" content="These are some brief instructions on how to make the dataset I used in the article Is it a banger?." />
+<link rel="canonical" href="https://ddervs.github.io/jekyll-theme-hackcss/2018/01/18/is-it-a-banger-load-files.html" />
+<meta property="og:url" content="https://ddervs.github.io/jekyll-theme-hackcss/2018/01/18/is-it-a-banger-load-files.html" />
+<meta property="og:site_name" content="Danial Dervovic" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-01-18T12:14:01+00:00" />
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Is it a banger? Make your own dataset",
+    "datePublished": "2018-01-18T12:14:01+00:00",
+    "description": "These are some brief instructions on how to make the dataset I used in the article Is it a banger?.",
+    "url": "https://ddervs.github.io/jekyll-theme-hackcss/2018/01/18/is-it-a-banger-load-files.html"
+  }
+</script>
+<!-- End Jekyll SEO tag -->
+</head>
+
+
+
+  
+  <body class="hack">
+  
+
+    <a href="https://github.com/ddervs/" class="github-corner">
+
+
+  <svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg>
+
+
+</a>
+
+<style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+
+    <div class="container">
+      <div class="grid">
+        <aside class="cell -3of12" role="navigation">
+          <div class="t-hackcss-navigation">
+  <h2 class="t-hackcss-navigation-heading">Menu</h2>
+
+  <nav class="menu" role="menubar">
+    
+    
+      <a class="menu-item "
+        role="menuitem" href="/jekyll-theme-hackcss/" title="">
+        Home <div class="pull-right">»</div>
+      </a>
+    
+      <a class="menu-item "
+        role="menuitem" href="/jekyll-theme-hackcss/blog" title="">
+        Blog <div class="pull-right">»</div>
+      </a>
+    
+      <a class="menu-item "
+        role="menuitem" href="/jekyll-theme-hackcss/papers" title="">
+        Papers <div class="pull-right">»</div>
+      </a>
+    
+      <a class="menu-item "
+        role="menuitem" href="/jekyll-theme-hackcss/outreach" title="">
+        Outreach <div class="pull-right">»</div>
+      </a>
+    
+      <a class="menu-item "
+        role="menuitem" href="/jekyll-theme-hackcss/notes" title="">
+        Notes <div class="pull-right">»</div>
+      </a>
+    
+  </nav>
+
+</div>
+
+        </aside>
+
+        <main class="cell -9of12">
+          <script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); </script>
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+     tex2jax: {
+     inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+     processEscapes: true
+   }
+});
+</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Is it a banger? Make your own dataset</h1>
+    <p class="post-meta">
+      <time datetime="2018-01-18T12:14:01+00:00"
+            itemprop="datePublished"
+            class="media-heading">
+        Jan 18, 2018
+      </time>
+
+      
+        <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <span itemprop="name">ddervs</span>
+        </span>
+      
+    </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>These are some brief instructions on how to make the dataset I used in the article <a href="https://nbviewer.jupyter.org/github/ddervs/is_it_a_banger/blob/master/scripts/is_it_a_banger.ipynb">Is it a banger?</a>.</p>
+
+<p>I’m also going to assume you have downloaded the files in the <a href="https://github.com/ddervs/is_it_a_banger">GitHub repository</a>.</p>
+
+<h2 id="folder-structure">Folder structure</h2>
+
+<p>We want to create a directory called <code class="highlighter-rouge">data</code>, with a subdirectory for each label, e.g.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>data
+├── label_1
+├── label_2
+├──    ·
+├──    ·
+├──    ·
+└── label_k
+</code></pre>
+</div>
+
+<p>In each label subdirectory, we have a text-file, where each line is the URL of a YouTube track or playlist with the relevant audio data.</p>
+
+<p>For the article, we simply have</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>data
+├── banger
+│   └── URL_banger.txt
+└── not_a_banger
+    └── URL_not_a_banger.txt
+</code></pre>
+</div>
+
+<p>You can see the URLs used in the article at <a href="https://github.com/ddervs/is_it_a_banger/blob/master/data/banger/URL_banger.txt">URL_banger.txt</a> and <a href="https://github.com/ddervs/is_it_a_banger/blob/master/data/not_a_banger/URL_not_a_banger.txt">URL_not_a_banger.txt</a></p>
+
+<p>We then need to run the following command in the directory <code class="highlighter-rouge">is_it_a_banger/scripts/</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>./scripts/prepare_data_files.sh data 5
+</code></pre>
+</div>
+
+<p>where <code class="highlighter-rouge">5</code> is the audio segment length in seconds. Note that this script requires <code class="highlighter-rouge">ffmpeg</code> and <code class="highlighter-rouge">youtube-dl</code> to work.</p>
+
+<p>After running the script, you should have in each label subdirectory a bunch of 5 second <code class="highlighter-rouge">.wav</code> audio files.</p>
+
+<p>We then need the following python to generate the pandas DataFrame from the generated audio files.</p>
+
+<h2 id="imports">Imports</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>import os
+import glob
+import librosa
+import numpy as np
+np.random.seed(1234)
+import pandas as pd
+</code></pre>
+</div>
+
+<h2 id="get-filenames-and-directories">Get filenames and directories</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>parent_dir = '../data'
+parent_dir_contents = [os.path.join(parent_dir, dirname) for dirname in os.listdir(parent_dir)]
+sub_dirs = [filename if os.path.isdir(filename) else None for filename in parent_dir_contents]
+sub_dirs = list(filter(None.__ne__, sub_dirs))
+labels_list = [os.path.relpath(path, parent_dir) for path in sub_dirs]
+</code></pre>
+</div>
+
+<h2 id="extract-features">Extract Features</h2>
+
+<p>We’re going to use the <code class="highlighter-rouge">librosa</code> library for processing the audio signal. We’ll keep the raw audio samples and compute a log spectrogram.</p>
+
+<p>Note that we clip samples at the end of the audio file, as the combination of running <code class="highlighter-rouge">ffmpeg</code> earlier and resampling to 22.05kHz means the audio sample arrays don’t have uniform length.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>def extract_features(file_name, sample_rate=22050, segment_time=5, samples_to_clip=500):
+    audio, sample_rate = librosa.load(file_name, sr=sample_rate)
+    end_idx = (sample_rate * segment_time) - samples_to_clip # remove some end samples as not strictly uniform size
+    audio = audio[0:end_idx]
+    log_specgram = librosa.logamplitude(np.abs(librosa.stft(audio))**2, ref_power=np.max)
+    features = {"audio": audio, "log_specgram": log_specgram}
+    return features
+</code></pre>
+</div>
+
+<h2 id="turn-labels-into-one-hot-vector-encoding">Turn labels into ‘one-hot’ vector encoding</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>def one_hot_encode(label, labels_list):
+    n_labels = len(labels_list)
+    one_hot_encoded = np.zeros(n_labels)
+    for idx, cmp in enumerate(labels_list):
+        if label == cmp:
+            one_hot_encoded[idx] = 1                     
+    return one_hot_encoded
+</code></pre>
+</div>
+
+<h2 id="trim-file-list">Trim file list</h2>
+
+<p>Only include a fraction of audio files for a given track to avoid training set 1) having too many highly correlated data points, and 2) having too large a file size.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>def trim_file_list(fnames_list, p_include=1.0):
+    fnames_list = np.asarray(fnames_list)
+    include = np.random.rand(*fnames_list.shape)
+    fnames_list = fnames_list[include &lt; p_include]
+    return fnames_list
+</code></pre>
+</div>
+
+<h2 id="build-dataframe-from-files">Build DataFrame from files</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>def parse_audio_files(parent_dir, sub_dirs_list, labels_list, file_ext='*.wav', p_include=1.0,\
+                      sample_rate=22050, segment_time=5, samples_to_clip=500):
+    data = []
+    index = []
+    for label_idx, sub_dir in enumerate(sub_dirs_list):
+        fnames_list = glob.glob(os.path.join(sub_dir, file_ext))
+        fnames_list = trim_file_list(fnames_list, p_include=p_include)
+        for fname in fnames_list:
+            print("Processing " + os.path.basename(fname))
+            features = extract_features(fname, segment_time=segment_time, \
+                                        sample_rate=sample_rate, samples_to_clip=samples_to_clip)
+            label = labels_list[label_idx]
+            label_one_hot = one_hot_encode(label, labels_list)
+            features['label'] = label
+            features["label_one_hot"] = label_one_hot
+            data.append(features)
+            index.append(os.path.basename(fname))
+    return pd.DataFrame(data, index=index)
+
+
+df = parse_audio_files(parent_dir, sub_dirs, labels_list, p_include=0.1, segment_time=5, samples_to_clip=1100)
+df = df.iloc[np.random.permutation(len(df))] # shuffle rows
+df.to_pickle(os.path.join(parent_dir, 'processed_dataset.pkl'))
+</code></pre>
+</div>
+
+  </div>
+
+</article>
+
+        </main>
+      </div>
+
+    <footer class="t-hackcss-footer">
+  <hr />
+
+  <h3 class="footer-heading">Danial Dervovic</h3>
+
+  <div class="grid t-hackcss-sm-reversed-grid">
+
+    <div class="cell -5of12">
+      <div class="contact-list">
+        <p>
+          Danial Dervovic,
+          <a href="mailto:ddervs+website@googlemail.com">ddervs+website@googlemail.com</a>
+        </p>
+
+        
+          
+          <span class="t-hackcss-social">
+            <i class="t-hackcss-icon"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"></path></svg>
+</i>
+            <a href="https://github.com/ddervs">ddervs</a>
+          </span>
+        
+          
+          <span class="t-hackcss-social">
+            <i class="t-hackcss-icon"><svg x="0px" y="0px" viewBox="0 0 430.117 430.117" style="enable-background:new 0 0 430.117 430.117;" xml:space="preserve">
+<g>
+<path id="LinkedIn" d="M430.117,261.543V420.56h-92.188V272.193c0-37.271-13.334-62.707-46.703-62.707   c-25.473,0-40.632,17.142-47.301,33.724c-2.432,5.928-3.058,14.179-3.058,22.477V420.56h-92.219c0,0,1.242-251.285,0-277.32h92.21   v39.309c-0.187,0.294-0.43,0.611-0.606,0.896h0.606v-0.896c12.251-18.869,34.13-45.824,83.102-45.824   C384.633,136.724,430.117,176.361,430.117,261.543z M52.183,9.558C20.635,9.558,0,30.251,0,57.463   c0,26.619,20.038,47.94,50.959,47.94h0.616c32.159,0,52.159-21.317,52.159-47.94C103.128,30.251,83.734,9.558,52.183,9.558z    M5.477,420.56h92.184v-277.32H5.477V420.56z" fill="#828282"/>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g></svg>
+</i>
+            <a href="http://linkedin.com/in/danial-dervovic">danial-dervovic</a>
+          </span>
+        
+      </div>
+    </div>
+
+    <div id="footer-spacer" class="cell -1of12"></div>
+
+    <div class="cell -6of12">
+      <p>Personal website, blog.
+</p>
+    </div>
+  </div>
+
+</footer>
+
+
+    </div>
+
+    <!-- Prism.js -->
+    <script src="https://npmcdn.com/prismjs@1.5.1/prism.js"></script>
+  </body>
+
+</html>
