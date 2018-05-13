@@ -45,3 +45,11 @@ $on-palm:          768px;
 	margin: 0 0 1em;
     overflow-x: scroll;
 }
+
+.grid {
+    flex-direction: column;
+  }
+
+.cell {
+flex: 0 0 auto;
+}
