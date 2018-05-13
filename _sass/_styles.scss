@@ -16,6 +16,7 @@
 
   @at-root body &-footer {
     padding-bottom: $spacing-unit;
+    flex-direction: column;
   }
 
   &-social {
