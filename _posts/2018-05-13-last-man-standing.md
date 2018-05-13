@@ -54,6 +54,7 @@ i.e. using the product of the winning probabilities, which is just the joint win
 We can now formally define the Last Man Standing problem $(\mathsf{LMS})$.
 
 **Problem ($\mathsf{LMS}$).** Let $p^{(i)}_j \in (0, 1)$ for $i,j \in [n]$. Then, find
+
 $$\tag{$\mathsf{LMS}$} \widetilde{\sigma}^\star = \arg \max_{\sigma \in \mathbb{S_n}}\widetilde{\operatorname{VAL}}(\sigma).  $$
 
 *Note.* The domain of the $p^{(i)}_j$ is the open interval $(0,1)$ as opposed to the closed interval $[0,1]$ since a team is never 100% likely to win or lose.
@@ -432,6 +433,7 @@ def build_X(league, teams, bookie_name)
 ```python
 X = build_X(prem, teams, "B365")
 ```
+
 
 ### Practical concerns
 
@@ -933,8 +935,7 @@ plt.colorbar();
 plt.title("optimal $P$, log scale\n");
 ```
 
-
-![png]({{ "/assets/last_man_standing_files/last_man_standing_45_0.png"  | prepend: site.baseurl }})
+<div align="middle"><img src="{{ "/assets/last_man_standing_files/last_man_standing_45_0.png"  | prepend: site.baseurl }}"></div>
 
 We see that it's not quite a $\{0,1\}$ permutation matrix, so let's round it and get the corrsponding team list.
 
