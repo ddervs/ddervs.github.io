@@ -1,21 +1,36 @@
 <!DOCTYPE html>
 <html>
-
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); </script>
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+      extensions: ["tex2jax.js","TeX/AmsMath.js","TeX/AMSsymbols.js"],
+      jax: ["input/TeX","output/HTML-CSS"],
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+          processEscapes: true,
+          processEnvironments: true
+      },
+      "HTML-CSS": { availableFonts: ["TeX"], linebreaks: { automatic: true } },
+      SVG: { linebreaks: { automatic: true } }
+});
+</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
   <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Favicon -->
-  <link rel="icon" href="/jekyll-theme-hackcss/favicon.png">
+  <link rel="icon" href="//favicon.png">
 
   <!-- Meta information -->
-  <title>Danial Dervovic</title>
+  <title>Blog</title>
   <meta name="description"
         content="Personal website, blog.
 ">
   <link rel="canonical"
-        href="https://ddervs.github.io/jekyll-theme-hackcss/blog" />
+        href="https://ddervs.github.io///blog" />
 
   <!-- hack.css -->
   <link rel="stylesheet" href="https://npmcdn.com/hack/dist/hack.css" />
@@ -25,28 +40,28 @@
   <link rel="stylesheet" href="https://npmcdn.com/prismjs@1.5.1/themes/prism.css" />
 
   <!-- Custom style -->
-  <link rel="stylesheet" href="/jekyll-theme-hackcss/css/main.css" />
+  <link rel="stylesheet" href="//css/main.css" />
 
   <!-- Feed -->
   <link rel="alternate" type="application/rss+xml" title="Danial Dervovic"
-        href="/jekyll-theme-hackcss/feed.xml" />
+        href="//feed.xml" />
 
   <!-- 'jekyll-seo' plugin -->
   <!-- Begin Jekyll SEO tag v2.0.0 -->
-<title>Danial Dervovic - Personal website, blog.</title>
-<meta property="og:title" content="Danial Dervovic" />
+<title>Blog - Danial Dervovic</title>
+<meta property="og:title" content="Blog" />
 <meta name="description" content="Personal website, blog." />
 <meta property="og:description" content="Personal website, blog." />
-<link rel="canonical" href="https://ddervs.github.io/jekyll-theme-hackcss/blog" />
-<meta property="og:url" content="https://ddervs.github.io/jekyll-theme-hackcss/blog" />
+<link rel="canonical" href="https://ddervs.github.io///blog" />
+<meta property="og:url" content="https://ddervs.github.io///blog" />
 <meta property="og:site_name" content="Danial Dervovic" />
 <script type="application/ld+json">
   {
     "@context": "http://schema.org",
     "@type": "WebPage",
-    "headline": "Danial Dervovic",
+    "headline": "Blog",
     "description": "Personal website, blog.",
-    "url": "https://ddervs.github.io/jekyll-theme-hackcss/blog"
+    "url": "https://ddervs.github.io///blog"
   }
 </script>
 <!-- End Jekyll SEO tag -->
@@ -79,27 +94,27 @@
     
     
       <a class="menu-item "
-        role="menuitem" href="/jekyll-theme-hackcss/" title="">
+        role="menuitem" href="//" title="">
         Home <div class="pull-right">»</div>
       </a>
     
       <a class="menu-item active"
-        role="menuitem" href="/jekyll-theme-hackcss/blog" title="">
+        role="menuitem" href="//blog" title="">
         Blog <div class="pull-right">»</div>
       </a>
     
       <a class="menu-item "
-        role="menuitem" href="/jekyll-theme-hackcss/papers" title="">
+        role="menuitem" href="//papers" title="">
         Papers <div class="pull-right">»</div>
       </a>
     
       <a class="menu-item "
-        role="menuitem" href="/jekyll-theme-hackcss/outreach" title="">
+        role="menuitem" href="//outreach" title="">
         Outreach <div class="pull-right">»</div>
       </a>
     
       <a class="menu-item "
-        role="menuitem" href="/jekyll-theme-hackcss/notes" title="">
+        role="menuitem" href="//notes" title="">
         Notes <div class="pull-right">»</div>
       </a>
     
@@ -131,7 +146,7 @@
         <div class="media-heading">
           <span>01 May 2018 &raquo;
             
-              <a href="/jekyll-theme-hackcss/2018/05/01/markov-decision-processes-and-life.html" title="">
+              <a href="//2018/05/01/markov-decision-processes-and-life.html" title="">
                 Markov decision processes and life - why we are all doomed by physics to make bad decisions
               </a>
             
@@ -154,7 +169,7 @@
         <div class="media-heading">
           <span>18 Jan 2018 &raquo;
             
-              <a href="/jekyll-theme-hackcss/2018/01/18/is-it-a-banger.html" title="">
+              <a href="//2018/01/18/is-it-a-banger.html" title="">
                 Is it a banger? Audio classification in tensorflow
               </a>
             
@@ -177,7 +192,7 @@
         <div class="media-heading">
           <span>18 Jan 2018 &raquo;
             
-              <a href="/jekyll-theme-hackcss/2018/01/18/is-it-a-banger-load-files.html" title="">
+              <a href="//2018/01/18/is-it-a-banger-load-files.html" title="">
                 Is it a banger? Make your own dataset
               </a>
             
@@ -208,7 +223,7 @@
   <h2>Subscribe</h2>
 
   <p>
-    subscribe <a href="/jekyll-theme-hackcss/feed.xml">via RSS</a>
+    subscribe <a href="//feed.xml">via RSS</a>
   </p>
 </section>
         </main>
@@ -225,7 +240,7 @@
       <div class="contact-list">
         <p>
           Danial Dervovic,
-          <a href="mailto:ddervs+website@googlemail.com">ddervs+website@googlemail.com</a>
+          <a href="mailto:contact@danialdervovic.com">contact@danialdervovic.com</a>
         </p>
 
         

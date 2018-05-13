@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html>
-
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); </script>
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+      extensions: ["tex2jax.js","TeX/AmsMath.js","TeX/AMSsymbols.js"],
+      jax: ["input/TeX","output/HTML-CSS"],
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+          processEscapes: true,
+          processEnvironments: true
+      },
+      "HTML-CSS": { availableFonts: ["TeX"], linebreaks: { automatic: true } },
+      SVG: { linebreaks: { automatic: true } }
+});
+</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
   <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Favicon -->
-  <link rel="icon" href="/jekyll-theme-hackcss/favicon.png">
+  <link rel="icon" href="//favicon.png">
 
   <!-- Meta information -->
   <title>Danial Dervovic</title>
@@ -15,7 +30,7 @@
         content="Personal website, blog.
 ">
   <link rel="canonical"
-        href="https://ddervs.github.io/jekyll-theme-hackcss/docs" />
+        href="https://ddervs.github.io///docs" />
 
   <!-- hack.css -->
   <link rel="stylesheet" href="https://npmcdn.com/hack/dist/hack.css" />
@@ -25,11 +40,11 @@
   <link rel="stylesheet" href="https://npmcdn.com/prismjs@1.5.1/themes/prism.css" />
 
   <!-- Custom style -->
-  <link rel="stylesheet" href="/jekyll-theme-hackcss/css/main.css" />
+  <link rel="stylesheet" href="//css/main.css" />
 
   <!-- Feed -->
   <link rel="alternate" type="application/rss+xml" title="Danial Dervovic"
-        href="/jekyll-theme-hackcss/feed.xml" />
+        href="//feed.xml" />
 
   <!-- 'jekyll-seo' plugin -->
   <!-- Begin Jekyll SEO tag v2.0.0 -->
@@ -37,8 +52,8 @@
 <meta property="og:title" content="Danial Dervovic" />
 <meta name="description" content="Personal website, blog." />
 <meta property="og:description" content="Personal website, blog." />
-<link rel="canonical" href="https://ddervs.github.io/jekyll-theme-hackcss/docs" />
-<meta property="og:url" content="https://ddervs.github.io/jekyll-theme-hackcss/docs" />
+<link rel="canonical" href="https://ddervs.github.io///docs" />
+<meta property="og:url" content="https://ddervs.github.io///docs" />
 <meta property="og:site_name" content="Danial Dervovic" />
 <script type="application/ld+json">
   {
@@ -46,7 +61,7 @@
     "@type": "WebPage",
     "headline": "Danial Dervovic",
     "description": "Personal website, blog.",
-    "url": "https://ddervs.github.io/jekyll-theme-hackcss/docs"
+    "url": "https://ddervs.github.io///docs"
   }
 </script>
 <!-- End Jekyll SEO tag -->
@@ -79,27 +94,27 @@
     
     
       <a class="menu-item "
-        role="menuitem" href="/jekyll-theme-hackcss/" title="">
+        role="menuitem" href="//" title="">
         Home <div class="pull-right">»</div>
       </a>
     
       <a class="menu-item "
-        role="menuitem" href="/jekyll-theme-hackcss/blog" title="">
+        role="menuitem" href="//blog" title="">
         Blog <div class="pull-right">»</div>
       </a>
     
       <a class="menu-item "
-        role="menuitem" href="/jekyll-theme-hackcss/papers" title="">
+        role="menuitem" href="//papers" title="">
         Papers <div class="pull-right">»</div>
       </a>
     
       <a class="menu-item "
-        role="menuitem" href="/jekyll-theme-hackcss/outreach" title="">
+        role="menuitem" href="//outreach" title="">
         Outreach <div class="pull-right">»</div>
       </a>
     
       <a class="menu-item "
-        role="menuitem" href="/jekyll-theme-hackcss/notes" title="">
+        role="menuitem" href="//notes" title="">
         Notes <div class="pull-right">»</div>
       </a>
     
@@ -151,7 +166,7 @@
       <div class="contact-list">
         <p>
           Danial Dervovic,
-          <a href="mailto:ddervs+website@googlemail.com">ddervs+website@googlemail.com</a>
+          <a href="mailto:contact@danialdervovic.com">contact@danialdervovic.com</a>
         </p>
 
         

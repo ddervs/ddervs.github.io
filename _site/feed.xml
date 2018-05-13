@@ -4,10 +4,10 @@
     <title>Danial Dervovic</title>
     <description>Personal website, blog.
 </description>
-    <link>https://ddervs.github.io/jekyll-theme-hackcss</link>
-    <atom:link href="https://ddervs.github.io/jekyll-theme-hackcss/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 05 May 2018 16:42:53 +0100</pubDate>
-    <lastBuildDate>Sat, 05 May 2018 16:42:53 +0100</lastBuildDate>
+    <link>https://ddervs.github.io//</link>
+    <atom:link href="https://ddervs.github.io///feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sun, 13 May 2018 15:40:57 +0100</pubDate>
+    <lastBuildDate>Sun, 13 May 2018 15:40:57 +0100</lastBuildDate>
     <generator>Jekyll v3.2.0</generator>
     
       <item>
@@ -31,15 +31,15 @@ $\newcommand{\PSPACE}{\mathsf{PSPACE}}$&lt;/p&gt;
 &lt;p&gt;What do we take from this? I would take this as a consolation for any bad decisions taken and perhaps even as a hand-wavy excuse! I mean, if the universe wanted us to make good decisions, then surely pFTMDP would be in $\P$? Nowadays, if anyone asks why I’ve done something stupid now I simply tell them I didn’t have a $\PSPACE$ oracle to hand. Somehow that doesn’t seem to go down so well…&lt;/p&gt;
 </description>
         <pubDate>Tue, 01 May 2018 17:24:23 +0100</pubDate>
-        <link>https://ddervs.github.io/jekyll-theme-hackcss/2018/05/01/markov-decision-processes-and-life.html</link>
-        <guid isPermaLink="true">https://ddervs.github.io/jekyll-theme-hackcss/2018/05/01/markov-decision-processes-and-life.html</guid>
+        <link>https://ddervs.github.io///2018/05/01/markov-decision-processes-and-life.html</link>
+        <guid isPermaLink="true">https://ddervs.github.io///2018/05/01/markov-decision-processes-and-life.html</guid>
         
         
       </item>
     
       <item>
         <title>Is it a banger? Audio classification in tensorflow</title>
-        <description>&lt;div align=&quot;middle&quot;&gt;&lt;img src=&quot;/jekyll-theme-hackcss/assets/is_it_a_banger_files/Tom_Haverford.gif&quot; /&gt;&lt;/div&gt;
+        <description>&lt;div align=&quot;middle&quot;&gt;&lt;img src=&quot;//assets/is_it_a_banger_files/Tom_Haverford.gif&quot; /&gt;&lt;/div&gt;
 
 &lt;p&gt;In &lt;em&gt;Parks and Recreation&lt;/em&gt; Season 6 Episode 18 “Prom”, Tom Haverford famously tells us about his test of whether a song is a “banger” or not. There are many questions in this test: “does it feature any acoutic instruments?”, “how many drops?”, “how dope are the drops?” etc.&lt;/p&gt;
 
@@ -211,11 +211,11 @@ This is split between 422 &quot;banger&quot;s and 453 &quot;not_a_banger&quot;s
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;/jekyll-theme-hackcss/assets/is_it_a_banger_files/is_it_a_banger_13_0.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//assets/is_it_a_banger_files/is_it_a_banger_13_0.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/jekyll-theme-hackcss/assets/is_it_a_banger_files/is_it_a_banger_13_1.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//assets/is_it_a_banger_files/is_it_a_banger_13_1.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/jekyll-theme-hackcss/assets/is_it_a_banger_files/is_it_a_banger_13_2.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//assets/is_it_a_banger_files/is_it_a_banger_13_2.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
 
 &lt;div style=&quot;padding-top:1cm;&quot;&gt;&lt;/div&gt;
 &lt;p&gt;We can see for the first two bangers sharp, rhythmic, percussive signal, focused on the low end of the frequency spectrum. This is the kick drum!&lt;/p&gt;
@@ -229,11 +229,11 @@ This is split between 422 &quot;banger&quot;s and 453 &quot;not_a_banger&quot;s
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;/jekyll-theme-hackcss/assets/is_it_a_banger_files/is_it_a_banger_15_0.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//assets/is_it_a_banger_files/is_it_a_banger_15_0.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/jekyll-theme-hackcss/assets/is_it_a_banger_files/is_it_a_banger_15_1.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//assets/is_it_a_banger_files/is_it_a_banger_15_1.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/jekyll-theme-hackcss/assets/is_it_a_banger_files/is_it_a_banger_15_2.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;//assets/is_it_a_banger_files/is_it_a_banger_15_2.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
 
 &lt;div style=&quot;padding-top:1cm;&quot;&gt;&lt;/div&gt;
 &lt;p&gt;Here we see a less percussive, rhythic signal across the board, with far less low-frequency content.&lt;/p&gt;
@@ -282,7 +282,7 @@ Training data has 711 clips, test data has 164 clips.
 
 &lt;p&gt;The deep network will look something like this:&lt;/p&gt;
 
-&lt;div align=&quot;middle&quot;&gt;&lt;img src=&quot;/jekyll-theme-hackcss/assets/is_it_a_banger_files/ConvNet.png&quot; width=&quot;85%&quot; /&gt;&lt;/div&gt;
+&lt;div align=&quot;middle&quot;&gt;&lt;img src=&quot;//assets/is_it_a_banger_files/ConvNet.png&quot; width=&quot;85%&quot; /&gt;&lt;/div&gt;
 
 &lt;p&gt;We feed the image of the log spectrogram into a convolutional layer, &lt;code class=&quot;highlighter-rouge&quot;&gt;conv1&lt;/code&gt;, followed by a max-pooling layer, &lt;code class=&quot;highlighter-rouge&quot;&gt;hpool1&lt;/code&gt;, which reduces the size of the image. We then feed this image into another convolutional layer, &lt;code class=&quot;highlighter-rouge&quot;&gt;conv2&lt;/code&gt;, followed by another max-pooling layer, &lt;code class=&quot;highlighter-rouge&quot;&gt;hpool2&lt;/code&gt;, which reduces the image size further. We then have two consecutive fully connected layers, &lt;code class=&quot;highlighter-rouge&quot;&gt;fc1&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;fc2&lt;/code&gt;, between which we use dropout (this randomly removes edges during each epoch of training to mitigate overfitting). Finally, we classify.&lt;/p&gt;
 
@@ -488,7 +488,7 @@ Test accuracy: 0.915
 
 &lt;p&gt;Yay! We have done a lot better than the baseline of 0.518.&lt;/p&gt;
 
-&lt;div align=&quot;middle&quot; style=&quot;padding-top:0.5cm&quot;&gt;&lt;img src=&quot;/jekyll-theme-hackcss/assets/is_it_a_banger_files/great_success.gif&quot; width=&quot;40%&quot; /&gt;&lt;/div&gt;
+&lt;div align=&quot;middle&quot; style=&quot;padding-top:0.5cm&quot;&gt;&lt;img src=&quot;//assets/is_it_a_banger_files/great_success.gif&quot; width=&quot;40%&quot; /&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;whats-next&quot;&gt;What’s Next?&lt;/h2&gt;
 
@@ -512,8 +512,8 @@ Test accuracy: 0.915
 &lt;p&gt;Thanks for reading, and as Tommy H would say, keep it 💯.&lt;/p&gt;
 </description>
         <pubDate>Thu, 18 Jan 2018 12:14:01 +0000</pubDate>
-        <link>https://ddervs.github.io/jekyll-theme-hackcss/2018/01/18/is-it-a-banger.html</link>
-        <guid isPermaLink="true">https://ddervs.github.io/jekyll-theme-hackcss/2018/01/18/is-it-a-banger.html</guid>
+        <link>https://ddervs.github.io///2018/01/18/is-it-a-banger.html</link>
+        <guid isPermaLink="true">https://ddervs.github.io///2018/01/18/is-it-a-banger.html</guid>
         
         
       </item>
@@ -654,8 +654,8 @@ df.to_pickle(os.path.join(parent_dir, 'processed_dataset.pkl'))
 &lt;/div&gt;
 </description>
         <pubDate>Thu, 18 Jan 2018 12:14:01 +0000</pubDate>
-        <link>https://ddervs.github.io/jekyll-theme-hackcss/2018/01/18/is-it-a-banger-load-files.html</link>
-        <guid isPermaLink="true">https://ddervs.github.io/jekyll-theme-hackcss/2018/01/18/is-it-a-banger-load-files.html</guid>
+        <link>https://ddervs.github.io///2018/01/18/is-it-a-banger-load-files.html</link>
+        <guid isPermaLink="true">https://ddervs.github.io///2018/01/18/is-it-a-banger-load-files.html</guid>
         
         
       </item>

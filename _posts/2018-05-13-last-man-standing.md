@@ -143,7 +143,7 @@ prem.sample(5)
 
 
 
-<div>
+<div class="table-container">
 <style>
     .dataframe thead tr:only-child th {
         text-align: right;
@@ -981,7 +981,7 @@ result_df
 
 
 
-<div>
+<div class="table-container">
 <style>
     .dataframe thead tr:only-child th {
         text-align: right;
