@@ -932,7 +932,10 @@ plt.colorbar();
 plt.title("optimal $P$, log scale\n");
 ```
 
-<div align="middle" style="width:98%;"><img src="{{ "/assets/last_man_standing_files/last_man_standing_45_0.png" | prepend: site.baseurl }}"></div>
+
+<div align="middle" style="width:98%;">
+<img src="{{ "/assets/last_man_standing_files/last_man_standing_45_0.png" | prepend: site.baseurl }}">
+</div>
 
 We see that it's not quite a $\{0,1\}$ permutation matrix, so let's round it and get the corrsponding team list.
 
