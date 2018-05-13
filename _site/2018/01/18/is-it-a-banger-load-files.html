@@ -3,16 +3,10 @@
 <script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); </script>
 <script type="text/x-mathjax-config">
    MathJax.Hub.Config({
-      extensions: ["tex2jax.js","TeX/AmsMath.js","TeX/AMSsymbols.js"],
-      jax: ["input/TeX","output/HTML-CSS"],
-      tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-          processEscapes: true,
-          processEnvironments: true
-      },
-      "HTML-CSS": { availableFonts: ["TeX"], linebreaks: { automatic: true } },
-      SVG: { linebreaks: { automatic: true } }
+     tex2jax: {
+     inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+     processEscapes: true
+   }
 });
 </script>
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
@@ -127,19 +121,22 @@
         </aside>
 
         <main class="cell -9of12">
-          <script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); </script>
+          <style>
+.grid {
+    flex-direction: column;
+  }
+
+.cell {
+flex: 0 0 auto;
+}
+</style>
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); </script>
 <script type="text/x-mathjax-config">
    MathJax.Hub.Config({
-      extensions: ["tex2jax.js","TeX/AmsMath.js","TeX/AMSsymbols.js"],
-      jax: ["input/TeX","output/HTML-CSS"],
-      tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-          processEscapes: true,
-          processEnvironments: true
-      },
-      "HTML-CSS": { availableFonts: ["TeX"], linebreaks: { automatic: true } },
-      SVG: { linebreaks: { automatic: true } }
+     tex2jax: {
+     inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+     processEscapes: true
+   }
 });
 </script>
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
@@ -381,8 +378,6 @@ df.to_pickle(os.path.join(parent_dir, 'processed_dataset.pkl'))
 
     </div>
 
-    <!-- Prism.js -->
-    <script src="https://npmcdn.com/prismjs@1.5.1/prism.js"></script>
   </body>
 
 </html>

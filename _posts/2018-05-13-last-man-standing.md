@@ -373,7 +373,7 @@ $$\frac{1}{d_E}= p_E + o_E = p_E + o$$
 
 and 
 
-$$\sum_{E' \in \Omega} \frac{1}{d_{E'}} = 1 + \sum_{E' \in \Omega}{o_{E'}} = 1 + \vert\Omega\verto.$$
+$$\sum_{E' \in \Omega} \frac{1}{d_{E'}} = 1 + \sum_{E' \in \Omega}{o_{E'}} = 1 + \vert\Omega\vert o.$$
 
 So, $o = \frac{1}{\vert\Omega\vert}\left( \sum_{E' \in \Omega} \frac{1}{d_{E'}} - 1 \right)$ and we have
 
@@ -552,7 +552,7 @@ That's a pretty hairy equation, so let's simplify with a bit of new notation: le
 
 $$S^{(n)}_\sigma = \emptyset, \ S^{(n-1)}_\sigma = \{ \sigma(n) \},\ \ldots, \ S^{1}_\sigma = [n] \setminus \{\sigma(1)\},\ S^{(0)}_\sigma = [n]$$
 
-and $\left\vertS^{(t)}_\sigma\right\vert = n-t$. Moreover, let's call the ratio 
+and $\left\vert S^{(t)}_\sigma\right\vert = n-t$. Moreover, let's call the ratio 
 
 $$R^{(t)} = \frac{\sum_{k\in S^{(t -1 )}_{\sigma_A}} p_k^{(t)} } 
 {\sum_{k\in S^{(t -1 )}_{\sigma_B}} p_k^{(t)}}$$
@@ -932,7 +932,7 @@ plt.colorbar();
 plt.title("optimal $P$, log scale\n");
 ```
 
-<div align="middle" style="width:98%;"><img src="{{ "/assets/last_man_standing_files/last_man_standing_45_0.png"  \vert prepend: site.baseurl }}"></div>
+<div align="middle" style="width:98%;"><img src="{{ "/assets/last_man_standing_files/last_man_standing_45_0.png" | prepend: site.baseurl }}"></div>
 
 We see that it's not quite a $\{0,1\}$ permutation matrix, so let's round it and get the corrsponding team list.
 

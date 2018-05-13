@@ -3,16 +3,10 @@
 <script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); </script>
 <script type="text/x-mathjax-config">
    MathJax.Hub.Config({
-      extensions: ["tex2jax.js","TeX/AmsMath.js","TeX/AMSsymbols.js"],
-      jax: ["input/TeX","output/HTML-CSS"],
-      tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-          processEscapes: true,
-          processEnvironments: true
-      },
-      "HTML-CSS": { availableFonts: ["TeX"], linebreaks: { automatic: true } },
-      SVG: { linebreaks: { automatic: true } }
+     tex2jax: {
+     inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+     processEscapes: true
+   }
 });
 </script>
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
@@ -136,6 +130,29 @@
 <section>
   <h2>Posts</h2>
 
+  
+    
+    <div class="media t-hackcss-media">
+
+      
+
+      <div class="media-body">
+        <div class="media-heading">
+          <span>13 May 2018 &raquo;
+            
+              <a href="//2018/05/13/last-man-standing.html" title="">
+                Last Man Standing - optimal strategies for betting games
+              </a>
+            
+          </span>
+        </div>
+        <div class="media-content">
+          In this post we analyse the new betting game, last man standing. We'll look at strategies for winning the game under certain assumptions, using techniques such as simulated annealing and convex programming.
+        </div>
+      </div>
+
+      
+    </div>
   
     
     <div class="media t-hackcss-media">
@@ -307,8 +324,6 @@
 
     </div>
 
-    <!-- Prism.js -->
-    <script src="https://npmcdn.com/prismjs@1.5.1/prism.js"></script>
   </body>
 
 </html>
