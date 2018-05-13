@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Last Man Standing: optimal strategies for betting games.
+title: Last Man Standing - optimal strategies for betting games.
 date: 2018-05-13 14:55:01
 author: danial
 short_description: In this post we analyse the new betting game, last man standing. We'll look at strategies for winning the game under certain assumptions, using techniques such as simulated annealing and convex programming. 
