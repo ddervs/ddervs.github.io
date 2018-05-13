@@ -38,7 +38,9 @@ where $\omega^{(i)}_{j}$ is the event that team $j$ wins in week $i$ and we defi
 
 
 Now we run into our first problem: how to evaluate $\operatorname{VAL}(\sigma)$. This involves computing $\mathbb{P}(\sigma \text{ wins} )$. Now we don't even know if this probability is well defined, different probabilistic models will return different values. Moreover, there are $n!$ strategies, so evaluating each strategy separately will be intractable. We *need* a simplifying assumption. First, let's introduce some notation:
+
 $$p^{(i)}_j = \mathbb{P} \left( \text{team }j\text{ wins in week }i \right) = \mathbb{P}(\omega^{(i)}_j).$$
+
 We're going to make the following assumption:
 
 **Assumption 1.** *The winning probabilities $p^{(i)}_j$ are independent, for all $i,j\in [n]$.*
@@ -47,7 +49,7 @@ This assumption clearly doesn't hold in reality. Consider the following scenario
 
 Nevertheless, we are going to work within the independence model as it will make the winning probabilities tractable. We are going to approximate $\operatorname{VAL}(\sigma)$ in the following way:
 
-$$ \widetilde{\operatorname{VAL}}(\sigma) = \prod_{i \in [n]} p^{(i)}_{\sigma(i)},$$
+$$\widetilde{\operatorname{VAL}}(\sigma) = \prod_{i \in [n]} p^{(i)}_{\sigma(i)},$$
 
 i.e. using the product of the winning probabilities, which is just the joint winning probability $\mathbb{P}(\sigma \text{ wins})$ for the teams ordered according to the strategy $\sigma$, under the independence assumption (Assumption 1).
 
@@ -55,7 +57,7 @@ We can now formally define the Last Man Standing problem $(\mathsf{LMS})$.
 
 **Problem ($\mathsf{LMS}$).** Let $p^{(i)}_j \in (0, 1)$ for $i,j \in [n]$. Then, find
 
-$$\tag{$\mathsf{LMS}$} \widetilde{\sigma}^\star = \arg \max_{\sigma \in \mathbb{S_n}}\widetilde{\operatorname{VAL}}(\sigma).  $$
+$$\tag{$\mathsf{LMS}$} \widetilde{\sigma}^\star = \arg \max_{\sigma \in \mathbb{S_n}}\widetilde{\operatorname{VAL}}(\sigma).$$
 
 *Note.* The domain of the $p^{(i)}_j$ is the open interval $(0,1)$ as opposed to the closed interval $[0,1]$ since a team is never 100% likely to win or lose.
 
@@ -371,11 +373,11 @@ $$\frac{1}{d_E}= p_E + o_E = p_E + o$$
 
 and 
 
-$$\sum_{E' \in \Omega} \frac{1}{d_{E'}} = 1 + \sum_{E' \in \Omega}{o_{E'}} = 1 + |\Omega|o.$$
+$$\sum_{E' \in \Omega} \frac{1}{d_{E'}} = 1 + \sum_{E' \in \Omega}{o_{E'}} = 1 + \vert\Omega\verto.$$
 
-So, $o = \frac{1}{|\Omega|}\left( \sum_{E' \in \Omega} \frac{1}{d_{E'}} - 1 \right)$ and we have
+So, $o = \frac{1}{\vert\Omega\vert}\left( \sum_{E' \in \Omega} \frac{1}{d_{E'}} - 1 \right)$ and we have
 
-$$p_E = \frac{1}{d_E} -  \frac{1}{|\Omega|} \left(\sum_{E' \in \Omega} \frac{1}{d_{E'}} - 1 \right) = \frac{1}{|\Omega|} + \frac{1}{d_E} - \frac{1}{|\Omega|}\sum_{E' \in \Omega} \frac{1}{d_{E'}}.$$
+$$p_E = \frac{1}{d_E} -  \frac{1}{\vert\Omega\vert} \left(\sum_{E' \in \Omega} \frac{1}{d_{E'}} - 1 \right) = \frac{1}{\vert\Omega\vert} + \frac{1}{d_E} - \frac{1}{\vert\Omega\vert}\sum_{E' \in \Omega} \frac{1}{d_{E'}}.$$
 
 
 ```python
@@ -522,11 +524,11 @@ So by our earlier reasoning, any permutation of teams we can find that is higher
 
 Now let's do the second simplest thing we can think of.
 
-**Greedy sampling (GS). ** At each timestep $t$, look at the teams that haven't previously been chosen. Choose a team randomly, where the probability is proportional to the odds of that team winning in week $t$.
+**Greedy sampling (GS).**  At each timestep $t$, look at the teams that haven't previously been chosen. Choose a team randomly, where the probability is proportional to the odds of that team winning in week $t$.
 
 More formally, let $\mathcal{A}(t)$ be the set of teams allowed at time $t$, i.e. those that have not been chosen in times $1,2,\ldots,t-1$. Then,
 
-$$\mathbb{P}\{ \text{choose team }j \text{ at time } t\} = \frac{p^{(t)}_j}{\sum_{k \in \mathcal{A}(t)} p^{(t)}_k}. $$
+$$\mathbb{P}\{ \text{choose team }j \text{ at time } t\} = \frac{p^{(t)}_j}{\sum_{k \in \mathcal{A}(t)} p^{(t)}_k}.$$
 
 Let's try and provide some rough theoretical justification for this method of generating permutations of teams (you can skip this part if you believe me that this is an OK thing to do).
 
@@ -534,7 +536,7 @@ Let's try and provide some rough theoretical justification for this method of ge
 
 Suppose we have have chosen the permutation $\sigma = (\sigma(1), \sigma(2), \ldots, \sigma(n))$ according to the greedy sampling scheme. The probability of choosing this permutation is
 
-$$ \mathbb{P}_{\sigma \sim \text{GS}}(\sigma) = \frac{p^{(1)}_{\sigma(1)}}{\sum_{k \in [n]} p^{(1)}_{k}} \cdot \frac{p^{(2)}_{\sigma(2)}}{\sum_{k \in [n]\setminus \{\sigma(1)\}} p^{(2)}_{k}} \cdot \frac{p^{(3)}_{\sigma(3)}}{\sum_{k \in [n]\setminus \{\sigma(1), \sigma(2)\}} p^{(3)}_{k}} \cdot \cdots \cdot  \frac{p^{(n-1)}_{\sigma(n-1)}}{\sum_{k \in [n]\setminus \{\sigma(1), \sigma(2), \ldots, \sigma(n-2)\}} p^{(n-1)}_{k}} \cdot 1 .$$
+$$\mathbb{P}_{\sigma \sim \text{GS}}(\sigma) = \frac{p^{(1)}_{\sigma(1)}}{\sum_{k \in [n]} p^{(1)}_{k}} \cdot \frac{p^{(2)}_{\sigma(2)}}{\sum_{k \in [n]\setminus \{\sigma(1)\}} p^{(2)}_{k}} \cdot \frac{p^{(3)}_{\sigma(3)}}{\sum_{k \in [n]\setminus \{\sigma(1), \sigma(2)\}} p^{(3)}_{k}} \cdot \cdots \cdot  \frac{p^{(n-1)}_{\sigma(n-1)}}{\sum_{k \in [n]\setminus \{\sigma(1), \sigma(2), \ldots, \sigma(n-2)\}} p^{(n-1)}_{k}} \cdot 1 .$$
 
 We then have that
 
@@ -542,29 +544,27 @@ $$\mathbb{P}\{\sigma \text{ wins}\} = p^{(n)}_{\sigma(n)} \cdot \left( \sum_{k \
 
 Let's consider two permutations $\sigma_A$ and $\sigma_B$ and take the ratio of the winning probabilities:
 
-$$ \frac{\mathbb{P}\{\sigma_A \text{ wins}\}}{\mathbb{P}\{\sigma_B \text{ wins}\}} = \frac{p^{(n)}_{\sigma_A(n)} \cdot \left( \sum_{k \in [n]\setminus \{\sigma_A(1), \sigma_A(2), \ldots, \sigma_A(n-2)\}} p^{(n-1)}_{k} \right) \cdot \cdots \cdot \left( \sum_{k \in [n]} p^{(1)}_{k} \right)}{ 
+$$\frac{\mathbb{P}\{\sigma_A \text{ wins}\}}{\mathbb{P}\{\sigma_B \text{ wins}\}} = \frac{p^{(n)}_{\sigma_A(n)} \cdot \left( \sum_{k \in [n]\setminus \{\sigma_A(1), \sigma_A(2), \ldots, \sigma_A(n-2)\}} p^{(n-1)}_{k} \right) \cdot \cdots \cdot \left( \sum_{k \in [n]} p^{(1)}_{k} \right)}{ 
 p^{(n)}_{\sigma_B(n)} \cdot \left( \sum_{k \in [n]\setminus \{\sigma_B(1), \sigma_B(2), \ldots, \sigma_B(n-2)\}} p^{(n-1)}_{k} \right) \cdot \cdots \cdot \left( \sum_{k \in [n]} p^{(1)}_{k} \right)
-} \cdot \frac{\mathbb{P}_{\sigma_A \sim \text{GS}}(\sigma_A)}{\mathbb{P}_{\sigma_B \sim \text{GS}}(\sigma_B)} $$
+} \cdot \frac{\mathbb{P}_{\sigma_A \sim \text{GS}}(\sigma_A)}{\mathbb{P}_{\sigma_B \sim \text{GS}}(\sigma_B)}$$
 
 That's a pretty hairy equation, so let's simplify with a bit of new notation: let $S_\sigma^{(t)} = [n]\setminus \{\sigma(1), \sigma(2), \ldots, \sigma(t)\}$ for $t\in\{0,1,\ldots, n\}$. Just to clarify:
 
 $$S^{(n)}_\sigma = \emptyset, \ S^{(n-1)}_\sigma = \{ \sigma(n) \},\ \ldots, \ S^{1}_\sigma = [n] \setminus \{\sigma(1)\},\ S^{(0)}_\sigma = [n]$$
 
-and $\left|S^{(t)}_\sigma\right| = n-t$. Moreover, let's call the ratio 
+and $\left\vertS^{(t)}_\sigma\right\vert = n-t$. Moreover, let's call the ratio 
 
-$$ R^{(t)} = \frac{\sum_{k\in S^{(t -1 )}_{\sigma_A}} p_k^{(t)} } 
-{\sum_{k\in S^{(t -1 )}_{\sigma_B}} p_k^{(t)}} $$
+$$R^{(t)} = \frac{\sum_{k\in S^{(t -1 )}_{\sigma_A}} p_k^{(t)} } 
+{\sum_{k\in S^{(t -1 )}_{\sigma_B}} p_k^{(t)}}$$
 
 for $t \in \{1,\ldots, n\} $. We can now have the more succinct
 
-$$
-\frac{\mathbb{P}\{\sigma_A \text{ wins}\}}{\mathbb{P}\{\sigma_B \text{ wins}\}} = \prod^{n}_{t=1}R^{(t)} \cdot \frac{\mathbb{P}_{\sigma_A \sim \text{GS}}(\sigma_A)}{\mathbb{P}_{\sigma_B \sim \text{GS}}(\sigma_B)} 
-$$
+$$\frac{\mathbb{P}\{\sigma_A \text{ wins}\}}{\mathbb{P}\{\sigma_B \text{ wins}\}} = \prod^{n}_{t=1}R^{(t)} \cdot \frac{\mathbb{P}_{\sigma_A \sim \text{GS}}(\sigma_A)}{\mathbb{P}_{\sigma_B \sim \text{GS}}(\sigma_B)}$$
 
 Now for the dodgy bit: let's now assume that we choose the permutations $\sigma_A, \sigma_B \sim \operatorname{Uni}(\mathbb{S}_n)$, i.e. uniformly at random; and that the $p^{(i)}_j$ are independent (Assumption 1) and identically distributed on the open interval $(0,1)$. Moreover, define $\mu = \mathbb{E}[p^{(i)}_j]$. Let us try and estimate the quantity $\mathbb{E}\left[ \frac{1}{\prod^{n}_{t=1}R^{(t)}} \cdot \frac{\mathbb{P}\{\sigma_A \text{ wins}\}}{\mathbb{P}\{\sigma_B \text{ wins}\}} \right]$ as a proxy for the ratio $\frac{\mathbb{P}_{\sigma_A \sim \text{GS}}(\sigma_A)}{\mathbb{P}_{\sigma_B \sim \text{GS}}(\sigma_B)}$. We then have
 
 
-$$\mathbb{E}\left[ \frac{1}{\prod^{n}_{t=1}R^{(t)}} \cdot \frac{\mathbb{P}\{\sigma_A \text{ wins}\}}{\mathbb{P}\{\sigma_B \text{ wins}\}} \right] = \mathbb{E}\left[ \prod^{n}_{t=1}R^{(t)} \cdot \frac{\mathbb{P}\{\sigma_A \text{ wins}\}}{\mathbb{P}\{\sigma_B \text{ wins}\}} \right] = \mathbb{E}\left[ \prod^{n}_{t=1}R^{(t)}\right] \cdot \frac{\mathbb{P}\{\sigma_A \text{ wins}\}}{\mathbb{P}\{\sigma_B \text{ wins}\}}, $$
+$$\mathbb{E}\left[ \frac{1}{\prod^{n}_{t=1}R^{(t)}} \cdot \frac{\mathbb{P}\{\sigma_A \text{ wins}\}}{\mathbb{P}\{\sigma_B \text{ wins}\}} \right] = \mathbb{E}\left[ \prod^{n}_{t=1}R^{(t)} \cdot \frac{\mathbb{P}\{\sigma_A \text{ wins}\}}{\mathbb{P}\{\sigma_B \text{ wins}\}} \right] = \mathbb{E}\left[ \prod^{n}_{t=1}R^{(t)}\right] \cdot \frac{\mathbb{P}\{\sigma_A \text{ wins}\}}{\mathbb{P}\{\sigma_B \text{ wins}\}},$$
 
 where we obtain the first equality by symmetry and the second from linearity of expectation.
 
@@ -575,17 +575,14 @@ $$\mathbb{E} \left[ \prod^{n}_{t=1}R^{(t)} \right] = \prod^{n}_{t=1} \mathbb{E} 
 
 Now, 
 
-$$ \mathbb{E} \left[ R^{(t)}\right] = \frac{1}{n!} \sum_{\sigma_A \in \mathbb{S}_n} \sum_{k \in S^{(t)}_{\sigma_A}} \mathbb{E}\left[ p^{(t)}_k \right] \cdot \frac{1}{n!} \sum_{\sigma_B \in \mathbb{S}_n}\frac{1}{ \sum_{k \in S^{(t)}_{\sigma_B}} \mathbb{E}\left[ p^{(t)}_k \right]} \\
+$$\mathbb{E} \left[ R^{(t)}\right] = \frac{1}{n!} \sum_{\sigma_A \in \mathbb{S}_n} \sum_{k \in S^{(t)}_{\sigma_A}} \mathbb{E}\left[ p^{(t)}_k \right] \cdot \frac{1}{n!} \sum_{\sigma_B \in \mathbb{S}_n}\frac{1}{ \sum_{k \in S^{(t)}_{\sigma_B}} \mathbb{E}\left[ p^{(t)}_k \right]} \\
 = \frac{1}{n!} \sum_{\sigma_A \in \mathbb{S}_n} \sum_{k \in S^{(t)}_{\sigma_A}} \mu \cdot \frac{1}{n!} \sum_{\sigma_B \in \mathbb{S}_n} \frac{1}{\sum_{k \in S^{(t)}_{\sigma_B}} \mu} \\
-\frac{1}{n!} \sum_{\sigma_A \in \mathbb{S}_n} (n-t) \mu \cdot \frac{1}{n!} \sum_{\sigma_B \in \mathbb{S}_n} \frac{1}{(n-t) \mu} = 1.
-$$
+\frac{1}{n!} \sum_{\sigma_A \in \mathbb{S}_n} (n-t) \mu \cdot \frac{1}{n!} \sum_{\sigma_B \in \mathbb{S}_n} \frac{1}{(n-t) \mu} = 1.$$
 
 So that means, under some somewhat shaky assumptions, we have
 
-$$
-\frac{\mathbb{P}_{\sigma_A \sim \text{GS}}(\sigma_A)}{\mathbb{P}_{\sigma_B \sim \text{GS}}(\sigma_B)} \approx
-\frac{\mathbb{P}\{\sigma_A \text{ wins}\}}{\mathbb{P}\{\sigma_B \text{ wins}\}} , 
-$$
+$$\frac{\mathbb{P}_{\sigma_A \sim \text{GS}}(\sigma_A)}{\mathbb{P}_{\sigma_B \sim \text{GS}}(\sigma_B)} \approx
+\frac{\mathbb{P}\{\sigma_A \text{ wins}\}}{\mathbb{P}\{\sigma_B \text{ wins}\}} ,$$
 
 so sampling permutations from the GS distribution hopefully gives us samples somewhat consistent with sampling permutations with probability proportional to their winning probabilities -- that is -- the permutation with the highest winning probability should be sampled with the highest probability according to GS.
 
@@ -877,7 +874,7 @@ Let's think about $\mathsf{convX}$ for a second here: we are optimising a linear
 **Theorem.** *There is an optimal solution to $\mathsf{convX}$. Moreover, there is an optimal solution at an extreme point of $\mathcal{B}_n$.*
 
 *Proof.* The set $\mathcal{B}_n$ is compact and $\mathsf{convX}$ is a maximisation problem over $\mathcal{B}_n$, so there is a solution to $\mathsf{convX}$, call it $P^\star$. We can write $P^\star = \sum_{\sigma \in \mathbb{S}_n}\alpha^\star_\sigma P_\sigma$ from the definition of $\mathcal{B}_n$, where $\alpha^\star_\sigma \in [0,1]$ and $\sum_{\sigma \in \mathbb{S}_n} \alpha^\star_\sigma = 1$. By linearity we have $\operatorname{OPT}(\mathsf{convX}) = \operatorname{Tr}(P^\star \widetilde{X}) = \sum_{\sigma \in \mathbb{S}_n} \alpha^\star_\sigma \operatorname{Tr}(P_\sigma \widetilde{X})$. 
-There is no $\sigma \in \mathbb{S}_n$ such that $\operatorname{Tr}(P_\sigma \widetilde{X}) > \operatorname{OPT}(\mathsf{convX})$, otherwise $P^\star$ is not optimal. Now, consider the set $S^\star = \left\{\sigma \in \mathbb{S}_n \, \middle| \, \operatorname{Tr}(P_\sigma \widetilde{X}) = \operatorname{OPT}(\mathsf{convX}) \right\}$. The set $S^\star$ is non-empty from the following: suppose $S^\star = \emptyset$. Then, $P^\star$ is a convex sum of terms $P_\sigma$ where each $\operatorname{Tr}(P_\sigma \widetilde{X}) < \operatorname{OPT}(\mathsf{convX})$, giving $\operatorname{Tr}(P^\star\widetilde{X}) < \operatorname{OPT}(\mathsf{convX})$ from linearity; but $\operatorname{OPT}(\mathsf{convX}) = \operatorname{Tr}(P^\star \widetilde{X})$ by definition. Thus we have that $P^\star = \sum_{\sigma \in S^\star}\alpha^\star_\sigma P_\sigma$, where $\alpha^\star_\sigma \in [0,1]$ and $\sum_{\sigma \in S^\star} \alpha^\star_\sigma = 1$. Clearly, any $P_\sigma$ for $\sigma \in S^\star$ is an optimal solution to $\mathsf{convX}$ and also an extreme point of $\mathcal{B}_n$, by definition.
+There is no $\sigma \in \mathbb{S}_n$ such that $\operatorname{Tr}(P_\sigma \widetilde{X}) > \operatorname{OPT}(\mathsf{convX})$, otherwise $P^\star$ is not optimal. Now, consider the set $S^\star = \left\{\sigma \in \mathbb{S}_n \, \middle\vert \, \operatorname{Tr}(P_\sigma \widetilde{X}) = \operatorname{OPT}(\mathsf{convX}) \right\}$. The set $S^\star$ is non-empty from the following: suppose $S^\star = \emptyset$. Then, $P^\star$ is a convex sum of terms $P_\sigma$ where each $\operatorname{Tr}(P_\sigma \widetilde{X}) < \operatorname{OPT}(\mathsf{convX})$, giving $\operatorname{Tr}(P^\star\widetilde{X}) < \operatorname{OPT}(\mathsf{convX})$ from linearity; but $\operatorname{OPT}(\mathsf{convX}) = \operatorname{Tr}(P^\star \widetilde{X})$ by definition. Thus we have that $P^\star = \sum_{\sigma \in S^\star}\alpha^\star_\sigma P_\sigma$, where $\alpha^\star_\sigma \in [0,1]$ and $\sum_{\sigma \in S^\star} \alpha^\star_\sigma = 1$. Clearly, any $P_\sigma$ for $\sigma \in S^\star$ is an optimal solution to $\mathsf{convX}$ and also an extreme point of $\mathcal{B}_n$, by definition.
 
 
 **Corollary.** $\operatorname{OPT}(\mathsf{X}) = \operatorname{OPT}(\mathsf{convX})$.
@@ -935,7 +932,7 @@ plt.colorbar();
 plt.title("optimal $P$, log scale\n");
 ```
 
-<div align="middle"><img src="{{ "/assets/last_man_standing_files/last_man_standing_45_0.png"  | prepend: site.baseurl }}" style="width:100%;"></div>
+<div align="middle" style="width:98%;"><img src="{{ "/assets/last_man_standing_files/last_man_standing_45_0.png"  \vert prepend: site.baseurl }}"></div>
 
 We see that it's not quite a $\{0,1\}$ permutation matrix, so let's round it and get the corrsponding team list.
 
