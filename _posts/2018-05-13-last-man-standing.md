@@ -34,7 +34,7 @@ Now we have a formal notion for a strategy (as a permutation $\sigma \in \mathbb
 
 $$\operatorname{VAL}(\sigma) := \mathbb{P}(\sigma \text{ wins} ) = \mathbb{P}( \omega^{(1)}_{\sigma(1)} \cap \omega^{(2)}_{\sigma(2)} \cap \cdots \cap \omega^{(n)}_{\sigma(n)} ),$$
 
-where $\omega^{(i)}_{j}$ is the event that team $j$ wins in week $i$ and we define $\operatorname{VAL}(\sigma)$ as the *value* of a strategy $\sigma \in \mathbb{S}_n$. Of course, the best strategy $\sigma^\star$ is the one with highest probability of winning, i.e. $\sigma^\star := \arg \max_{\sigma \in \mathbb{S}_n} \operatorname{VAL}(\sigma)$.
+where $$\omega^{(i)}_{j}$$ is the event that team $j$ wins in week $i$ and we define $\operatorname{VAL}(\sigma)$ as the *value* of a strategy $\sigma \in \mathbb{S}_n$. Of course, the best strategy $\sigma^\star$ is the one with highest probability of winning, i.e. $\sigma^\star := \arg \max_{\sigma \in \mathbb{S}_n} \operatorname{VAL}(\sigma)$.
 
 
 Now we run into our first problem: how to evaluate $\operatorname{VAL}(\sigma)$. This involves computing $\mathbb{P}(\sigma \text{ wins} )$. Now we don't even know if this probability is well defined, different probabilistic models will return different values. Moreover, there are $n!$ strategies, so evaluating each strategy separately will be intractable. We *need* a simplifying assumption. First, let's introduce some notation:
