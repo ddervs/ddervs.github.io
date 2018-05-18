@@ -26,14 +26,15 @@ In this jupyter notebook, we're going to construct, train and test this neural n
 
 ## The Dataset
 
-
+```python
     df = pd.read_pickle("../data/processed_dataset.pkl")
+```
 
 This data set was generated using the instructions in [this notebook](https://nbviewer.jupyter.org/github/ddervs/is_it_a_banger/blob/master/scripts/load_files.ipynb). Let's take a look.
 
-
+```python
     df[:9]
-
+```
 
 
 
@@ -145,7 +146,7 @@ We're going to use a common image classification tool, a ConvNet, on the log spe
 
 Let's take a closer look at the dataset.
 
-
+```python
     bangerz = df.loc[df['label'] == "banger"]
     clangerz = df.loc[df['label'] == "not_a_banger"]
     num_bangerz = bangerz.index.size
@@ -153,14 +154,14 @@ Let's take a closer look at the dataset.
     
     print("Dataset has %g audio clips." % df.index.size)
     print( "This is split between %g \"banger\"s and %g \"not_a_banger\"s" % (num_bangerz, num_clangerz) )
-
+```
     Dataset has 875 audio clips.
     This is split between 422 "banger"s and 453 "not_a_banger"s
 
 
 So we are split more-or-less 50:50 between bangers and clangers. Now we want to look at the audio signal and log spectrogram for some examples.
 
-
+```python
     def plot_waveforms(df, idx):
         audio = df.iloc[idx].audio
         log_specgram = df.iloc[idx].log_specgram
@@ -178,7 +179,7 @@ So we are split more-or-less 50:50 between bangers and clangers. Now we want to 
 
 
     [plot_waveforms(bangerz, i) for i in [0, 1, 2]];
-
+```
 
 ![png]({{ "/assets/is_it_a_banger_files/is_it_a_banger_13_0.png" | prepend: site.baseurl }})
 
@@ -199,9 +200,9 @@ In the third banger, we are likely in a section where the producer has used a hi
 Now for the clangers!
 <div style="padding-bottom:1cm;"></div>
 
-
+```python
     [plot_waveforms(clangerz, i) for i in [0, 1, 2]];
-
+```
 
     
 ![png]({{ "/assets/is_it_a_banger_files/is_it_a_banger_15_0.png" | prepend: site.baseurl }})
@@ -227,10 +228,10 @@ We can calculate a baseline classification accuracy, if we just choose the major
 
 Ideally, we should run "Haverford's algorithm" and compare, but I really didn't feel like doing this for 875 examples! Volunteers welcome...
 
-
+```python
     naive_accuracy = (max(num_bangerz, num_clangerz) / (float)(df.index.size))
     print ("This is the accuracy if we always guess max{#banger, #not_a_banger}: %.3f" % naive_accuracy)
-
+```
     This is the accuracy if we always guess max{#banger, #not_a_banger}: 0.518
 
 
@@ -238,7 +239,7 @@ Ideally, we should run "Haverford's algorithm" and compare, but I really didn't 
 
 Let's set aside 80% of the data for training and 20% for testing.
 
-
+```python
     train_frac = 0.8
     
     def split_train_test(df, train_frac=0.8):
@@ -252,7 +253,7 @@ Let's set aside 80% of the data for training and 20% for testing.
 
 
     print( "Training data has %g clips, test data has %g clips." % (train_data.index.size, test_data.index.size))
-
+```
     Training data has 711 clips, test data has 164 clips.
 
 
@@ -270,7 +271,7 @@ We're going to use the ADAM adaptive moment optimizer, with a cross-entropy cost
 
 ### Setup
 
-
+```python
     import tensorflow as tf
     tf.set_random_seed(1234)
 
@@ -292,10 +293,10 @@ We're going to use the ADAM adaptive moment optimizer, with a cross-entropy cost
     NUM_EPOCHS = 1000
     LEARNING_RATE = 1e-4
     LOG_TRAIN_STEPS = 1
-
+```
 ### Draw the computational graph
 
-
+```python
     # This node is where we feed a batch of the training data and labels at each training step
     x = tf.placeholder(tf.float32,shape=(None, *log_specgram_shape, 1))
     y_ = tf.placeholder(tf.float32, shape=(None, len(df.label.unique())))
@@ -321,23 +322,23 @@ We're going to use the ADAM adaptive moment optimizer, with a cross-entropy cost
     def max_pool_2x2(x):
         return tf.nn.max_pool(x, ksize=[1, MAX_POOL_STRIDE_LENGTH, MAX_POOL_STRIDE_LENGTH, 1],
                             strides=[1, MAX_POOL_STRIDE_LENGTH, MAX_POOL_STRIDE_LENGTH, 1], padding='SAME')
-    
+```    
 
 
 #### First Convolutional Layer
 We can now implement our first layer. It will consist of convolution, followed by max pooling. The convolution will compute `CONV_1_NUM_FEATURES` features for each `CONV_WINDOW_LENGTH` $\times$ `CONV_WINDOW_LENGTH` patch. Its weight tensor will have a shape of `[CONV_WINDOW_LENGTH, CONV_WINDOW_LENGTH, 1, CONV_1_NUM_FEATURES]`. The first two dimensions are the patch size, the next is the number of input channels (mono audio, so `1`), and the last is the number of output channels. We will also have a bias vector with a component for each output channel.
 
-
+```python
     W_conv1 = weight_variable([CONV_WINDOW_LENGTH, CONV_WINDOW_LENGTH, 1, CONV_1_NUM_FEATURES])
     b_conv1 = bias_variable([CONV_1_NUM_FEATURES])
 
 
     h_conv1 = tf.nn.relu(conv2d(x, W_conv1) + b_conv1)
     h_pool1 = max_pool_2x2(h_conv1)
-
+```
 #### Second Convolutional Layer
 
-
+```python
     W_conv2 = weight_variable([CONV_WINDOW_LENGTH, CONV_WINDOW_LENGTH, CONV_1_NUM_FEATURES, CONV_2_NUM_FEATURES])
     b_conv2 = bias_variable([CONV_2_NUM_FEATURES])
     
@@ -345,12 +346,12 @@ We can now implement our first layer. It will consist of convolution, followed b
     h_pool2 = max_pool_2x2(h_conv2)
     
     # 2x2 maxpool gives image dimensions np.ceil(np.array(log_specgram_shape)/2).astype(int)
-
+```
 #### Densely Connected Layer
 
 Now that the image size has been reduced, we add a fully-connected layer with 256 neurons. We reshape the tensor from the pooling layer into a batch of vectors, multiply by a weight matrix, add a bias, and apply a ReLU activation function.
 
-
+```python
     def scale_shape_maxpool2x2(shape_tuple):
         return np.ceil(np.array(shape_tuple)/2).astype(int)
     
@@ -361,39 +362,39 @@ Now that the image size has been reduced, we add a fully-connected layer with 25
     
     h_pool2_flat = tf.reshape(h_pool2, [-1, np.prod(log_specgram_shape_reduced) * CONV_2_NUM_FEATURES])
     h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
-
+```
 #### Dropout
 
 To reduce overfitting, we will apply dropout before the readout layer. We create a `placeholder` for the probability that a neuron's output is kept during dropout. This allows us to turn dropout on during training, and turn it off during testing.
 
-
+```python
     keep_prob = tf.placeholder(tf.float32)
     h_fc1_drop = tf.nn.dropout(h_fc1, keep_prob)
-
+```
 #### Readout Layer
 
-
+```python
     W_fc2 = weight_variable([DENSE_NUM_FEATURES, NUM_LABELS])
     b_fc2 = bias_variable([NUM_LABELS])
     
     y_conv = tf.matmul(h_fc1_drop, W_fc2) + b_fc2
-
+```
 ### Training
 
 #### Batching function
 We need a function to feed in batches of data for training.
 
-
+```python
     def return_batch(df, batch_size=10):
         batch_df = df.sample(batch_size)
         x = np.vstack(batch_df["log_specgram"]).reshape(batch_df.index.size, *log_specgram_shape, 1).astype(np.float32)
         y = np.vstack(batch_df["label_one_hot"]).astype(np.float32)
         return x, y
-
+```
 #### Time logging
 We want some rough idea of how long training is going to take. On my laptop it was around 14 hours! 😱
 
-
+```python
     import time
     
     def estimate_time_remaining(time_in, current_step, steps_gap, total_steps):
@@ -403,13 +404,13 @@ We want some rough idea of how long training is going to take. On my laptop it w
         m, s = divmod(time_remaining, 60)
         h, m = divmod(m, 60)
         print("Approximately %d hours, %02d minutes, %02d seconds remaining." % (h, m, s))
-        
+```        
 
 #### Train and Evaluate the Model
 
 We're using the numerically stable `tf.nn.softmax_cross_entropy_with_logits` function here. This is the long part.
 
-
+```python
     cross_entropy = tf.reduce_mean(
         tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits=y_conv))
     train_step = tf.train.AdamOptimizer(LEARNING_RATE).minimize(cross_entropy)
@@ -432,33 +433,33 @@ We're using the numerically stable `tf.nn.softmax_cross_entropy_with_logits` fun
                 current_time = time.time()
     
             train_step.run(feed_dict={x: batch[0], y_: batch[1], keep_prob: 0.5})
+```
 
-
-_Note_: I've deleted the output of the above cell to keep the script short.
+_Note_: I've deleted the output of the above cell to keep the notebook short.
 
 #### Save model and variables
 
-
+```python
     with sess.as_default():
         saver = tf.train.Saver()
         save_path = saver.save(sess, "../data/model.ckpt")
         print("Model saved in file: %s" % save_path)
 
     Model saved in file: ../data/model.ckpt
-
+```
 
 ### Testing
 
 Now we have a trained model, we want to test out how well it works on the test set.
 
-
+```python
     with sess.as_default():
         test_batch = return_batch(test_data, test_data.index.size)
         test_accuracy = accuracy.eval(feed_dict={x: test_batch[0], y_: test_batch[1], keep_prob: 1.0})
         print("Test accuracy: %.3f" % test_accuracy)
 
     Test accuracy: 0.915
-
+```
 
 Yay! We have done a lot better than the baseline of 0.518.
 

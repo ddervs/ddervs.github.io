@@ -40,7 +40,7 @@ You can see the URLs used in the article at [URL_banger.txt](https://github.com/
 
 We then need to run the following command in the directory `is_it_a_banger/scripts/`
 
-```
+```bash
 ./scripts/prepare_data_files.sh data 5
 ```
 
@@ -52,30 +52,30 @@ We then need the following python to generate the pandas DataFrame from the gene
 
 ## Imports
 
-
+```python
     import os
     import glob
     import librosa
     import numpy as np
     np.random.seed(1234)
     import pandas as pd
-
+```
 ## Get filenames and directories
 
-
+```python
     parent_dir = '../data'
     parent_dir_contents = [os.path.join(parent_dir, dirname) for dirname in os.listdir(parent_dir)]
     sub_dirs = [filename if os.path.isdir(filename) else None for filename in parent_dir_contents]
     sub_dirs = list(filter(None.__ne__, sub_dirs))
     labels_list = [os.path.relpath(path, parent_dir) for path in sub_dirs]
-
+```
 ## Extract Features
 
 We're going to use the `librosa` library for processing the audio signal. We'll keep the raw audio samples and compute a log spectrogram.
 
 Note that we clip samples at the end of the audio file, as the combination of running `ffmpeg` earlier and resampling to 22.05kHz means the audio sample arrays don't have uniform length.
 
-
+```python
     def extract_features(file_name, sample_rate=22050, segment_time=5, samples_to_clip=500):
         audio, sample_rate = librosa.load(file_name, sr=sample_rate)
         end_idx = (sample_rate * segment_time) - samples_to_clip # remove some end samples as not strictly uniform size
@@ -83,10 +83,10 @@ Note that we clip samples at the end of the audio file, as the combination of ru
         log_specgram = librosa.logamplitude(np.abs(librosa.stft(audio))**2, ref_power=np.max)
         features = {"audio": audio, "log_specgram": log_specgram}
         return features
-
+```
 ## Turn labels into 'one-hot' vector encoding
 
-
+```python
     def one_hot_encode(label, labels_list):
         n_labels = len(labels_list)
         one_hot_encoded = np.zeros(n_labels)
@@ -94,21 +94,21 @@ Note that we clip samples at the end of the audio file, as the combination of ru
             if label == cmp:
                 one_hot_encoded[idx] = 1                     
         return one_hot_encoded
-
+```
 ## Trim file list
 
 Only include a fraction of audio files for a given track to avoid training set 1) having too many highly correlated data points, and 2) having too large a file size.
 
-
+```python
     def trim_file_list(fnames_list, p_include=1.0):
         fnames_list = np.asarray(fnames_list)
         include = np.random.rand(*fnames_list.shape)
         fnames_list = fnames_list[include < p_include]
         return fnames_list
-
+```
 ## Build DataFrame from files
 
-
+```python
     def parse_audio_files(parent_dir, sub_dirs_list, labels_list, file_ext='*.wav', p_include=1.0,\
                           sample_rate=22050, segment_time=5, samples_to_clip=500):
         data = []
@@ -132,3 +132,4 @@ Only include a fraction of audio files for a given track to avoid training set 1
     df = parse_audio_files(parent_dir, sub_dirs, labels_list, p_include=0.1, segment_time=5, samples_to_clip=1100)
     df = df.iloc[np.random.permutation(len(df))] # shuffle rows
     df.to_pickle(os.path.join(parent_dir, 'processed_dataset.pkl'))
+```

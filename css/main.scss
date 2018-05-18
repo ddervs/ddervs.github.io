@@ -45,10 +45,10 @@ $on-palm:          768px;
     overflow-x: scroll;
 }
 
-em {
-    font-style: italic !important;
+.hack em {
+    font-style: italic;
 }
 
 .hack code {
-    font-weight: 500 !important;
+    font-weight: 500;
 }
