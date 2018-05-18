@@ -44,3 +44,11 @@ $on-palm:          768px;
 	margin: 0 0 1em;
     overflow-x: scroll;
 }
+
+em {
+    font-style: italic;
+}
+
+.hack code {
+    font-weight: 500
+}
