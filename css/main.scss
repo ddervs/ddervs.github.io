@@ -49,6 +49,10 @@ $on-palm:          768px;
     font-style: italic;
 }
 
+.hack em:after, .hack em:before {
+    content: none;
+}
+
 .hack code {
     font-weight: 500;
 }
