@@ -57,7 +57,7 @@ We can now formally define the Last Man Standing problem $$(\mathsf{LMS})$$.
 
 **Problem ($$\mathsf{LMS}$$).** Let $$p^{(i)}_j \in (0, 1)$$ for $$i,j \in [n]$$. Then, find
 
-$$\tag{\mathsf{LMS}} \widetilde{\sigma}^\star = \arg \max_{\sigma \in \mathbb{S_n}}\widetilde{\operatorname{VAL}}(\sigma).$$
+$$\tag{$\mathsf{LMS}$} \widetilde{\sigma}^\star = \arg \max_{\sigma \in \mathbb{S_n}}\widetilde{\operatorname{VAL}}(\sigma).$$
 
 *Note.* The domain of the $$p^{(i)}_j$$ is the open interval $$(0,1)$$ as opposed to the closed interval $$[0,1]$$ since a team is never 100% likely to win or lose.
 
@@ -851,7 +851,7 @@ $$[\widetilde{X}]_{i,j} = \ln X_{i,j} = \ln p^{(i)}_j$$
 
 Now consider the optimisation problem
 
-$$\max_{\sigma \in \mathbb{S}_n} \operatorname{Tr}(P_{\sigma} \widetilde{X} ), \tag{\mathsf{X}}$$
+$$\max_{\sigma \in \mathbb{S}_n} \operatorname{Tr}(P_{\sigma} \widetilde{X} ), \tag{$\mathsf{X}$}$$
 
 where $$P_\sigma$$ is the *permutation matrix* assoiated to the permutation $$\sigma$$, with elements $$[P_\sigma]_{i,j} = \delta^{\sigma(i)}_j$$. We'll call this problem $$\mathsf{X}$$ with optimal value $$\operatorname{OPT}(\mathsf{X})$$.
 
@@ -865,7 +865,7 @@ Since $$\ln(\,\cdot\,)$$ is a monotonic function, maximising $$\ln \left( \prod_
 
 Let's try taking the convex relaxation of $$\mathsf{X}$$, calling it $$\mathsf{convX}$$:
 
-$$\max_{P \in \mathcal{B}_n} \operatorname{Tr}(P \widetilde{X} ), \tag{\mathsf{convX}}$$
+$$\max_{P \in \mathcal{B}_n} \operatorname{Tr}(P \widetilde{X} ), \tag{$\mathsf{convX}$}$$
 
 We have a new object here, $$\mathcal{B}_n$$, which is known as the [*Birkhoff polytope*](https://en.wikipedia.org/wiki/Birkhoff_polytope). It is the convex hull of all $$n \times n$$ permutation matrices. This means that every $$P\in \mathcal{B}_n$$ is a *doubly-stochastic matrix*, a matrix where every element $$[P_{i,j}]\in[0,1]$$ and all of its rows and columns sum to $$1$$.
 
