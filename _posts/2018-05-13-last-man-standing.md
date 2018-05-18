@@ -11,11 +11,11 @@ A good friend of mine with a penchant for sports betting told me recently about 
 **The Rules.**
 
 - The game starts at the beginning of the English Premier League (EPL) season (or other sports league of your choice).
-- There are $M$ players in the game. Each player puts in $x$ units of cash (say, twenty quid).
-- Each of the $M$ players chooses one of the $n$ teams in the league. Different players can choose the same team if they wish.
+- There are $$M$$ players in the game. Each player puts in $$x$$ units of cash (say, twenty quid).
+- Each of the $$M$$ players chooses one of the $$n$$ teams in the league. Different players can choose the same team if they wish.
 - If a given player's team wins, they go through to the next week; lose or draw, they're out.
 - The remaining players choose another team that they think will win. Importantly, *no player can choose a team they have chosen before*.
-- This procedure continues until either: there is one player left and they take all the winnings; or, there are no players left and another game begins, starting the next week. The pot rolls over, everyone puts in $x$ monies again and they are each free to choose any team they like again.
+- This procedure continues until either: there is one player left and they take all the winnings; or, there are no players left and another game begins, starting the next week. The pot rolls over, everyone puts in $$x$$ monies again and they are each free to choose any team they like again.
 - Continue until everyone is broke, apart from the player with the best strategy! Hopefully this will be us by the end of this blog post 😉.
 
 The moment my pal told me about this I was hooked. This seemed exactly like the kind of game amenable to some mathematical and algorithmic analysis -- potentially giving the informed player an edge over their unwitting opponents. What follows is my winding path of thoughts and strategies on how to play this game.
@@ -24,46 +24,46 @@ The moment my pal told me about this I was hooked. This seemed exactly like the 
 
 The first thing to do when thinking about this was to create a mathematical model of the game. 
 
-First, we have $n$ teams. We impose a linear ordering of the teams, i.e., the $1$st team is Arsenal, the $2$nd team is Chelsea etc -- we will refer to a team simply by its index $j \in [n]$ (where $n:=\{1,2,\ldots, n\}$). Naturally, a *strategy* is then defined as ordered list of integers from $[n]$, with no repeats. Optimistically, we hope we won't lose at any round so we specify a strategy as the longest possible list. The resulting list is a [*permutation*](https://en.wikipedia.org/wiki/Permutation), $\sigma \in \mathbb{S}_n$, where $\mathbb{S}_n$ is the symmetric group on $n$ elements.
+First, we have $$n$$ teams. We impose a linear ordering of the teams, i.e., the $$1$$st team is Arsenal, the $$2$$nd team is Chelsea etc -- we will refer to a team simply by its index $$j \in [n]$$ (where $$n:=\{1,2,\ldots, n\}$$). Naturally, a *strategy* is then defined as ordered list of integers from $$[n]$$, with no repeats. Optimistically, we hope we won't lose at any round so we specify a strategy as the longest possible list. The resulting list is a [*permutation*](https://en.wikipedia.org/wiki/Permutation), $$\sigma \in \mathbb{S}_n$$, where $$\mathbb{S}_n$$ is the symmetric group on $$n$$ elements.
 
 Note an individual season will require two consecutive strategies in the best case, as each team plays home and away (concretely, in the EPL each pair of teams plays a match against each other twice per season). Without loss of generality we can consider the single best strategy from any chosen starting point in the season. When we must start again (i.e. when all our choices win, or more likely, one loses and we start playing again), recalculate the best strategy from the new starting point. 
 
 -----
 
-Now we have a formal notion for a strategy (as a permutation $\sigma \in \mathbb{S}_n$) we need to specify how to evaluate the various strategies. Note that the number of possible strategies is large ($n! \sim 10^{18}$ for the EPL). Let's take the most natural measure: how likely is it that a strategy wins? Namely,
+Now we have a formal notion for a strategy (as a permutation $$\sigma \in \mathbb{S}_n$$) we need to specify how to evaluate the various strategies. Note that the number of possible strategies is large ($$n! \sim 10^{18}$$ for the EPL). Let's take the most natural measure: how likely is it that a strategy wins? Namely,
 
 $$\operatorname{VAL}(\sigma) := \mathbb{P}(\sigma \text{ wins} ) = \mathbb{P}( \omega^{(1)}_{\sigma(1)} \cap \omega^{(2)}_{\sigma(2)} \cap \cdots \cap \omega^{(n)}_{\sigma(n)} ),$$
 
-where $$\omega^{(i)}_{j}$$ is the event that team $j$ wins in week $i$ and we define $\operatorname{VAL}(\sigma)$ as the *value* of a strategy $\sigma \in \mathbb{S}_n$. Of course, the best strategy $\sigma^\star$ is the one with highest probability of winning, i.e. $\sigma^\star := \arg \max_{\sigma \in \mathbb{S}_n} \operatorname{VAL}(\sigma)$.
+where $$\omega^{(i)}_{j}$$ is the event that team $$j$$ wins in week $$i$$ and we define $$\operatorname{VAL}(\sigma)$$ as the *value* of a strategy $$\sigma \in \mathbb{S}_n$$. Of course, the best strategy $$\sigma^\star$$ is the one with highest probability of winning, i.e. $$\sigma^\star := \arg \max_{\sigma \in \mathbb{S}_n} \operatorname{VAL}(\sigma)$$.
 
 
-Now we run into our first problem: how to evaluate $\operatorname{VAL}(\sigma)$. This involves computing $\mathbb{P}(\sigma \text{ wins} )$. Now we don't even know if this probability is well defined, different probabilistic models will return different values. Moreover, there are $n!$ strategies, so evaluating each strategy separately will be intractable. We *need* a simplifying assumption. First, let's introduce some notation:
+Now we run into our first problem: how to evaluate $$\operatorname{VAL}(\sigma)$$. This involves computing $$\mathbb{P}(\sigma \text{ wins} )$$. Now we don't even know if this probability is well defined, different probabilistic models will return different values. Moreover, there are $$n!$$ strategies, so evaluating each strategy separately will be intractable. We *need* a simplifying assumption. First, let's introduce some notation:
 
 $$p^{(i)}_j = \mathbb{P} \left( \text{team }j\text{ wins in week }i \right) = \mathbb{P}(\omega^{(i)}_j).$$
 
 We're going to make the following assumption:
 
-**Assumption 1.** *The winning probabilities $p^{(i)}_j$ are independent, for all $i,j\in [n]$.*
+**Assumption 1.** *The winning probabilities $$p^{(i)}_j$$ are independent, for all $$i,j\in [n]$$.*
 
-This assumption clearly doesn't hold in reality. Consider the following scenario: team $j$ plays team $j'$ in week $i$. Then $p^{(i)}_j + p^{(i)}_{j'} \leq 1$ since both teams can't win at the same time! One could consider numerous other scenarios in which this model fails, for instance think about a 'winning streak' -- teams that have in previous weeks are likely to keep winning, due to some underlying factor such as a new great manager etc. 
+This assumption clearly doesn't hold in reality. Consider the following scenario: team $$j$$ plays team $$j'$$ in week $$i$$. Then $$p^{(i)}_j + p^{(i)}_{j'} \leq 1$$ since both teams can't win at the same time! One could consider numerous other scenarios in which this model fails, for instance think about a 'winning streak' -- teams that have in previous weeks are likely to keep winning, due to some underlying factor such as a new great manager etc. 
 
-Nevertheless, we are going to work within the independence model as it will make the winning probabilities tractable. We are going to approximate $\operatorname{VAL}(\sigma)$ in the following way:
+Nevertheless, we are going to work within the independence model as it will make the winning probabilities tractable. We are going to approximate $$\operatorname{VAL}(\sigma)$$ in the following way:
 
 $$\widetilde{\operatorname{VAL}}(\sigma) = \prod_{i \in [n]} p^{(i)}_{\sigma(i)},$$
 
-i.e. using the product of the winning probabilities, which is just the joint winning probability $\mathbb{P}(\sigma \text{ wins})$ for the teams ordered according to the strategy $\sigma$, under the independence assumption (Assumption 1).
+i.e. using the product of the winning probabilities, which is just the joint winning probability $$\mathbb{P}(\sigma \text{ wins})$$ for the teams ordered according to the strategy $$\sigma$$, under the independence assumption (Assumption 1).
 
-We can now formally define the Last Man Standing problem $(\mathsf{LMS})$.
+We can now formally define the Last Man Standing problem $$(\mathsf{LMS})$$.
 
-**Problem ($\mathsf{LMS}$).** Let $p^{(i)}_j \in (0, 1)$ for $i,j \in [n]$. Then, find
+**Problem ($$\mathsf{LMS}$$).** Let $$p^{(i)}_j \in (0, 1)$$ for $$i,j \in [n]$$. Then, find
 
-$$\tag{$\mathsf{LMS}$} \widetilde{\sigma}^\star = \arg \max_{\sigma \in \mathbb{S_n}}\widetilde{\operatorname{VAL}}(\sigma).$$
+$$\tag{$$\mathsf{LMS}$$} \widetilde{\sigma}^\star = \arg \max_{\sigma \in \mathbb{S_n}}\widetilde{\operatorname{VAL}}(\sigma).$$
 
-*Note.* The domain of the $p^{(i)}_j$ is the open interval $(0,1)$ as opposed to the closed interval $[0,1]$ since a team is never 100% likely to win or lose.
+*Note.* The domain of the $$p^{(i)}_j$$ is the open interval $$(0,1)$$ as opposed to the closed interval $$[0,1]$$ since a team is never 100% likely to win or lose.
 
 ## Implementation
 
-Great, we now have a concrete mathematical problem we would like to solve, but it would be good to apply to some concrete data. Namely, where do we get the winning probabilities $p^{(i)}_j$? I thought about this for a while and came to the conclusion that no one is going to be better at calculating the chances of different of outcomes of sports games than bookmakers. Duh! Now we just need bookies' odds data from somewhere...
+Great, we now have a concrete mathematical problem we would like to solve, but it would be good to apply to some concrete data. Namely, where do we get the winning probabilities $$p^{(i)}_j$$? I thought about this for a while and came to the conclusion that no one is going to be better at calculating the chances of different of outcomes of sports games than bookmakers. Duh! Now we just need bookies' odds data from somewhere...
 
 Fortunately, the excellent `footballdata` python package gives us everything we need in a nice `pandas` DataFrame format. Let's explore a little bit.
 
@@ -359,13 +359,13 @@ We can see for the 2016-2017 premiership season we have a variety of bookies we 
 
 European odds are given as a decimal number equalling `bookies_payout/betters_stake`. As an example, European odds of 1.40 mean that if you stake £100, the bet (if successful) will payout £140, and your profit will be £40.
 
-Odds don't correspond directly with the probabilities, since the bookies need their cut for whichever outcome takes place! We assume that the bookies' cut, or *vig* is factored in proportionally with the odds. The bookmaker prices the decimal odds $d_E$ for an event $E$ as 
+Odds don't correspond directly with the probabilities, since the bookies need their cut for whichever outcome takes place! We assume that the bookies' cut, or *vig* is factored in proportionally with the odds. The bookmaker prices the decimal odds $$d_E$$ for an event $$E$$ as 
 
 $$d_E = \frac{1}{p_E + o_E},$$
 
-where $p_E$ is their estimated probability for $E$ and $o_E$ is the overround for $E$. The overround is the relative form of the vig, i.e. the vig is the bookmaker's percentage profit on the total stakes made on the event, whereas the overround is the expected profit. For example, 20% overround is vigorish of 16 2/3%
+where $$p_E$$ is their estimated probability for $$E$$ and $$o_E$$ is the overround for $$E$$. The overround is the relative form of the vig, i.e. the vig is the bookmaker's percentage profit on the total stakes made on the event, whereas the overround is the expected profit. For example, 20% overround is vigorish of 16 2/3%
 
-We have $o_E = o$ for all $E \in \Omega$, where $\Omega$ is the event set, since we assume the vig is priced proportionally to the odds. 
+We have $$o_E = o$$ for all $$E \in \Omega$$, where $$\Omega$$ is the event set, since we assume the vig is priced proportionally to the odds. 
 
 We can then solve for the probabilities like so:
 
@@ -375,7 +375,7 @@ and
 
 $$\sum_{E' \in \Omega} \frac{1}{d_{E'}} = 1 + \sum_{E' \in \Omega}{o_{E'}} = 1 + \vert\Omega\vert o.$$
 
-So, $o = \frac{1}{\vert\Omega\vert}\left( \sum_{E' \in \Omega} \frac{1}{d_{E'}} - 1 \right)$ and we have
+So, $$o = \frac{1}{\vert\Omega\vert}\left( \sum_{E' \in \Omega} \frac{1}{d_{E'}} - 1 \right)$$ and we have
 
 $$p_E = \frac{1}{d_E} -  \frac{1}{\vert\Omega\vert} \left(\sum_{E' \in \Omega} \frac{1}{d_{E'}} - 1 \right) = \frac{1}{\vert\Omega\vert} + \frac{1}{d_E} - \frac{1}{\vert\Omega\vert}\sum_{E' \in \Omega} \frac{1}{d_{E'}}.$$
 
@@ -391,7 +391,7 @@ def probs_from_odds(odds_home, odds_draw, odds_away):
 
 ### Team names
 
-Below we number the teams, i.e. establish the correspondence $\text{team name} \mapsto j \in [n]$.
+Below we number the teams, i.e. establish the correspondence $$\text{team name} \mapsto j \in [n]$$.
 
 
 ```python
@@ -404,7 +404,7 @@ print(teams)
 
 ## Winning probabilities matrix
 
-What we want now is the matrix $X\in [0,1]^{38 \times 20}$, with elements defined by
+What we want now is the matrix $$X\in [0,1]^{38 \times 20}$$, with elements defined by
 
 $$X_{i,j} := p^{(i)}_j = \text{probability that team }j\text{ wins in week }i.$$
 
@@ -439,7 +439,7 @@ X = build_X(prem, teams, "B365")
 
 ### Practical concerns
 
-The winning probabilities will be (very) small, even for the best ones. So let's use the $\log(\widetilde{\text{VAL}})$ of the winning probability as our metric of 'goodness' for a strategy, since $\log(x)$ is a monotonic function of $x \in (0, 1]$. 
+The winning probabilities will be (very) small, even for the best ones. So let's use the $$\log(\widetilde{\text{VAL}})$$ of the winning probability as our metric of 'goodness' for a strategy, since $$\log(x)$$ is a monotonic function of $$x \in (0, 1]$$. 
 
 We also want to be able to convert a permutation back into a list of teams
 
@@ -524,9 +524,9 @@ So by our earlier reasoning, any permutation of teams we can find that is higher
 
 Now let's do the second simplest thing we can think of.
 
-**Greedy sampling (GS).**  At each timestep $t$, look at the teams that haven't previously been chosen. Choose a team randomly, where the probability is proportional to the odds of that team winning in week $t$.
+**Greedy sampling (GS).**  At each timestep $$t$$, look at the teams that haven't previously been chosen. Choose a team randomly, where the probability is proportional to the odds of that team winning in week $$t$$.
 
-More formally, let $\mathcal{A}(t)$ be the set of teams allowed at time $t$, i.e. those that have not been chosen in times $1,2,\ldots,t-1$. Then,
+More formally, let $$\mathcal{A}(t)$$ be the set of teams allowed at time $$t$$, i.e. those that have not been chosen in times $$1,2,\ldots,t-1$$. Then,
 
 $$\mathbb{P}\{ \text{choose team }j \text{ at time } t\} = \frac{p^{(t)}_j}{\sum_{k \in \mathcal{A}(t)} p^{(t)}_k}.$$
 
@@ -534,7 +534,7 @@ Let's try and provide some rough theoretical justification for this method of ge
 
 ---
 
-Suppose we have have chosen the permutation $\sigma = (\sigma(1), \sigma(2), \ldots, \sigma(n))$ according to the greedy sampling scheme. The probability of choosing this permutation is
+Suppose we have have chosen the permutation $$\sigma = (\sigma(1), \sigma(2), \ldots, \sigma(n))$$ according to the greedy sampling scheme. The probability of choosing this permutation is
 
 $$\mathbb{P}_{\sigma \sim \text{GS}}(\sigma) = \frac{p^{(1)}_{\sigma(1)}}{\sum_{k \in [n]} p^{(1)}_{k}} \cdot \frac{p^{(2)}_{\sigma(2)}}{\sum_{k \in [n]\setminus \{\sigma(1)\}} p^{(2)}_{k}} \cdot \frac{p^{(3)}_{\sigma(3)}}{\sum_{k \in [n]\setminus \{\sigma(1), \sigma(2)\}} p^{(3)}_{k}} \cdot \cdots \cdot  \frac{p^{(n-1)}_{\sigma(n-1)}}{\sum_{k \in [n]\setminus \{\sigma(1), \sigma(2), \ldots, \sigma(n-2)\}} p^{(n-1)}_{k}} \cdot 1 .$$
 
@@ -542,26 +542,26 @@ We then have that
 
 $$\mathbb{P}\{\sigma \text{ wins}\} = p^{(n)}_{\sigma(n)} \cdot \left( \sum_{k \in [n]\setminus \{\sigma(1), \sigma(2), \ldots, \sigma(n-2)\}} p^{(n-1)}_{k} \right) \cdot \cdots \cdot \left( \sum_{k \in [n]} p^{(1)}_{k} \right) \cdot \mathbb{P}_{\sigma \sim \text{GS}}(\sigma). $$
 
-Let's consider two permutations $\sigma_A$ and $\sigma_B$ and take the ratio of the winning probabilities:
+Let's consider two permutations $$\sigma_A$$ and $$\sigma_B$$ and take the ratio of the winning probabilities:
 
 $$\frac{\mathbb{P}\{\sigma_A \text{ wins}\}}{\mathbb{P}\{\sigma_B \text{ wins}\}} = \frac{p^{(n)}_{\sigma_A(n)} \cdot \left( \sum_{k \in [n]\setminus \{\sigma_A(1), \sigma_A(2), \ldots, \sigma_A(n-2)\}} p^{(n-1)}_{k} \right) \cdot \cdots \cdot \left( \sum_{k \in [n]} p^{(1)}_{k} \right)}{ 
 p^{(n)}_{\sigma_B(n)} \cdot \left( \sum_{k \in [n]\setminus \{\sigma_B(1), \sigma_B(2), \ldots, \sigma_B(n-2)\}} p^{(n-1)}_{k} \right) \cdot \cdots \cdot \left( \sum_{k \in [n]} p^{(1)}_{k} \right)
 } \cdot \frac{\mathbb{P}_{\sigma_A \sim \text{GS}}(\sigma_A)}{\mathbb{P}_{\sigma_B \sim \text{GS}}(\sigma_B)}$$
 
-That's a pretty hairy equation, so let's simplify with a bit of new notation: let $S_\sigma^{(t)} = [n]\setminus \{\sigma(1), \sigma(2), \ldots, \sigma(t)\}$ for $t\in\{0,1,\ldots, n\}$. Just to clarify:
+That's a pretty hairy equation, so let's simplify with a bit of new notation: let $$S_\sigma^{(t)} = [n]\setminus \{\sigma(1), \sigma(2), \ldots, \sigma(t)\}$$ for $$t\in\{0,1,\ldots, n\}$$. Just to clarify:
 
 $$S^{(n)}_\sigma = \emptyset, \ S^{(n-1)}_\sigma = \{ \sigma(n) \},\ \ldots, \ S^{1}_\sigma = [n] \setminus \{\sigma(1)\},\ S^{(0)}_\sigma = [n]$$
 
-and $\left\vert S^{(t)}_\sigma\right\vert = n-t$. Moreover, let's call the ratio 
+and $$\left\vert S^{(t)}_\sigma\right\vert = n-t$$. Moreover, let's call the ratio 
 
 $$R^{(t)} = \frac{\sum_{k\in S^{(t -1 )}_{\sigma_A}} p_k^{(t)} } 
 {\sum_{k\in S^{(t -1 )}_{\sigma_B}} p_k^{(t)}}$$
 
-for $t \in \{1,\ldots, n\} $. We can now have the more succinct
+for $$t \in \{1,\ldots, n\} $$. We can now have the more succinct
 
 $$\frac{\mathbb{P}\{\sigma_A \text{ wins}\}}{\mathbb{P}\{\sigma_B \text{ wins}\}} = \prod^{n}_{t=1}R^{(t)} \cdot \frac{\mathbb{P}_{\sigma_A \sim \text{GS}}(\sigma_A)}{\mathbb{P}_{\sigma_B \sim \text{GS}}(\sigma_B)}$$
 
-Now for the dodgy bit: let's now assume that we choose the permutations $\sigma_A, \sigma_B \sim \operatorname{Uni}(\mathbb{S}_n)$, i.e. uniformly at random; and that the $p^{(i)}_j$ are independent (Assumption 1) and identically distributed on the open interval $(0,1)$. Moreover, define $\mu = \mathbb{E}[p^{(i)}_j]$. Let us try and estimate the quantity $\mathbb{E}\left[ \frac{1}{\prod^{n}_{t=1}R^{(t)}} \cdot \frac{\mathbb{P}\{\sigma_A \text{ wins}\}}{\mathbb{P}\{\sigma_B \text{ wins}\}} \right]$ as a proxy for the ratio $\frac{\mathbb{P}_{\sigma_A \sim \text{GS}}(\sigma_A)}{\mathbb{P}_{\sigma_B \sim \text{GS}}(\sigma_B)}$. We then have
+Now for the dodgy bit: let's now assume that we choose the permutations $$\sigma_A, \sigma_B \sim \operatorname{Uni}(\mathbb{S}_n)$$, i.e. uniformly at random; and that the $$p^{(i)}_j$$ are independent (Assumption 1) and identically distributed on the open interval $$(0,1)$$. Moreover, define $$\mu = \mathbb{E}[p^{(i)}_j]$$. Let us try and estimate the quantity $$\mathbb{E}\left[ \frac{1}{\prod^{n}_{t=1}R^{(t)}} \cdot \frac{\mathbb{P}\{\sigma_A \text{ wins}\}}{\mathbb{P}\{\sigma_B \text{ wins}\}} \right]$$ as a proxy for the ratio $$\frac{\mathbb{P}_{\sigma_A \sim \text{GS}}(\sigma_A)}{\mathbb{P}_{\sigma_B \sim \text{GS}}(\sigma_B)}$$. We then have
 
 
 $$\mathbb{E}\left[ \frac{1}{\prod^{n}_{t=1}R^{(t)}} \cdot \frac{\mathbb{P}\{\sigma_A \text{ wins}\}}{\mathbb{P}\{\sigma_B \text{ wins}\}} \right] = \mathbb{E}\left[ \prod^{n}_{t=1}R^{(t)} \cdot \frac{\mathbb{P}\{\sigma_A \text{ wins}\}}{\mathbb{P}\{\sigma_B \text{ wins}\}} \right] = \mathbb{E}\left[ \prod^{n}_{t=1}R^{(t)}\right] \cdot \frac{\mathbb{P}\{\sigma_A \text{ wins}\}}{\mathbb{P}\{\sigma_B \text{ wins}\}},$$
@@ -569,7 +569,7 @@ $$\mathbb{E}\left[ \frac{1}{\prod^{n}_{t=1}R^{(t)}} \cdot \frac{\mathbb{P}\{\sig
 where we obtain the first equality by symmetry and the second from linearity of expectation.
 
 
-Let's now take the expectation value of $\prod^{n}_{t=1}R^{(t)}$. By linearity of expectation, we have that
+Let's now take the expectation value of $$\prod^{n}_{t=1}R^{(t)}$$. By linearity of expectation, we have that
 
 $$\mathbb{E} \left[ \prod^{n}_{t=1}R^{(t)} \right] = \prod^{n}_{t=1} \mathbb{E} \left[ R^{(t)}\right].$$
 
@@ -673,7 +673,7 @@ So it looks like greedy sampling has given us better results than the pure strat
 
 [Simulated annealing](https://en.wikipedia.org/wiki/Simulated_annealing) (SA) is a popular heuristic strategy for th travelling salesman problem and other combinatorial optimisation problems. The basic idea is to model the solution space of our problem as the physical states in a thermodynamical system. Higher cost solutions correspond to higher energy states and vice versa. We allow the system to 'evolve' under this thermodynamic model, while decreasing the virtual temperature, in analogy to a thermal annealing process. 
 
-We start at an inverse temperature $\beta_i$ and finish at $\beta_f$. Dynamics is modelled as a Markov chain with transition probabilities $\mathbb{P}(\sigma \to \sigma') = \min\{1,\ \exp(- \beta(\sigma - \sigma'))\}$. The temperature $\beta$ changes according to some fixed schedule. For the Markov chain we require a number of 'burn-in' steps to allow the chain to mix.
+We start at an inverse temperature $$\beta_i$$ and finish at $$\beta_f$$. Dynamics is modelled as a Markov chain with transition probabilities $$\mathbb{P}(\sigma \to \sigma') = \min\{1,\ \exp(- \beta(\sigma - \sigma'))\}$$. The temperature $$\beta$$ changes according to some fixed schedule. For the Markov chain we require a number of 'burn-in' steps to allow the chain to mix.
 
 
 ```python
@@ -754,11 +754,11 @@ def simulated_anneal_sample_strategy(X, teams, burn_in, start_perm, beta_i, beta
 
 Naturally, we don't just want to guess at the hyperparamters in the SA strategy, we need to select them somehow.
 
-Here we're going to use a very naive method: grid search. Let's fix some of the hyperparameters to sensible values to not have to test too many combinations. These include the final inverse temperature $\beta_f= 50$ and the `burn_in=200`. We'll set $\beta_f = 50$ because $e^{-50}$ is *tiny* so more or less zero acceptance probability for any transition lowering the energy and `burn_in=200` since it is roughly the number of possible transitions from a given state $n(n-1)/2$. We'll use the greedy stategy as a starting state.
+Here we're going to use a very naive method: grid search. Let's fix some of the hyperparameters to sensible values to not have to test too many combinations. These include the final inverse temperature $$\beta_f= 50$$ and the `burn_in=200`. We'll set $$\beta_f = 50$$ because $$e^{-50}$$ is *tiny* so more or less zero acceptance probability for any transition lowering the energy and `burn_in=200` since it is roughly the number of possible transitions from a given state $$n(n-1)/2$$. We'll use the greedy stategy as a starting state.
 
-We *are* going to vary the initial inverse temperature $\beta_i$ and the multiplier, $\alpha$.
+We *are* going to vary the initial inverse temperature $$\beta_i$$ and the multiplier, $$\alpha$$.
 
-We'll give each of the $(\beta_i, \alpha)$ pairs 25 goes to show us what they're made of. The best pair will then be used for more runs to give us the SA strategy generated permutation. 
+We'll give each of the $$(\beta_i, \alpha)$$ pairs 25 goes to show us what they're made of. The best pair will then be used for more runs to give us the SA strategy generated permutation. 
 
 
 
@@ -845,41 +845,41 @@ The SA strategy did pretty well. There is one more direction of attack that I'd 
 
 ### Theory
 
-Let $\widetilde{X}$ be the matrix with entries given by
+Let $$\widetilde{X}$$ be the matrix with entries given by
 
 $$[\widetilde{X}]_{i,j} = \ln X_{i,j} = \ln p^{(i)}_j$$
 
 Now consider the optimisation problem
 
-$$\max_{\sigma \in \mathbb{S}_n} \operatorname{Tr}(P_{\sigma} \widetilde{X} ), \tag{$\mathsf{X}$}$$
+$$\max_{\sigma \in \mathbb{S}_n} \operatorname{Tr}(P_{\sigma} \widetilde{X} ), \tag{$$\mathsf{X}$$}$$
 
-where $P_\sigma$ is the *permutation matrix* assoiated to the permutation $\sigma$, with elements $[P_\sigma]_{i,j} = \delta^{\sigma(i)}_j$. We'll call this problem $\mathsf{X}$ with optimal value $\operatorname{OPT}(\mathsf{X})$.
+where $$P_\sigma$$ is the *permutation matrix* assoiated to the permutation $$\sigma$$, with elements $$[P_\sigma]_{i,j} = \delta^{\sigma(i)}_j$$. We'll call this problem $$\mathsf{X}$$ with optimal value $$\operatorname{OPT}(\mathsf{X})$$.
 
-The solution to $\mathsf{X}$ is also the permutation with maximum winning probability! Why?
+The solution to $$\mathsf{X}$$ is also the permutation with maximum winning probability! Why?
 
 $$\operatorname{Tr}(P_{\sigma} \widetilde{X} ) = \sum_{i,j} [P_{\sigma}]_{i,j}  [\widetilde{X}]_{i,j} = \sum_{i,j} \delta^{\sigma(i)}_j \ln p^{(i)}_j = \sum_i \ln p^{(i)}_{\sigma(i)} = \ln \left( \prod_i  p^{(i)}_{\sigma(i)} \right) = \ln \left( \mathbb{P}(\sigma \text{ wins}) \right).$$
 
-Since $\ln(\,\cdot\,)$ is a monotonic function, maximising $\ln \left( \prod_i  p^{(i)}_{\sigma(i)} \right)$ maximises $\prod_i  p^{(i)}_{\sigma(i)} = \mathbb{P}(\sigma \text{ wins})$.
+Since $$\ln(\,\cdot\,)$$ is a monotonic function, maximising $$\ln \left( \prod_i  p^{(i)}_{\sigma(i)} \right)$$ maximises $$\prod_i  p^{(i)}_{\sigma(i)} = \mathbb{P}(\sigma \text{ wins})$$.
 
-"So what?" one might think -- we still have a search space of permutations on $n$ elements with size $n!$ -- all we've done is rewrite the original problem using matrices. However, writing the problem this way suggests a new means of attack.
+"So what?" one might think -- we still have a search space of permutations on $$n$$ elements with size $$n!$$ -- all we've done is rewrite the original problem using matrices. However, writing the problem this way suggests a new means of attack.
 
-Let's try taking the convex relaxation of $\mathsf{X}$, calling it $\mathsf{convX}$:
+Let's try taking the convex relaxation of $$\mathsf{X}$$, calling it $$\mathsf{convX}$$:
 
-$$\max_{P \in \mathcal{B}_n} \operatorname{Tr}(P \widetilde{X} ), \tag{$\mathsf{convX}$}$$
+$$\max_{P \in \mathcal{B}_n} \operatorname{Tr}(P \widetilde{X} ), \tag{$$\mathsf{convX}$$}$$
 
-We have a new object here, $\mathcal{B}_n$, which is known as the [*Birkhoff polytope*](https://en.wikipedia.org/wiki/Birkhoff_polytope). It is the convex hull of all $n \times n$ permutation matrices. This means that every $P\in \mathcal{B}_n$ is a *doubly-stochastic matrix*, a matrix where every element $[P_{i,j}]\in[0,1]$ and all of its rows and columns sum to $1$.
+We have a new object here, $$\mathcal{B}_n$$, which is known as the [*Birkhoff polytope*](https://en.wikipedia.org/wiki/Birkhoff_polytope). It is the convex hull of all $$n \times n$$ permutation matrices. This means that every $$P\in \mathcal{B}_n$$ is a *doubly-stochastic matrix*, a matrix where every element $$[P_{i,j}]\in[0,1]$$ and all of its rows and columns sum to $$1$$.
 
-Let's think about $\mathsf{convX}$ for a second here: we are optimising a linear function of nonnegative real variables subject to linear constraints; this is just a linear program! We can leverage the theory and algorithms for solving linear programs to help us find a good solution to $\mathsf{X}$.
+Let's think about $$\mathsf{convX}$$ for a second here: we are optimising a linear function of nonnegative real variables subject to linear constraints; this is just a linear program! We can leverage the theory and algorithms for solving linear programs to help us find a good solution to $$\mathsf{X}$$.
 
-**Theorem.** *There is an optimal solution to $\mathsf{convX}$. Moreover, there is an optimal solution at an extreme point of $\mathcal{B}_n$.*
+**Theorem.** *There is an optimal solution to $$\mathsf{convX}$$. Moreover, there is an optimal solution at an extreme point of $$\mathcal{B}_n$$.*
 
-*Proof.* The set $\mathcal{B}_n$ is compact and $\mathsf{convX}$ is a maximisation problem over $\mathcal{B}_n$, so there is a solution to $\mathsf{convX}$, call it $P^\star$. We can write $P^\star = \sum_{\sigma \in \mathbb{S}_n}\alpha^\star_\sigma P_\sigma$ from the definition of $\mathcal{B}_n$, where $\alpha^\star_\sigma \in [0,1]$ and $\sum_{\sigma \in \mathbb{S}_n} \alpha^\star_\sigma = 1$. By linearity we have $\operatorname{OPT}(\mathsf{convX}) = \operatorname{Tr}(P^\star \widetilde{X}) = \sum_{\sigma \in \mathbb{S}_n} \alpha^\star_\sigma \operatorname{Tr}(P_\sigma \widetilde{X})$. 
-There is no $\sigma \in \mathbb{S}_n$ such that $\operatorname{Tr}(P_\sigma \widetilde{X}) > \operatorname{OPT}(\mathsf{convX})$, otherwise $P^\star$ is not optimal. Now, consider the set $S^\star = \left\{\sigma \in \mathbb{S}_n \, \middle\vert \, \operatorname{Tr}(P_\sigma \widetilde{X}) = \operatorname{OPT}(\mathsf{convX}) \right\}$. The set $S^\star$ is non-empty from the following: suppose $S^\star = \emptyset$. Then, $P^\star$ is a convex sum of terms $P_\sigma$ where each $\operatorname{Tr}(P_\sigma \widetilde{X}) < \operatorname{OPT}(\mathsf{convX})$, giving $\operatorname{Tr}(P^\star\widetilde{X}) < \operatorname{OPT}(\mathsf{convX})$ from linearity; but $\operatorname{OPT}(\mathsf{convX}) = \operatorname{Tr}(P^\star \widetilde{X})$ by definition. Thus we have that $P^\star = \sum_{\sigma \in S^\star}\alpha^\star_\sigma P_\sigma$, where $\alpha^\star_\sigma \in [0,1]$ and $\sum_{\sigma \in S^\star} \alpha^\star_\sigma = 1$. Clearly, any $P_\sigma$ for $\sigma \in S^\star$ is an optimal solution to $\mathsf{convX}$ and also an extreme point of $\mathcal{B}_n$, by definition.
+*Proof.* The set $$\mathcal{B}_n$$ is compact and $$\mathsf{convX}$$ is a maximisation problem over $$\mathcal{B}_n$$, so there is a solution to $$\mathsf{convX}$$, call it $$P^\star$$. We can write $$P^\star = \sum_{\sigma \in \mathbb{S}_n}\alpha^\star_\sigma P_\sigma$$ from the definition of $$\mathcal{B}_n$$, where $$\alpha^\star_\sigma \in [0,1]$$ and $$\sum_{\sigma \in \mathbb{S}_n} \alpha^\star_\sigma = 1$$. By linearity we have $$\operatorname{OPT}(\mathsf{convX}) = \operatorname{Tr}(P^\star \widetilde{X}) = \sum_{\sigma \in \mathbb{S}_n} \alpha^\star_\sigma \operatorname{Tr}(P_\sigma \widetilde{X})$$. 
+There is no $$\sigma \in \mathbb{S}_n$$ such that $$\operatorname{Tr}(P_\sigma \widetilde{X}) > \operatorname{OPT}(\mathsf{convX})$$, otherwise $$P^\star$$ is not optimal. Now, consider the set $$S^\star = \left\{\sigma \in \mathbb{S}_n \, \middle\vert \, \operatorname{Tr}(P_\sigma \widetilde{X}) = \operatorname{OPT}(\mathsf{convX}) \right\}$$. The set $$S^\star$$ is non-empty from the following: suppose $$S^\star = \emptyset$$. Then, $$P^\star$$ is a convex sum of terms $$P_\sigma$$ where each $$\operatorname{Tr}(P_\sigma \widetilde{X}) < \operatorname{OPT}(\mathsf{convX})$$, giving $$\operatorname{Tr}(P^\star\widetilde{X}) < \operatorname{OPT}(\mathsf{convX})$$ from linearity; but $$\operatorname{OPT}(\mathsf{convX}) = \operatorname{Tr}(P^\star \widetilde{X})$$ by definition. Thus we have that $$P^\star = \sum_{\sigma \in S^\star}\alpha^\star_\sigma P_\sigma$$, where $$\alpha^\star_\sigma \in [0,1]$$ and $$\sum_{\sigma \in S^\star} \alpha^\star_\sigma = 1$$. Clearly, any $$P_\sigma$$ for $$\sigma \in S^\star$$ is an optimal solution to $$\mathsf{convX}$$ and also an extreme point of $$\mathcal{B}_n$$, by definition.
 
 
-**Corollary.** $\operatorname{OPT}(\mathsf{X}) = \operatorname{OPT}(\mathsf{convX})$.
+**Corollary.** $$\operatorname{OPT}(\mathsf{X}) = \operatorname{OPT}(\mathsf{convX})$$.
 
-This is great news! We can find an extremal solution to $\mathsf{convX}$ and we will get the solution to $\mathsf{X}$ -- an optimal permutation. Since $\mathsf{convX}$ is a linear program we can solve it quickly. Moreover, typical LP solvers usually search through extreme points and give them as a solution, so we will most likely not need to work hard to project the returned $P^\star$ to the nearest extreme point of $\mathcal{B}_n$.
+This is great news! We can find an extremal solution to $$\mathsf{convX}$$ and we will get the solution to $$\mathsf{X}$$ -- an optimal permutation. Since $$\mathsf{convX}$$ is a linear program we can solve it quickly. Moreover, typical LP solvers usually search through extreme points and give them as a solution, so we will most likely not need to work hard to project the returned $$P^\star$$ to the nearest extreme point of $$\mathcal{B}_n$$.
 
 ### Implementation
 
@@ -914,7 +914,7 @@ print("optimal value", prob.value)
     optimal value -10.337805564701268
 
 
-We have optimal value! Let's take a look at the returned $P$ matrix.
+We have optimal value! Let's take a look at the returned $$P$$ matrix.
 
 
 ```python
@@ -924,12 +924,12 @@ plt.figure(figsize=(12, 4))
 plt.subplot(1, 2, 1)
 plt.matshow(P.value.T, cmap="binary", fignum=0)
 plt.colorbar();
-plt.title("optimal $P$\n");
+plt.title("optimal $$P$$\n");
 
 plt.subplot(1, 2, 2)
 plt.matshow(P.value.T, cmap="binary", fignum=0, norm=LogNorm(vmin=1e-12, vmax=1))
 plt.colorbar();
-plt.title("optimal $P$, log scale\n");
+plt.title("optimal $$P$$, log scale\n");
 ```
 
 
@@ -937,7 +937,7 @@ plt.title("optimal $P$, log scale\n");
 <img src="{{ "/assets/last_man_standing_files/last_man_standing_45_0.png" | prepend: site.baseurl }}" style="max-width:100%">
 </div>
 
-We see that it's not quite a $\{0,1\}$ permutation matrix, so let's round it and get the corrsponding team list.
+We see that it's not quite a $$\{0,1\}$$ permutation matrix, so let's round it and get the corrsponding team list.
 
 
 ```python
