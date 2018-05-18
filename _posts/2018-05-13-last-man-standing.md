@@ -410,7 +410,7 @@ $$X_{i,j} := p^{(i)}_j = \text{probability that team }j\text{ wins in week }i.$$
 
 
 ```python
-def build_X(league, teams, bookie_name)
+def build_X(league, teams, bookie_name):
     num_teams = len(teams)
     X = np.zeros( (2 * (num_teams - 1), num_teams))
     X_index = np.empty((2 * (num_teams - 1), num_teams), dtype=object)
@@ -1036,7 +1036,7 @@ result_df
 
 
 ```python
-np.exp(-10.337806 / -13.507041)
+np.exp(result_df["cvx"]['opt_value'] / result_df["greedy"]['opt_value'])
 ```
 
 
