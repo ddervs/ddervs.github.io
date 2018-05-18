@@ -46,9 +46,9 @@ $on-palm:          768px;
 }
 
 em {
-    font-style: italic;
+    font-style: italic; !important
 }
 
 .hack code {
-    font-weight: 500
+    font-weight: 500; !important
 }
