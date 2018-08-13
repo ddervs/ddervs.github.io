@@ -33,6 +33,7 @@ $(\Rightarrow)$ $\|U v \|^2_{2} = \langle v \lvert U^* U \lvert v \rangle =  \la
 $(\Leftarrow)$ Suppose $U$ preserves lengths. Let us first consider the $(j,j)$-th component of $U^* U$:
 
 $[U^* U]_{j,j_{}} = \langle e_j \lvert U^* U \lvert e_j \rangle = \| U e_j \|^2_{2_{}} = \| e_j \|^2_{2_{}} = 1,$
+
 with the third equality coming from the assumption that $U$ preserves length.
 
 Now let us consider the off diagonals of $U^* U$. Consider for $\theta \in [0, 2\pi)$ the expression
@@ -41,13 +42,15 @@ $$\| U (\lvert e_j \rangle + e^{i \theta} \lvert e_k \rangle ) \|^2_{2_{}} = \| 
 
 since $U$ preserves lengths. We can also directly expand the expression
 
-$$\| U (\lvert e_j \rangle + e^{i \theta} \lvert e_k \rangle ) \|^2_{2_{}} = (\langle e_j \lvert + e^{-i \theta} \langle e_k \lvert ) U^* U (\lvert e_j \rangle + e^{i \theta} \lvert e_k \rangle ) = \\ \langle \lvert e_j U^dagger U \lvert e_j \rangle + e^{-i \theta} \langle \lvert e_k U^dagger U \lvert e_j \rangle + e^{i \theta} \langle \lvert e_j U^dagger U \lvert e_k \rangle + \langle \lvert e_k U^dagger U \lvert e_k \rangle = 2 + e^{-i \theta} \langle \lvert e_k U^dagger U \lvert e_j \rangle + e^{i \theta} \langle \lvert e_j U^dagger U \lvert e_k \rangle.$$
+$$\| U (\lvert e_j \rangle + e^{i \theta} \lvert e_k \rangle ) \|^2_{2_{}} = (\langle e_j \lvert + e^{-i \theta} \langle e_k \lvert ) U^* U (\lvert e_j \rangle + e^{i \theta} \lvert e_k \rangle ) = \\ \langle e_j \lvert U^* U \lvert e_j \rangle + e^{-i \theta} \langle e_k \lvert U^* U \lvert e_j \rangle + e^{i \theta} \langle e_j \lvert U^* U \lvert e_k \rangle + \langle e_k \lvert U^* U \lvert e_k \rangle = 2 + e^{-i \theta} \langle e_k \lvert U^* U \lvert e_j \rangle + e^{i \theta} \langle e_j \lvert U^* U \lvert e_k \rangle.$$
 
 Thus, for $U$ to preserve length,
 
 $$e^{-i \theta} [U^* U]_{j,k_{}} + e^{i \theta} [U^* U]_{k,j_{}} = 0 \text{  for all  } \theta \in [0, 2\pi).$$
+
 Multiplying through by $e^{i \theta}$, we have
-$$ [U^* U]_{j,k_{}} + e^{2i \theta} [U^* U]_{k,j_{}} = 0 \\ - [U^* U]_{j,k_{}} = e^{2i \theta} [U^* U]_{k,j_{}} \\ [U^* U]_{j,k_{}} = e^{i(\theta + \pi)} [U^* U]_{k,j_{}}.$$
+
+$$ [U^* U]_{j,k_{}} + e^{2i \theta} [U^* U]_{k,j_{}} = 0 \\ \Longleftrightarrow - [U^* U]_{j,k_{}} = e^{2i \theta} [U^* U]_{k,j_{}} \\ \Longleftrightarrow [U^* U]_{j,k_{}} = e^{i(\theta + \pi)} [U^* U]_{k,j_{}}.$$
 
 Taking $\theta = 0$ gives $[U^* U]_{j,k_{}} = - [U^* U]_{k,j_{}}$ and taking $\theta = \pi /2$ gives $[U^* U]_{j,k_{}} = [U^* U]_{k,j_{}}$. Thus, $[U^* U]_{j,k_{}} = [U^* U]_{k,j_{}} = 0$ and we have the result.
 
