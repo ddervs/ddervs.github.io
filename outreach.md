@@ -7,6 +7,14 @@ permalink: outreach
 
 I try to involve myself in teaching at UCL as much as I can.
 
+- In August 2018, I gave a lecture for the [CDT in Quantum Technologies](www.uclq.org/centre-for-doctoral-training/) on [*Markov chains*](https://en.wikipedia.org/wiki/Markov_chain).
+Markov chains are a random process that is *memoryless*, that is, the next state of the system at hand only depends on the current state.
+ My written notes can be found [here](https://github.com/ddervs/ddervs.github.io/raw/master/assets/pdfs/MC_theory_talk.pdf).
+
+- In July 2018, I gave a seminar to the [Quantum CS group](https://quantum.cs.ucl.ac.uk) on [Szegedy quantum walks](https://en.wikipedia.org/wiki/Quantum_walk).
+Szegedy walks are the most general modern description of discrete-time quantum walks, the generalisation of classical random walks (Markov chains).
+ My written notes can be found [here](https://github.com/ddervs/ddervs.github.io/raw/master/assets/pdfs/szegedy_walks_talk.pdf).
+
 - I demonstrate for the [Principles of Programming course](http://www.cs.ucl.ac.uk/current_students/syllabus_index_2016_2017/undergrad/101p_principles_of_programming/) for the UCL Computer Science Department. This course is a first introduction to programming for undergraduates, using C.
 
 - I demonstrate for the [`MATLAB` course](http://ucl-cs-grad.github.io/matlabgrad/) for the UCL Computer Science Department. This course is designed to help graduate students unfamiliar with programming to be able to carry out and analyse the experiments for their research using `MATLAB`.

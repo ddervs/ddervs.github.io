@@ -1,0 +1,397 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"overl",
+				"\\overline{}"
+			],
+			[
+				"sup",
+				"\\supset"
+			],
+			[
+				"up",
+				"\\uplus"
+			],
+			[
+				"over",
+				"\\overline{}"
+			],
+			[
+				"em",
+				"\\emph"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "outreach.md",
+			"settings":
+			{
+				"buffer_size": 4718,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					""
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Traditional"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Script Builder"
+				]
+			],
+			[
+				"Packages/LaTeXTools/LaTeX.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"clean ",
+				"LaTeXTools: Clear document cache"
+			],
+			[
+				"pdf",
+				"LaTeXTools: View PDF"
+			],
+			[
+				"latex ",
+				"LaTeXTools: View PDF"
+			],
+			[
+				"latex",
+				"LaTeXTools: View PDF"
+			],
+			[
+				"thes",
+				"Thesaurus search"
+			],
+			[
+				"user settings",
+				"Preferences: Package Control Settings – User"
+			],
+			[
+				"late",
+				"LaTeXTools: View PDF"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Package Control: Install Package"
+			],
+			[
+				"build",
+				"Build With: LaTeX"
+			],
+			[
+				"thesu",
+				"Thesaurus search"
+			],
+			[
+				"buil",
+				"Build With: LaTeX - Traditional"
+			],
+			[
+				"pack",
+				"Package Control: Disable Package"
+			],
+			[
+				"packag",
+				"Preferences: Browse Packages"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				"setting",
+				"Preferences: Settings"
+			],
+			[
+				"view",
+				"LaTeXTools: View PDF"
+			],
+			[
+				"vinta",
+				"View: Toggle Minimap"
+			],
+			[
+				"Package Control: rem",
+				"Package Control: Remove Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Remove Package"
+			],
+			[
+				"actual",
+				"Preferences: Package Control Settings – Default"
+			],
+			[
+				"vintage",
+				"Package Control: Advanced Install Package"
+			],
+			[
+				"actu",
+				"ActualVim: Enable (Global)"
+			],
+			[
+				"act",
+				"ActualVim: Disable (Global)"
+			],
+			[
+				"",
+				"Build With: LaTeX - Basic Builder - XeLaTeX"
+			],
+			[
+				"Package Control: inst",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 164.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe013ee18cced0ef93d5f746d80ef60'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/danial/github/ddervs.github.io"
+	],
+	"file_history":
+	[
+		"/Users/danial/Dropbox (UCL)/DanialQML/constant_memory_and_hitting/constant_memory_and_hitting.tex",
+		"/Users/danial/Dropbox (UCL)/DanialQML/constant_memory_and_hitting/constant_memory_and_hitting_main_text.tex",
+		"/Users/danial/Dropbox (UCL)/DanialQML/Weak_Modular_Product/discrete_math_PWMPG/ms.tex",
+		"/Users/danial/Dropbox (UCL)/DanialQML/Weak_Modular_Product/GraphIso_Main_Text.tex",
+		"/Users/danial/Documents/UCL/CS_Quantum_webpage/talks.html",
+		"/Users/danial/Dropbox (UCL)/DanialQML/Weak_Modular_Product/Perfect_Weak_Modular_products.tex",
+		"/Users/danial/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings",
+		"/Users/danial/Library/Application Support/Sublime Text 3/Packages/User/LaTeXTools.sublime-settings",
+		"/Users/danial/Dropbox (UCL)/DanialQML/Weak_Modular_Product/isomorphic_graphs_product.pdf",
+		"/Users/danial/Library/Application Support/Sublime Text 3/Packages/Thesaurus/Thesaurus.sublime-settings",
+		"/Users/danial/Library/Application Support/Sublime Text 3/Packages/User/Thesaurus.sublime-settings",
+		"/Users/danial/Library/Application Support/Sublime Text 3/Packages/Package Control/Package Control.sublime-settings",
+		"/Users/danial/Library/Application Support/Sublime Text 3/Packages/User/ActualVim.sublime-settings",
+		"/Users/danial/Library/Application Support/Sublime Text 3/Packages/LaTeXTools/Default (OSX).sublime-keymap"
+	],
+	"find":
+	{
+		"height": 43.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": false,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "outreach.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4718,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								848,
+								848
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 31.0
+	},
+	"input":
+	{
+		"height": 43.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.latextools":
+	{
+		"height": 235.0
+	},
+	"pinned_build_system": "",
+	"project": "ddrevs.github.io.sublime-project",
+	"replace":
+	{
+		"height": 58.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 357.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
