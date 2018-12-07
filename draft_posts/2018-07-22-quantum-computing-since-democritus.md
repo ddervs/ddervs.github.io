@@ -56,6 +56,17 @@ Taking $\theta = 0$ gives $[U^* U]_{j,k_{}} = - [U^* U]_{k,j_{}}$ and taking $\t
 
 **Exercise 3.** *"The density matrix encodes all the information that could ever be obtained from some probability distribution over quantum states, by first applying a unitary operation, then measuring."* Why?
 
+**Solution.** Suppose we have a probabilistic ensemble of quantum states, $\{(p_i, \vert \psi_i \rangle)\}_{i\in[m]_{}}$. We apply a unitary $U$ to each state in the ensemble. We also have an arbitrary POVM given by $\{E_k\}_{k \in [K]_{}}$, where $\sum_{k \in [K]} E_k = I$ and the $E_k \succeq 0$. The probability of measuring outcome $k$ on a particular state $\vert \psi_i \rangle$ is $\langle \psi_i \vert U^* E_k U \vert \psi_i \rangle$, and so the probability of measuring $k$ over the ensemble is $\sum_{i \in [m]}p_i \langle \psi_i \vert U^* E_k U \vert \psi_i \rangle$.
+Consider the sum again
+
+$$\sum_{i \in [m]}p_i \langle \psi_i \vert U^* E_k U \vert \psi_i \rangle =  \sum_{i \in [m]}p_i \operatorname{Tr}\left( \langle \psi_i \vert U^* E_k U \vert \psi_i \rangle \right) \\ = \sum_{i \in [m]}p_i \operatorname{Tr}\left(  E_k U \vert \psi_i \rangle \langle \psi_i \vert U^* \right) \\ =   \operatorname{Tr}\left(  E_k U \left(\sum_{i \in [m]}p_i \vert \psi_i \rangle \langle \psi_i \vert \right) U^* \right),$$
+
+where in first equality we observe that the trace of a scalar is a scalar, the second equality we have used cyclicity of the trace and in the third the linearity of the trace.
+We then make the identification $\rho := \sum_{i \in [m]}p_i \vert \psi_i \rangle \langle \psi_i \vert$, where $\rho$ is now a *density matrix*.
+
+Since all we can or want to do is compute probabilities of specific measurement outcomes, we see that the density matrix picture encodes all of the information from the ensemble, upon applying a unitary and then a measurement.
+
+
 **Exercise 4.** Why does Gleason's theorem *not* work in two dimensions?
 
 **Exercise 5.** Prove that if a linear transformation other than a permutation or a negation of a subset of elements preserves the $p$-norm of an arbitrary vector, then either $p=1$ or $p=2$.
