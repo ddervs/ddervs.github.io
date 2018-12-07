@@ -3,6 +3,12 @@ layout: default
 permalink: outreach
 ---
 
+# Conference Talks
+
+- In November 2018, I gave a [talk](http://www.cs.ox.ac.uk/seminars/2130.html) at the [Oxford Quantum Computer Science group](http://www.cs.ox.ac.uk/activities/quantum/) on my paper on [lifted Markov chains and quantum walks](https://scirate.com/arxiv/1712.02318).
+
+- In April 2018 I gave a [talk](http://www.ams.org/meetings/sectional/2252_program_saturday.html#2252:SS13B) at the [American Mathematical Society Spring Eastern Sectional Meeting](http://www.ams.org/meetings/sectional/2252_program.html) on the same paper.
+
 # Teaching
 
 I try to involve myself in teaching at UCL as much as I can.
@@ -15,11 +21,11 @@ Markov chains are a random process that is *memoryless*, that is, the next state
 Szegedy walks are the most general modern description of discrete-time quantum walks, the generalisation of classical random walks (Markov chains).
  My written notes can be found [here](https://github.com/ddervs/ddervs.github.io/raw/master/assets/pdfs/szegedy_walks_talk.pdf).
 
-- I demonstrate for the [Principles of Programming course](http://www.cs.ucl.ac.uk/current_students/syllabus_index_2016_2017/undergrad/101p_principles_of_programming/) for the UCL Computer Science Department. This course is a first introduction to programming for undergraduates, using C.
-
-- I demonstrate for the [`MATLAB` course](http://ucl-cs-grad.github.io/matlabgrad/) for the UCL Computer Science Department. This course is designed to help graduate students unfamiliar with programming to be able to carry out and analyse the experiments for their research using `MATLAB`.
-
 - In March 2017, I gave a guest lecture for the Quantum Computation course in the [CDT in Quantum Technologies](www.uclq.org/centre-for-doctoral-training/) on the [*HHL algorithm*](https://en.wikipedia.org/wiki/Quantum_algorithm_for_linear_systems_of_equations). This is a quantum algorithm for solving linear systems of equations that under certain conditions is exponentially faster than any classical method. My typed notes can be found [here](https://github.com/ddervs/ddervs.github.io/raw/master/assets/pdfs/HHL.pdf).
+
+- In the 2017/18 academic year I demonstrated for the [Principles of Programming course](http://www.cs.ucl.ac.uk/current_students/syllabus_index_2016_2017/undergrad/101p_principles_of_programming/) for the UCL Computer Science Department. This course is a first introduction to programming for undergraduates, using C.
+
+- In the 2016/17 academic year I demonstrated for the [`MATLAB` course](http://ucl-cs-grad.github.io/matlabgrad/) for the UCL Computer Science Department. This course is designed to help graduate students unfamiliar with programming to be able to carry out and analyse the experiments for their research using `MATLAB`.
 
 # Outreach
 
