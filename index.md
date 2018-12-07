@@ -6,7 +6,7 @@ layout: default
                                    
 <img src="assets/photos/deep_art_danial.jpg" alt="ddervs_photo" style="width:20%; display: block; margin-left: auto; margin-right: auto;">
 
-Hi, I'm Dan. I'm a PhD student at the [UCL Department of Computer Science](http://www.cs.ucl.ac.uk/home/), supervised by [Prof Simone Severini](http://www.ucl.ac.uk/~ucapsse/), embedded in the [CS Quantum](https://quantum.cs.ucl.ac.uk) group. I am in the second cohort of the [EPSRC Centre for Doctoral Training in Delivering Quantum Technologies](www.uclq.org/centre-for-doctoral-training/).
+Hi, I'm Dan. I'm a PhD student at the [UCL Department of Computer Science](http://www.cs.ucl.ac.uk/home/), supervised by [Prof Simone Severini](http://www.ucl.ac.uk/~ucapsse/), embedded in the [CS Quantum](https://quantum.cs.ucl.ac.uk) group. I am in the second cohort of the [EPSRC Centre for Doctoral Training in Delivering Quantum Technologies](www.uclq.org/centre-for-doctoral-training/). I work part-time as a Machine Learning Engineer at [Curvestone](https://www.curvestone.io/).
 
 I'm interested in the following topics:
 
