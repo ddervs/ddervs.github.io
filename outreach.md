@@ -3,13 +3,15 @@ layout: default
 permalink: outreach
 ---
 
-# Conference Talks
+# Outreach
+
+## Conference Talks
 
 - In November 2018, I gave a [talk](http://www.cs.ox.ac.uk/seminars/2130.html) at the [Oxford Quantum Computer Science group](http://www.cs.ox.ac.uk/activities/quantum/) on my paper on [lifted Markov chains and quantum walks](https://scirate.com/arxiv/1712.02318).
 
 - In April 2018 I gave a [talk](http://www.ams.org/meetings/sectional/2252_program_saturday.html#2252:SS13B) at the [American Mathematical Society Spring Eastern Sectional Meeting](http://www.ams.org/meetings/sectional/2252_program.html) on the same paper.
 
-# Teaching
+## Teaching
 
 I try to involve myself in teaching at UCL as much as I can.
 
@@ -27,18 +29,18 @@ Szegedy walks are the most general modern description of discrete-time quantum w
 
 - In the 2016/17 academic year I demonstrated for the [`MATLAB` course](http://ucl-cs-grad.github.io/matlabgrad/) for the UCL Computer Science Department. This course is designed to help graduate students unfamiliar with programming to be able to carry out and analyse the experiments for their research using `MATLAB`.
 
-# Outreach
+## Public engagement
 
 I'm a big fan of communicating science to non-specialists. Here are some of the projects I've been involved with in public engagement.
 
-## Talks
+### Talks
 
 - In February 2018, I gave a talk to year 9 students about careers in science, as part of the [TechGirls](http://www.wearetechgirls.com) Challenge 2017. The talk was a small part of a larger event, in which the students got to experiment with the [IBM Quantum Experience](https://quantumexperience.ng.bluemix.net/qx/experience).
 
 - In February 2017, I gave a talk to a group of A-level students at [Graveney School](http://www.graveney.org) in Tooting, London. The talk was a general introduction to Quantum Computation, titled *The Future of Computing in a Quantum Age*. The slides can be found [here](https://github.com/ddervs/ddervs.github.io/raw/master/assets/pdfs/Graveney_Talk.pdf).
 
 
-## Quantum Secrets of Photosynthesis
+### Quantum Secrets of Photosynthesis
 
 My colleagues in [Alexandra Olaya-Castro's Group](http://www.ucl.ac.uk/~ucapaol/index.html) in the Physics department at UCL have an outreach programme for their research, the [Quantum Secrets of Photosynthesis](http://www.ucl.ac.uk/~ucapaol/outreach.html). They describe what they do most elegantly:
 >Our research aims to elucidate fundamental quantum principles underlying energy capture, transfer and conversion at the biomolecular level. 
