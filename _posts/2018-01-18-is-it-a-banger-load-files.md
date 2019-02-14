@@ -3,7 +3,7 @@ layout: post
 title: Is it a banger? Make your own dataset
 date: 2018-01-18 12:14:01
 author: ddervs
-short_description: The companion notebook to `is-it-a-banger`, this shows how to create the dataset used in the article.
+short_description: The companion notebook to is-it-a-banger, this shows how to create the dataset used in the article.
 ---
 
 These are some brief instructions on how to make the dataset I used in the article [Is it a banger?](https://nbviewer.jupyter.org/github/ddervs/is_it_a_banger/blob/master/scripts/is_it_a_banger.ipynb).

@@ -3,17 +3,13 @@ layout: default
 permalink: outreach
 ---
 
-# Outreach
+# Talks and Outreach
 
-## Conference Talks
+## Talks and Seminars
+
+- In February 2019, I gave a talk on the foundations of probability theory for the UCL Quantum Foundations reading group. The slides can be found [here](https://github.com/ddervs/ddervs.github.io/raw/master/assets/pdfs/foundations-of-probability.pdf).
 
 - In November 2018, I gave a [talk](http://www.cs.ox.ac.uk/seminars/2130.html) at the [Oxford Quantum Computer Science group](http://www.cs.ox.ac.uk/activities/quantum/) on my paper on [lifted Markov chains and quantum walks](https://scirate.com/arxiv/1712.02318).
-
-- In April 2018 I gave a [talk](http://www.ams.org/meetings/sectional/2252_program_saturday.html#2252:SS13B) at the [American Mathematical Society Spring Eastern Sectional Meeting](http://www.ams.org/meetings/sectional/2252_program.html) on the same paper.
-
-## Teaching
-
-I try to involve myself in teaching at UCL as much as I can.
 
 - In August 2018, I gave a lecture for the [CDT in Quantum Technologies](www.uclq.org/centre-for-doctoral-training/) on [*Markov chains*](https://en.wikipedia.org/wiki/Markov_chain).
 Markov chains are a random process that is *memoryless*, that is, the next state of the system at hand only depends on the current state.
@@ -22,6 +18,13 @@ Markov chains are a random process that is *memoryless*, that is, the next state
 - In July 2018, I gave a seminar to the [Quantum CS group](https://quantum.cs.ucl.ac.uk) on [Szegedy quantum walks](https://en.wikipedia.org/wiki/Quantum_walk).
 Szegedy walks are the most general modern description of discrete-time quantum walks, the generalisation of classical random walks (Markov chains).
  My written notes can be found [here](https://github.com/ddervs/ddervs.github.io/raw/master/assets/pdfs/szegedy_walks_talk.pdf).
+
+- In April 2018 I gave a [talk](http://www.ams.org/meetings/sectional/2252_program_saturday.html#2252:SS13B) at the [American Mathematical Society Spring Eastern Sectional Meeting](http://www.ams.org/meetings/sectional/2252_program.html) on my paper on [lifted Markov chains and quantum walks](https://scirate.com/arxiv/1712.02318).
+
+
+## Teaching
+
+I try to involve myself in teaching at UCL as much as I can.
 
 - In March 2017, I gave a guest lecture for the Quantum Computation course in the [CDT in Quantum Technologies](www.uclq.org/centre-for-doctoral-training/) on the [*HHL algorithm*](https://en.wikipedia.org/wiki/Quantum_algorithm_for_linear_systems_of_equations). This is a quantum algorithm for solving linear systems of equations that under certain conditions is exponentially faster than any classical method. My typed notes can be found [here](https://github.com/ddervs/ddervs.github.io/raw/master/assets/pdfs/HHL.pdf).
 
