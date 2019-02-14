@@ -1,6 +1,6 @@
 ---
 layout: default
-permalink: outreach
+permalink: talks-and-outreach
 ---
 
 # Talks and Outreach
