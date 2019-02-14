@@ -35,7 +35,7 @@ navigation:
     url: /blog
   - text: Papers
     url: /papers
-  - text: Talks and Outreach
+  - text: Talks
     url: /talks-and-outreach
   - text: Notes
     url: /notes            
