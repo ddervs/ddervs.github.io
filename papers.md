@@ -52,5 +52,5 @@ Here are some papers I've written with a high-level overview of what's in them. 
 - [Quantum Inspired Algorithms For Graph Matching (Master's Thesis).](https://github.com/ddervs/ddervs.github.io/raw/master/assets/pdfs/GraphKernels.pdf)
     - A *forest* graph is the *disjoint union* of tree graphs, where the disjoint union of two graphs can be thought of as just drawing them next to each other. A tree graph is a graph with no cycles.
     - A *threshold graph* is a graph that can be constructed from a one-vertex graph by repeated applications of the following two operations:
-        1. Addition of a single isolated vertex to the graph.
-        2. Addition of a single dominating vertex to the graph, i.e. a single vertex that is connected to all other vertices.
+        - 1. Addition of a single isolated vertex to the graph.
+        - 2. Addition of a single dominating vertex to the graph, i.e. a single vertex that is connected to all other vertices.
