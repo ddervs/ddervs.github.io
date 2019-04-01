@@ -12,7 +12,7 @@ Here are some papers I've written with a high-level overview of what's in them. 
     - *Short Summary:* This paper is based on the combination of two ideas: i) (by Kozen) finding a clique of a given size in a particular graph product tells you that the two underlying graphs are isomorphic. ii) (by Lovasz) finding cliques in perfect graphs is easy. The corollary is that if this product is perfect, telling if the two graphs are isomorphic is easy. I find all pairs of graphs for which the product is perfect.
 
 - [Quantum linear systems algorithms: a primer](https://scirate.com/arxiv/1802.08227)
-    - *Short summary* This is a review paper (written jointly with Mark Herbster, Peter Mountney, Simone Severini, Naïri Usher and Leonard Wossnig) focusing on algorithms for solving linear systems of equations on a quantum computer. The aim of the paper is to get a researcher in the field of classical linear systems solvers up to speed with the quantum algorithms used for this task.
+    - *Short summary:* This is a review paper (written jointly with Mark Herbster, Peter Mountney, Simone Severini, Naïri Usher and Leonard Wossnig) focusing on algorithms for solving linear systems of equations on a quantum computer. The aim of the paper is to get a researcher in the field of classical linear systems solvers up to speed with the quantum algorithms used for this task.
 
 - [For every quantum walk there is a (classical) lifted Markov chain with faster mixing time](https://scirate.com/arxiv/1712.02318)
     - *Short Summary:* Drawing samples from a probability distribution is an important computational task, used in fields such as randomised algorithms and machine learning. Quantum walks are an approach using a quantum computer that aim to speed up this task. In this paper I show that there is a classical method that is in some sense superior, that is, a random walk that mixes in fewer timesteps, using a technique called _lifting_.    
@@ -21,6 +21,9 @@ Here are some papers I've written with a high-level overview of what's in them. 
     - *Short Summary:* Graph kernels are a method for recognising patterns in data defined as graphs. In this work I define a graph kernel inspired by the theory of quantum walks, that compares favourably with state of the art* methods in graph classification.
     
         <sub style="font-size:60%">\*at the time of writing. This probably isn't true anymore in a field that moves so quickly... 😕</sub>
+
+- [Constructing graphs with limited resources](https://scirate.com/arxiv/1802.09844)
+    - *Short Summary:* This paper (coauthored with Simone Severini and Avinash Mocherla) considers the information inherent in creating graphs. We examine how instructions, memory and randomness can be used top create graphs such as forests and threshold graphs and find bounds on the minimal amounts of these resources needed to create such graphs (amongst others). 
  
  ----
  <a name="notes"></a>
@@ -45,3 +48,9 @@ Here are some papers I've written with a high-level overview of what's in them. 
      - A *graph kernel* is a function that takes two graphs and outputs a number that tells you how similar they are. 
      - A *quantum walk* describes the motion of a quantum particle on a graph structure and is used in many quantum algorithms. This work is a classical algorithm using the mathematics describing a quantum walk. 
      - The task of *graph classification* is a machine learning task where we are given a large number of graphs, each with a known label, say `yes` or `no`. Then, given all this data the computer's job is to classify new graphs as `yes`/`no` as quickly and accurately as possible.
+
+- [Quantum Inspired Algorithms For Graph Matching (Master's Thesis).](https://github.com/ddervs/ddervs.github.io/raw/master/assets/pdfs/GraphKernels.pdf)
+    - A *forest* graph is the *disjoint union* of tree graphs, where the disjoint union of two graphs can be thought of as just drawing them next to each other. A tree graph is a graph with no cycles.
+    - A *threshold graph* is a graph that can be constructed from a one-vertex graph by repeated applications of the following two operations:
+        1. Addition of a single isolated vertex to the graph.
+        2. Addition of a single dominating vertex to the graph, i.e. a single vertex that is connected to all other vertices.
