@@ -19,4 +19,4 @@ I'm interested in the following topics:
 I really enjoy teaching, lecturing and scientific outreach.
 
 
-I also program in various languages (check out my [GitHub profile](https://github.com/ddervs)), mainly `python`, `MATLAB` and `C++`. I am the webmaster for my research group's website, [https://quantum.cs.ucl.ac.uk](https://quantum.cs.ucl.ac.uk).
+I also program in various languages (check out my [GitHub profile](https://github.com/ddervs)), mainly `python`, `MATLAB` and `C++`.
