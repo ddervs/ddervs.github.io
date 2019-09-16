@@ -7,6 +7,8 @@ permalink: talks-and-outreach
 
 ## Talks and Seminars
 
+- In July 2019, I presented a short introduction on quantum computation to the Data Science team at Tesco. Slides can be found [here](https://github.com/ddervs/ddervs.github.io/raw/master/assets/pdfs/QC_short_intro.pdf)
+
 - In February 2019, I gave a talk on the foundations of probability theory for the UCL Quantum Foundations reading group. The slides can be found [here](https://github.com/ddervs/ddervs.github.io/raw/master/assets/pdfs/foundations-of-probability.pdf).
 
 - In November 2018, I gave a [talk](http://www.cs.ox.ac.uk/seminars/2130.html) at the [Oxford Quantum Computer Science group](http://www.cs.ox.ac.uk/activities/quantum/) on my paper on [lifted Markov chains and quantum walks](https://scirate.com/arxiv/1712.02318).
