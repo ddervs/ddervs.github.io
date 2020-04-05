@@ -8,6 +8,9 @@ Papers
 
 Here are some papers I've written with a high-level overview of what's in them. I've included a [notes](#notes) section at the bottom of the page to help unpack the jargon.
 
+- [Get Real: Realism Metrics for Robust Limit Order Book Market Simulations](https://scirate.com/arxiv/1912.04941)
+    - *Short Summary:* This paper (written jointly with Svitlana Vyetrenko, David Byrd, Nick Petosa, Mahmoud Mahfouz, Danial Dervovic, Manuela Veloso and Tucker Hybinette Balch) is a realism study of the open-source limit order book simulation [ABIDES](https://github.com/abides-sim/abides). The more realistic the simulation is, the more we can trust downstream tasks depending on the simulator, e.g. machine learning models for trading. We show that the simulator follows many stylised facts of real markets, but requires improvement in certain areas.
+
 - [Perfect weak modular product graphs](https://scirate.com/arxiv/1809.09939)
     - *Short Summary:* This paper is based on the combination of two ideas: i) (by Kozen) finding a clique of a given size in a particular graph product tells you that the two underlying graphs are isomorphic. ii) (by Lovasz) finding cliques in perfect graphs is easy. The corollary is that if this product is perfect, telling if the two graphs are isomorphic is easy. I find all pairs of graphs for which the product is perfect.
 
@@ -28,6 +31,10 @@ Here are some papers I've written with a high-level overview of what's in them. 
  ----
  <a name="notes"></a>
  ## Notes on papers
+
+ - [Get Real: Realism Metrics for Robust Limit Order Book Market Simulations](https://scirate.com/arxiv/1912.04941)
+    - A *limit order book* simulator is a program that simulates the [continuous double auction](https://en.wikipedia.org/wiki/Double_auction) mechanism found in most large-scale securities markets, wherein traders place buy and sell orders at different prices in an order book continuously over a day. 
+    - *Stylised facts* are statistical properties that are widely observed but are not defined rigorously, for instance using a $p$-value or a confidence interval. One might ask: why not show more rigorous properties of our simulator? The answer is that inherent noise in the markets mean it is rare to be able to make rigorous statistical statements even about historical market data -- the best we have is stylised facts to compare against.
 
  - [Perfect weak modular product graphs](https://scirate.com/arxiv/1809.09939)
      - A *graph product* is a particular way of combining two graphs to form a larger graph, with edges on the larger graph being present only if certain conditions are satisfied by the edges in the two underlying (factor) graphs.
