@@ -8,8 +8,36 @@ Papers
 
 Here are some papers I've written with a high-level overview of what's in them. I've included a [notes](#notes) section at the bottom of the page to help unpack the jargon.
 
-- [Get Real: Realism Metrics for Robust Limit Order Book Market Simulations](https://scirate.com/arxiv/1912.04941)
+- [Optimal Admission Control for Multiclass Queues with Time-Varying Arrival Rates via State Abstraction](https://arxiv.org/abs/2203.08019)
+    - *Short Summary:* This paper is about solving the problem of deciding in real-time which of a incoming deluge of tasks one should choose to take on, in the setting where there are $N$ workers available to do the tasks and there are far too many tasks for there to be any hope of doing all of them. Accepted to [AAAI 2022](https://aaai.org/Conferences/AAAI-22/).
+    - *Co-authors:* Marc Rigter, Parisa Hassanzadeh, Jason Long, Parisa Zehtabi, Daniele Magazzeni.
+
+- [Counterfactual Shapley Additive Explanations](https://arxiv.org/abs/2110.14270)
+    - *Short Summary:* In this work we propose a modification to the popular [SHAP](https://github.com/slundberg/shap) framework for Machine Learning model explanations, where our modification (Counterfactual Shapley) helps the consumer of the explanations change undesirable outcomes induced by the model. Accepted to [FAccT 2022](https://facctconference.org/2022/).
+    - *Co-authors:* Emanuele Albini, Jason Long, Daniele Magazzeni.
+
+- [Tradeoffs in Streaming Binary Classification under Limited Inspection Resources](https://arxiv.org/abs/2110.02403)
+    - *Short Summary:* This work studies in detail the problem of *imbalanced classification*, where a machine learning model has to make yes/no decisions but the number of yes instances is very small compared to the number of no instances. We study the trade-offs that occur when you are only allowed to make a restricted number of yes/no decisions and the implications of this on the performance of the system. Accepted to [ICAIF 2021](https://ai-finance.org/icaif21/).
+    - *Co-authors:* Parisa Hassanzadeh, Samuel Assefa, Prashant Reddy, Manuela Veloso.
+
+- [Counterfactual Explanations for Arbitrary Regression Models](https://arxiv.org/abs/2106.15212)
+    - *Short Summary:* *Counterfactual Explanations* are a fancy phrase for a targeted "what-if?" scenario. The standard example is: if I am denied a loan by some model, what would I have to change about my circumstances to not be denied that loan? We extend this notion to *regression models*, i.e. those models whose output is a real number, not a simple yes/no. We characterise what is unique about this setting compared to the binary yes/no setting and derive optimal algorithms for finding these explanations.
+    - *Co-authors:*  Thomas Spooner, Jason Long, Jon Shepard, Jiahao Chen, Daniele Magazzeni.
+
+- [Non-Parametric Stochastic Sequential Assignment With Random Arrival Times](https://arxiv.org/abs/2106.04944)
+    - *Short Summary:* This paper is about solving the problem of deciding in real-time which of a incoming deluge of tasks one should choose to take on, in the setting where we can only choose to take on $n$ tasks over the course of a day and there are far more than $n$ tasks to choose from. Accepted to [IJCAI 2021](https://ijcai-21.org/).
+    - *Co-authors:*  Parisa Hassanzadeh, Samuel Assefa, Prashant Reddy.
+
+- [Calibrating Over-Parametrized Simulation Models: A Framework via Eligibility Set](https://arxiv.org/abs/2105.12893)
+    - *Short Summary:* This paper tackles some technical issues inherent to *simulation calibration*, namely that if we have a complex simulation and are trying to match its output to observed data, there are many possible ways to do this and still have a convincing output. The paper proposes systematic solutions to this problem.
+    - *Co-authors:*  Yuanlu Bai, Tucker Balch, Haoxian Chen, Henry Lam, Svitlana Vyetrenko.
+
+- [Get Real: Realism Metrics for Robust Limit Order Book Market Simulations](https://dl.acm.org/doi/abs/10.1145/3383455.3422561)
     - *Short Summary:* This paper (written jointly with Svitlana Vyetrenko, David Byrd, Nick Petosa, Mahmoud Mahfouz, Manuela Veloso and Tucker Hybinette Balch) is a realism study of the open-source limit order book simulation [ABIDES](https://github.com/abides-sim/abides). The more realistic the simulation is, the more we can trust downstream tasks depending on the simulator, e.g. machine learning models for trading. We show that the simulator follows many stylised facts of real markets, but requires improvement in certain areas.
+
+- [Generating synthetic data in finance: opportunities, challenges and pitfalls](https://dl.acm.org/doi/abs/10.1145/3383455.3422554)
+    - *Short Summary:* This is a review paper about how the capability of generating synthetic data can be useful for the financial industry and which domains are worth focusing on for the research community.
+    - *Co-authors:* Samuel A Assefa, Mahmoud Mahfouz, Robert E Tillman, Prashant Reddy, Manuela Veloso.
 
 - [Perfect weak modular product graphs](https://scirate.com/arxiv/1809.09939)
     - *Short Summary:* This paper is based on the combination of two ideas: i) (by Kozen) finding a clique of a given size in a particular graph product tells you that the two underlying graphs are isomorphic. ii) (by Lovasz) finding cliques in perfect graphs is easy. The corollary is that if this product is perfect, telling if the two graphs are isomorphic is easy. I find all pairs of graphs for which the product is perfect.
@@ -23,7 +51,7 @@ Here are some papers I've written with a high-level overview of what's in them. 
 - [Quantum Inspired Algorithms For Graph Matching (Master's Thesis).](https://github.com/ddervs/ddervs.github.io/raw/master/assets/pdfs/GraphKernels.pdf)
     - *Short Summary:* Graph kernels are a method for recognising patterns in data defined as graphs. In this work I define a graph kernel inspired by the theory of quantum walks, that compares favourably with state of the art* methods in graph classification.
     
-        <sub style="font-size:60%">\*at the time of writing. This probably isn't true anymore in a field that moves so quickly... 😕</sub>
+        <sub style="font-size:60%">\*at the time of writing. This definitely isn't true anymore in a field that moves so quickly... 😕</sub>
 
 - [Constructing graphs with limited resources](https://scirate.com/arxiv/1802.09844)
     - *Short Summary:* This paper (coauthored with Simone Severini and Avinash Mocherla) considers the information inherent in creating graphs. We examine how instructions, memory and randomness can be used top create graphs such as forests and threshold graphs and find bounds on the minimal amounts of these resources needed to create such graphs (amongst others). 
