@@ -4,7 +4,7 @@ layout: default
 
 # About
                                    
-<img src="assets/photos/dallemini_cropped.png" alt="ddervs_photo" style="width:100%; display: block; margin-left: auto; margin-right: auto;">
+<!-- <img src="assets/photos/dallemini_cropped.png" alt="ddervs_photo" style="width:100%; display: block; margin-left: auto; margin-right: auto;"> -->
 
 Hi, I'm Dan. I work for the [J.P. Morgan AI Research lab](https://www.jpmorgan.com/global/technology/artificial-intelligence) where I work on a mixture of research questions and concrete applications of AI in Finance. 
 
