@@ -3,10 +3,26 @@ layout: default
 permalink: papers
 ---
 
-Papers
-======
+Selected Papers
+===============
 
 Here are some papers I've written with a high-level overview of what's in them. I've included a [notes](#notes) section at the bottom of the page to help unpack the jargon.
+
+- [Model Evaluation in the Dark: Robust Classifier Metrics with Missing Labels](https://arxiv.org/abs/2504.18385)
+  - *Short Summary:* When evaluating a deployed Machine Learning model in the real world often we don't have the labels for all the data points at the time we want to know the evaluation. In this paper we demonstrate that a technique called *multiple imputation* can give reliable estimates for evaluation metrics when the labels are missing at test-time. Accepted to [AISTATS 2025](https://aistats.org/aistats2025//).
+  - *Co-authors:* Michael Cashmore.
+
+- [Are Logistic Models Really Interpretable?](https://arxiv.org/abs/2406.13427)
+  - *Short Summary:* This paper is about the *logistic function*, or S-curve. Many models in statistics and machine learning use this a *link function*, a way to squeeze the output of a linear function into the $[0, 1]$ interval so it can be interpreted as a probability. We argue that this isn't very user-friendly, presenting an alternative called *Linearised Additive Models (LAMs)*  and show with a User Study that humans can reason about LAMs more effectively. Accepted to [IJCAI 2024](https://ijcai24.org/index.html).
+  - *Co-authors:* Freddy Lécué, Nicolás Marchesotti, Daniele Magazzeni.
+
+- [Bounding the excess risk for linear models trained on marginal-preserving, differentially-private, synthetic data](https://arxiv.org/abs/2402.04375)
+  - *Short Summary:* For sensitive applications, it makes sense to train predictive models on *synthetic data* to protect the information in the original dataset. This paper shows the first theoretical bounds on the error incurred by training models in this way using a data obfuscation technique called *differential privacy*. Accepted at [ICML 2024](https://dl.acm.org/doi/proceedings/10.5555/3692070).
+  - *Co-authors:* Yvonne Zhou, Mingyu Liang, Ivan Brugere, Dana Dachman-Soled, Antigoni Polychroniadou, Min Wu.
+
+- [Cross-Domain Graph Data Scaling: A Showcase with Diffusion Models](https://arxiv.org/abs/2406.01899)
+  - *Short Summary:* This paper presents UniAug, a model trained on many diverse graphs to generate new, realistic graph structures for downstream tasks using a *diffusion model*. These generated structures consistently improve performance on node, link, and graph prediction problems. UniAug benefits from scaling; more training data leads to stronger results. Accepted to [NeurIPS 2025](https://neurips.cc/)
+  - *Co-authors:* Wenzhuo Tang, Haitao Mao, Ivan Brugere, Saumitra Mishra, Yuying Xie, Jiliang Tang 
 
 - [Optimal Admission Control for Multiclass Queues with Time-Varying Arrival Rates via State Abstraction](https://arxiv.org/abs/2203.08019)
     - *Short Summary:* This paper is about solving the problem of deciding in real-time which of a incoming deluge of tasks one should choose to take on, in the setting where there are $N$ workers available to do the tasks and there are far too many tasks for there to be any hope of doing all of them. Accepted to [AAAI 2022](https://aaai.org/Conferences/AAAI-22/).
@@ -29,7 +45,7 @@ Here are some papers I've written with a high-level overview of what's in them. 
     - *Co-authors:*  Parisa Hassanzadeh, Samuel Assefa, Prashant Reddy.
 
 - [Calibrating Over-Parametrized Simulation Models: A Framework via Eligibility Set](https://arxiv.org/abs/2105.12893)
-    - *Short Summary:* This paper tackles some technical issues inherent to *simulation calibration*, namely that if we have a complex simulation and are trying to match its output to observed data, there are many possible ways to do this and still have a convincing output. The paper proposes systematic solutions to this problem.
+    - *Short Summary:* This paper tackles some technical issues inherent to *simulation calibration*, namely that if we have a complex simulation and are trying to match its output to observed data, there are many possible ways to do this and still have a convincing output. The paper proposes systematic solutions to this problem. Published in [ACM Transactions on Modeling and Computer Simulation](https://dl.acm.org/journal/tomacs).
     - *Co-authors:*  Yuanlu Bai, Tucker Balch, Haoxian Chen, Henry Lam, Svitlana Vyetrenko.
 
 - [Get Real: Realism Metrics for Robust Limit Order Book Market Simulations](https://dl.acm.org/doi/abs/10.1145/3383455.3422561)
@@ -59,7 +75,11 @@ Here are some papers I've written with a high-level overview of what's in them. 
  ----
  <a name="notes"></a>
  ## Notes on papers
+ - [Bounding the excess risk for linear models trained on marginal-preserving, differentially-private, synthetic data](https://arxiv.org/abs/2402.04375)
+    - *Differential privacy* protects individual data by adding small, random noise to the results of analyses. This keeps the overall insights accurate while making it very hard to tell whether any specific person’s data was included. The noise is added in a specific way such that there are rigorous mathematical guarantees on how safe the underlying data is.
 
+ - [Cross-Domain Graph Data Scaling: A Showcase with Diffusion Models](https://arxiv.org/abs/2406.01899)
+   - [*Diffusion models*](https://en.wikipedia.org/wiki/Diffusion_model) are generative models that learn to create data by reversing a gradual noising process. During training, they learn how data looks at many noise levels; during generation, they start from pure noise and iteratively remove it to produce a coherent sample. They have become popular because they generate high-quality images, audio, and other data with strong stability and detail.
  - [Get Real: Realism Metrics for Robust Limit Order Book Market Simulations](https://scirate.com/arxiv/1912.04941)
     - A *limit order book* simulator is a program that simulates the [continuous double auction](https://en.wikipedia.org/wiki/Double_auction) mechanism found in most large-scale securities markets, wherein traders place buy and sell orders at different prices in an order book continuously over a day. 
     - *Stylised facts* are statistical properties that are widely observed but are not defined rigorously, for instance using a $p$-value or a confidence interval. One might ask: why not show more rigorous properties of our simulator? The answer is that inherent noise in the markets mean it is rare to be able to make rigorous statistical statements even about historical market data -- the best we have is stylised facts to compare against.
@@ -84,7 +104,7 @@ Here are some papers I've written with a high-level overview of what's in them. 
      - A *quantum walk* describes the motion of a quantum particle on a graph structure and is used in many quantum algorithms. This work is a classical algorithm using the mathematics describing a quantum walk. 
      - The task of *graph classification* is a machine learning task where we are given a large number of graphs, each with a known label, say `yes` or `no`. Then, given all this data the computer's job is to classify new graphs as `yes`/`no` as quickly and accurately as possible.
 
-- [Quantum Inspired Algorithms For Graph Matching (Master's Thesis).](https://github.com/ddervs/ddervs.github.io/raw/master/assets/pdfs/GraphKernels.pdf)
+- [Constructing graphs with limited resources.](https://scirate.com/arxiv/1802.09844)
     - A *forest* graph is the *disjoint union* of tree graphs, where the disjoint union of two graphs can be thought of as just drawing them next to each other. A tree graph is a graph with no cycles.
     - A *threshold graph* is a graph that can be constructed from a one-vertex graph by repeated applications of the following two operations:
         - 1. Addition of a single isolated vertex to the graph.
