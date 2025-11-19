@@ -20,4 +20,4 @@ I'm broadly interested in the following topics:
 - Quantum Computation
 - Missing Data Problems
 
-Please take a look at the [Papers](papers.md) section of this site and my [Google Scholar page](https://scholar.google.com/citations?user=ttWrIOcAAAAJ&hl=en) if you're interested in publicly available research I've done. The [Blog](blog.html) has some fun articles, most of which I wrote in 2018. Maybe one day I'll have time to write some more!
+Please take a look at the [Papers](papers.md) section of this site and my [Google Scholar page](https://scholar.google.com/citations?user=ttWrIOcAAAAJ&hl=en) if you're interested in publicly available research I've done. I am also on [LinkedIn](https://uk.linkedin.com/in/danial-dervovic). The [Blog](blog.html) has some fun articles, most of which I wrote in 2018. Maybe one day I'll have time to write some more!
