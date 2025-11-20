@@ -2,7 +2,7 @@
 layout: default
 ---
 
-# About
+# Danial Dervovic
                                    
 <!-- <img src="assets/photos/dallemini_cropped.png" alt="ddervs_photo" style="width:100%; display: block; margin-left: auto; margin-right: auto;"> -->
 
