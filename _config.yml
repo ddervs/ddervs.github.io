@@ -63,6 +63,9 @@ social:
   - service: linkedin
     username: danial-dervovic
     link: http://linkedin.com/in/danial-dervovic
+  - service: googlescholar
+    username: danialdervovic
+    link: https://scholar.google.com/citations?hl=en&user=ttWrIOcAAAAJ
 
 # Plugins
 gems:
