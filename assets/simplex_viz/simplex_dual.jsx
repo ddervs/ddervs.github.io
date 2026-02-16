@@ -4,14 +4,14 @@ const { useState, useEffect, useCallback, useMemo } = React;
 SIMPLEX SOLVER — generates animation steps
 ============================================================ */
 
-const SUBS = [“₁”,“₂”,“₃”,“₄”,“₅”,“₆”,“₇”];
+const SUBS = ["₁","₂","₃","₄","₅","₆","₇"];
 
 function varName(idx, m) {
 if (idx < 2) return `x${SUBS[idx]}`;
 return `s${SUBS[idx - 2]}`;
 }
 
-function cloneTab(tab) { return tab.map(r => […r]); }
+function cloneTab(tab) { return tab.map(r => [...r]); }
 
 function getVertex(basic, tableau, m) {
 let x1 = 0, x2 = 0;
@@ -52,27 +52,27 @@ obj.push(0);
 
 const colNames = [];
 for (let i = 0; i < n; i++) colNames.push(varName(i, m));
-colNames.push(“RHS”);
+colNames.push("RHS");
 
 // For display: the actual objective value shown to user
 const displayObj = (rawVal) => isMin ? -rawVal : rawVal;
 
 const snap = () => ({
 rows: cloneTab(tab),
-obj: […obj],
+obj: [...obj],
 basic: basic.map(b => varName(b, m)),
-basicIdx: […basic],
+basicIdx: [...basic],
 });
 
 const vertex = () => getVertex(basic, tab, m);
 
 const allPaths = [vertex()];
 steps.push({
-phase: “init”,
-title: “Initial Setup”,
+phase: "init",
+title: "Initial Setup",
 desc: `Start at the origin. All slack variables are basic: ${basic.map(b => varName(b,m)).join(", ")}. Non-basic variables x₁ = x₂ = 0.${isMin ? " (Internally converted to maximization by negating the objective.)" : ""}`,
 vertex: vertex(),
-path: […allPaths],
+path: [...allPaths],
 tableau: snap(),
 highlight: null,
 objValue: displayObj(obj[n]),
@@ -218,12 +218,12 @@ iteration++;
 
 const v = vertex();
 steps.push({
-phase: “error”, title: “Max Iterations Reached”,
-desc: “Solver hit iteration limit.”,
-vertex: v, path: […allPaths], tableau: snap(),
+phase: "error", title: "Max Iterations Reached",
+desc: "Solver hit iteration limit.",
+vertex: v, path: [...allPaths], tableau: snap(),
 highlight: null, objValue: displayObj(obj[n]), dualValues: getDualValues(obj, m),
 });
-return { steps, colNames, m, error: “max_iter” };
+return { steps, colNames, m, error: "max_iter" };
 }
 
 /* ============================================================
@@ -283,8 +283,8 @@ FORMATTING
 ============================================================ */
 
 function fmtNum(v) {
-if (v == null || !isFinite(v)) return “∞”;
-if (Math.abs(v) < 1e-10) return “0”;
+if (v == null || !isFinite(v)) return "∞";
+if (Math.abs(v) < 1e-10) return "0";
 if (Math.abs(v - Math.round(v)) < 1e-6) {
 const r = Math.round(v);
 return r < 0 ? `−${Math.abs(r)}` : `${r}`;
@@ -293,7 +293,7 @@ return v < 0 ? `−${Math.abs(v).toFixed(2)}` : v.toFixed(2);
 }
 
 function fmtSigned(v) {
-if (Math.abs(v) < 1e-10) return “+ 0”;
+if (Math.abs(v) < 1e-10) return "+ 0";
 if (v > 0) return `+ ${fmtNum(v)}`;
 return `− ${fmtNum(Math.abs(v))}`;
 }
@@ -305,35 +305,35 @@ TABLEAU COMPONENT
 function getCellStyle(highlight, rowType, rowIdx, colIdx) {
 if (!highlight) return {};
 const h = highlight;
-const isEntering = h.type === “entering” && colIdx === h.col;
-const isPivotElement = h.type === “ratio” && colIdx === h.col && rowIdx === h.pivotRow && rowType === “row”;
-const isRatioCol = h.type === “ratio” && colIdx === h.col;
-const isPivotRowHL = h.type === “pivotRow” && (
-(h.row === “obj” && rowType === “obj”) || (h.row === rowIdx && rowType === “row”)
+const isEntering = h.type === "entering" && colIdx === h.col;
+const isPivotElement = h.type === "ratio" && colIdx === h.col && rowIdx === h.pivotRow && rowType === "row";
+const isRatioCol = h.type === "ratio" && colIdx === h.col;
+const isPivotRowHL = h.type === "pivotRow" && (
+(h.row === "obj" && rowType === "obj") || (h.row === rowIdx && rowType === "row")
 );
-const isShadow = h.type === “shadow” && h.cols?.includes(colIdx) && rowType === “obj”;
-if (isPivotElement) return { background: “#ff6b35”, color: “#fff”, fontWeight: 700 };
-if (isPivotRowHL) return { background: “#2d5a27”, color: “#e8f5e1” };
-if (isShadow) return { background: “#b45309”, color: “#fef3c7”, fontWeight: 700 };
-if (isEntering && rowType === “obj”) return { background: “#1e40af”, color: “#dbeafe”, fontWeight: 700 };
-if (isEntering || isRatioCol) return { background: “rgba(30, 64, 175, 0.12)” };
+const isShadow = h.type === "shadow" && h.cols?.includes(colIdx) && rowType === "obj";
+if (isPivotElement) return { background: "#ff6b35", color: "#fff", fontWeight: 700 };
+if (isPivotRowHL) return { background: "#2d5a27", color: "#e8f5e1" };
+if (isShadow) return { background: "#b45309", color: "#fef3c7", fontWeight: 700 };
+if (isEntering && rowType === "obj") return { background: "#1e40af", color: "#dbeafe", fontWeight: 700 };
+if (isEntering || isRatioCol) return { background: "rgba(30, 64, 175, 0.12)" };
 return {};
 }
 
 function Tableau({ stepData, colNames }) {
 const { tableau, highlight } = stepData;
-const showRatios = highlight?.type === “ratio”;
+const showRatios = highlight?.type === "ratio";
 return (
-<div style={{ overflowX: “auto” }}>
-<table style={{ borderCollapse: “collapse”, width: “100%”, fontFamily: “monospace”, fontSize: 12 }}>
+<div style={{ overflowX: "auto" }}>
+<table style={{ borderCollapse: "collapse", width: "100%", fontFamily: "monospace", fontSize: 12 }}>
 <thead>
 <tr>
 <th style={thS}></th>
 {colNames.map((c, i) => (
 <th key={i} style={{
-…thS,
-…(highlight?.type === “entering” && i === highlight.col ? { background: “#1e40af”, color: “#dbeafe” } : {}),
-…(highlight?.type === “shadow” && highlight.cols?.includes(i) ? { background: “#b45309”, color: “#fef3c7” } : {}),
+...thS,
+...(highlight?.type === "entering" && i === highlight.col ? { background: "#1e40af", color: "#dbeafe" } : {}),
+...(highlight?.type === "shadow" && highlight.cols?.includes(i) ? { background: "#b45309", color: "#fef3c7" } : {}),
 }}>{c}</th>
 ))}
 {showRatios && <th style={thS}>Ratio</th>}
@@ -342,23 +342,23 @@ return (
 <tbody>
 {tableau.rows.map((row, ri) => (
 <tr key={ri}>
-<td style={{ …tdS, fontWeight: 700, color: “#94a3b8”, background: “#0c1222” }}>{tableau.basic[ri]}</td>
+<td style={{ ...tdS, fontWeight: 700, color: "#94a3b8", background: "#0c1222" }}>{tableau.basic[ri]}</td>
 {row.map((v, ci) => (
-<td key={ci} style={{ …tdS, …getCellStyle(highlight, “row”, ri, ci) }}>{fmtNum(v)}</td>
+<td key={ci} style={{ ...tdS, ...getCellStyle(highlight, "row", ri, ci) }}>{fmtNum(v)}</td>
 ))}
 {showRatios && (
-<td style={{ …tdS, color: ri === highlight.pivotRow ? “#fb923c” : “#64748b”,
-fontWeight: ri === highlight.pivotRow ? 700 : 400, fontSize: 10, whiteSpace: “nowrap”,
+<td style={{ ...tdS, color: ri === highlight.pivotRow ? "#fb923c" : "#64748b",
+fontWeight: ri === highlight.pivotRow ? 700 : 400, fontSize: 10, whiteSpace: "nowrap",
 }}>{highlight.ratios[ri]}</td>
 )}
 </tr>
 ))}
 <tr>
-<td style={{ …tdS, fontWeight: 700, color: “#94a3b8”, background: “#0c1222”, borderTop: “2px solid #334155” }}>z</td>
+<td style={{ ...tdS, fontWeight: 700, color: "#94a3b8", background: "#0c1222", borderTop: "2px solid #334155" }}>z</td>
 {tableau.obj.map((v, ci) => (
-<td key={ci} style={{ …tdS, borderTop: “2px solid #334155”, …getCellStyle(highlight, “obj”, null, ci) }}>{fmtNum(v)}</td>
+<td key={ci} style={{ ...tdS, borderTop: "2px solid #334155", ...getCellStyle(highlight, "obj", null, ci) }}>{fmtNum(v)}</td>
 ))}
-{showRatios && <td style={{ …tdS, borderTop: “2px solid #334155” }}></td>}
+{showRatios && <td style={{ ...tdS, borderTop: "2px solid #334155" }}></td>}
 </tr>
 </tbody>
 </table>
@@ -366,8 +366,8 @@ fontWeight: ri === highlight.pivotRow ? 700 : 400, fontSize: 10, whiteSpace: “
 );
 }
 
-const thS = { padding: “6px 8px”, textAlign: “center”, color: “#cbd5e1”, borderBottom: “2px solid #334155”, background: “#0c1222”, fontSize: 11, fontWeight: 600 };
-const tdS = { padding: “6px 8px”, textAlign: “center”, color: “#e2e8f0”, borderBottom: “1px solid #1e293b”, transition: “background 0.3s, color 0.3s” };
+const thS = { padding: "6px 8px", textAlign: "center", color: "#cbd5e1", borderBottom: "2px solid #334155", background: "#0c1222", fontSize: 11, fontWeight: 600 };
+const tdS = { padding: "6px 8px", textAlign: "center", color: "#e2e8f0", borderBottom: "1px solid #1e293b", transition: "background 0.3s, color 0.3s" };
 
 /* ============================================================
 DUAL PANEL
@@ -377,20 +377,20 @@ function DualPanel({ objCoeffs, constraints, isMin, stepData, isOptimal }) {
 const m = constraints.length;
 const dv = stepData.dualValues || [];
 
-// For Max c’x s.t. Ax ≤ b: Dual is Min b’y s.t. A’y ≥ c, y ≥ 0
-// For Min c’x: we internally do Max(-c)’x, dual of that is Min b’y s.t. A’y ≥ -c, y ≥ 0
+// For Max c'x s.t. Ax ≤ b: Dual is Min b'y s.t. A'y ≥ c, y ≥ 0
+// For Min c'x: we internally do Max(-c)'x, dual of that is Min b'y s.t. A'y ≥ -c, y ≥ 0
 // The displayed dual values from the tableau correspond to the internal max problem.
-// For the user’s min problem, the effective dual is: Max b’y s.t. A’y ≤ c, y ≤ 0
+// For the user's min problem, the effective dual is: Max b'y s.t. A'y ≤ c, y ≤ 0
 // But since y* from internal max are ≥ 0, for the min dual, we present y_min = -y_max
 
-const dualSense = isMin ? “Maximize” : “Minimize”;
-const dualConstrSign = isMin ? “≤” : “≥”;
+const dualSense = isMin ? "Maximize" : "Minimize";
+const dualConstrSign = isMin ? "≤" : "≥";
 const displayDualVals = isMin ? dv.map(v => -v) : dv;
 
 // Dual objective value = sum(b_i * y_i)
 const dualObjVal = constraints.reduce((s, c, i) => s + c.rhs * (displayDualVals[i] || 0), 0);
 
-// Build dual constraint strings: A’y ≥ c (for max) or A’y ≤ c (for min)
+// Build dual constraint strings: A'y ≥ c (for max) or A'y ≤ c (for min)
 const dualConstrs = [0, 1].map(j => {
 const terms = constraints.map((c, i) => {
 const coeff = c.coeffs[j];
@@ -399,14 +399,14 @@ return { coeff, varIdx: i };
 return { terms, rhs: objCoeffs[j], varName: `x${SUBS[j]}` };
 });
 
-const cColors = [”#3b82f6”, “#f59e0b”, “#a855f7”, “#ec4899”, “#14b8a6”];
+const cColors = ["#3b82f6", "#f59e0b", "#a855f7", "#ec4899", "#14b8a6"];
 
 return (
 <div style={{
-background: “#0c1222”, borderRadius: 12, border: “1px solid #1e293b”,
-padding: “14px 16px”,
+background: "#0c1222", borderRadius: 12, border: "1px solid #1e293b",
+padding: "14px 16px",
 }}>
-<div style={{ fontSize: 10, color: “#64748b”, fontFamily: “monospace”, marginBottom: 10, letterSpacing: 0.5, textTransform: “uppercase” }}>
+<div style={{ fontSize: 10, color: "#64748b", fontFamily: "monospace", marginBottom: 10, letterSpacing: 0.5, textTransform: "uppercase" }}>
 Dual Problem
 </div>
 
@@ -517,17 +517,17 @@ const sx = (x) => pad + (x / maxCoord) * plotW;
 const sy = (y) => (H - pad) - (y / maxCoord) * plotH;
 const toSvg = ([x, y]) => [sx(x), sy(y)];
 
-const polyPoints = poly.map(v => toSvg(v).join(”,”)).join(” “);
+const polyPoints = poly.map(v => toSvg(v).join(",")).join(" ");
 const pathPts = stepData.path.map(toSvg);
 
 const gridStep = maxCoord <= 20 ? 5 : maxCoord <= 60 ? 10 : maxCoord <= 150 ? 25 : 50;
 const gridVals = [];
 for (let v = 0; v <= maxCoord; v += gridStep) gridVals.push(v);
 
-const cColors = [”#3b82f6”, “#f59e0b”, “#a855f7”, “#ec4899”, “#14b8a6”];
+const cColors = ["#3b82f6", "#f59e0b", "#a855f7", "#ec4899", "#14b8a6"];
 
 return (
-<svg viewBox={`0 0 ${W} ${H}`} style={{ width: “100%”, height: “100%” }}>
+<svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", height: "100%" }}>
 <defs>
 <linearGradient id="rg2" x1="0%" y1="100%" x2="100%" y2="0%">
 <stop offset="0%" stopColor="#1e3a5f" stopOpacity="0.6" />
@@ -652,9 +652,9 @@ INPUT FORM
 ============================================================ */
 
 const inputStyle = {
-width: 56, padding: “6px 6px”, background: “#0f172a”, border: “1px solid #334155”,
-borderRadius: 6, color: “#e2e8f0”, fontSize: 14, fontFamily: “monospace”, textAlign: “center”,
-outline: “none”,
+width: 56, padding: "6px 6px", background: "#0f172a", border: "1px solid #334155",
+borderRadius: 6, color: "#e2e8f0", fontSize: 14, fontFamily: "monospace", textAlign: "center",
+outline: "none",
 };
 
 function NumInput({ value, onChange }) {
@@ -666,7 +666,7 @@ useEffect(() => { if (!focused) setRaw(String(value)); }, [value, focused]);
 const handleChange = (e) => {
 const s = e.target.value;
 setRaw(s);
-if (s === “” || s === “-” || s === “.” || s === “-.”) return;
+if (s === "" || s === "-" || s === "." || s === "-.") return;
 const n = parseFloat(s);
 if (!isNaN(n)) onChange(n);
 };
@@ -674,22 +674,22 @@ if (!isNaN(n)) onChange(n);
 const handleBlur = () => {
 setFocused(false);
 const n = parseFloat(raw);
-if (isNaN(n)) { setRaw(“0”); onChange(0); }
+if (isNaN(n)) { setRaw("0"); onChange(0); }
 else { setRaw(String(n)); onChange(n); }
 };
 
 const toggleSign = () => { const nv = -value; onChange(nv); setRaw(String(nv)); };
 
 return (
-<div style={{ display: “flex”, alignItems: “center”, gap: 2 }}>
-<input type=“text” inputMode=“decimal”
+<div style={{ display: "flex", alignItems: "center", gap: 2 }}>
+<input type="text" inputMode="decimal"
 value={focused ? raw : String(value)}
 onFocus={() => setFocused(true)} onChange={handleChange} onBlur={handleBlur}
 style={inputStyle} />
 <button onClick={toggleSign} style={{
-background: “none”, border: “1px solid #334155”, borderRadius: 4,
-color: “#94a3b8”, cursor: “pointer”, padding: “2px 5px”, fontSize: 11,
-fontFamily: “monospace”, lineHeight: 1, flexShrink: 0,
+background: "none", border: "1px solid #334155", borderRadius: 4,
+color: "#94a3b8", cursor: "pointer", padding: "2px 5px", fontSize: 11,
+fontFamily: "monospace", lineHeight: 1, flexShrink: 0,
 }}>±</button>
 </div>
 );
@@ -697,31 +697,31 @@ fontFamily: “monospace”, lineHeight: 1, flexShrink: 0,
 
 function ProblemInput({ objCoeffs, setObjCoeffs, constraints, setConstraints, isMin, setIsMin, onSolve, error }) {
 const addConstraint = () => {
-if (constraints.length < 5) setConstraints([…constraints, { coeffs: [1, 1], rhs: 50 }]);
+if (constraints.length < 5) setConstraints([...constraints, { coeffs: [1, 1], rhs: 50 }]);
 };
 const removeConstraint = (idx) => {
 if (constraints.length > 1) setConstraints(constraints.filter((_, i) => i !== idx));
 };
 const updateObj = (idx, val) => {
-const o = […objCoeffs]; o[idx] = val; setObjCoeffs(o);
+const o = [...objCoeffs]; o[idx] = val; setObjCoeffs(o);
 };
 const updateConstr = (ci, field, val) => {
 const c = constraints.map((cc, i) => i === ci ? {
-…cc,
-coeffs: field === ‘rhs’ ? cc.coeffs : cc.coeffs.map((v, j) => j === field ? val : v),
-rhs: field === ‘rhs’ ? val : cc.rhs,
+...cc,
+coeffs: field === 'rhs' ? cc.coeffs : cc.coeffs.map((v, j) => j === field ? val : v),
+rhs: field === 'rhs' ? val : cc.rhs,
 } : cc);
 setConstraints(c);
 };
 
-const cColors = [”#3b82f6”, “#f59e0b”, “#a855f7”, “#ec4899”, “#14b8a6”];
+const cColors = ["#3b82f6", "#f59e0b", "#a855f7", "#ec4899", "#14b8a6"];
 
 return (
 <div style={{
-background: “#0c1222”, borderRadius: 12, border: “1px solid #1e293b”,
-padding: “24px 28px”, maxWidth: 560, margin: “0 auto”,
+background: "#0c1222", borderRadius: 12, border: "1px solid #1e293b",
+padding: "24px 28px", maxWidth: 560, margin: "0 auto",
 }}>
-<div style={{ fontSize: 11, color: “#64748b”, fontFamily: “monospace”, letterSpacing: 0.5, textTransform: “uppercase”, marginBottom: 14 }}>
+<div style={{ fontSize: 11, color: "#64748b", fontFamily: "monospace", letterSpacing: 0.5, textTransform: "uppercase", marginBottom: 14 }}>
 Define Your Problem (2D, ≤ 5 Constraints) — With Dual
 </div>
 
@@ -814,7 +814,7 @@ const [constraints, setConstraints] = useState([
 { coeffs: [4, 2], rhs: 80 },
 ]);
 const [isMin, setIsMin] = useState(false);
-const [mode, setMode] = useState(“input”);
+const [mode, setMode] = useState("input");
 const [solveResult, setSolveResult] = useState(null);
 const [step, setStep] = useState(0);
 const [isPlaying, setIsPlaying] = useState(false);
@@ -839,10 +839,10 @@ const maxCoord = baseMaxCoord * zoomLevel;
 
 const handleSolve = () => {
 for (const c of constraints) {
-if (c.rhs < 0) { setInputError(“All RHS values must be ≥ 0 for the initial basis to be feasible.”); return; }
-if (c.coeffs[0] === 0 && c.coeffs[1] === 0) { setInputError(“A constraint has all-zero coefficients.”); return; }
+if (c.rhs < 0) { setInputError("All RHS values must be ≥ 0 for the initial basis to be feasible."); return; }
+if (c.coeffs[0] === 0 && c.coeffs[1] === 0) { setInputError("A constraint has all-zero coefficients."); return; }
 }
-if (objCoeffs[0] === 0 && objCoeffs[1] === 0) { setInputError(“Objective function is zero.”); return; }
+if (objCoeffs[0] === 0 && objCoeffs[1] === 0) { setInputError("Objective function is zero."); return; }
 setInputError(null);
 
 ```
@@ -859,7 +859,7 @@ setMode("solve");
 
 };
 
-const handleBack = () => { setMode(“input”); setIsPlaying(false); setSolveResult(null); };
+const handleBack = () => { setMode("input"); setIsPlaying(false); setSolveResult(null); };
 
 useEffect(() => {
 if (!isPlaying || !solveResult) return;
@@ -874,15 +874,15 @@ setIsPlaying(false);
 setStep(s => solveResult ? Math.min(solveResult.steps.length - 1, s + 1) : s);
 }, [solveResult]);
 
-if (mode === “input”) {
+if (mode === "input") {
 return (
-<div style={{ minHeight: “100vh”, background: “#080e1a”, color: “#e2e8f0”, fontFamily: “‘IBM Plex Sans’, system-ui, sans-serif”, padding: “32px 20px” }}>
-<div style={{ maxWidth: 600, margin: “0 auto” }}>
-<div style={{ textAlign: “center”, marginBottom: 28 }}>
-<h1 style={{ fontSize: 22, fontWeight: 700, color: “#f8fafc”, margin: 0, fontFamily: “‘JetBrains Mono’, monospace”, letterSpacing: -0.5 }}>
+<div style={{ minHeight: "100vh", background: "#080e1a", color: "#e2e8f0", fontFamily: "'IBM Plex Sans', system-ui, sans-serif", padding: "32px 20px" }}>
+<div style={{ maxWidth: 600, margin: "0 auto" }}>
+<div style={{ textAlign: "center", marginBottom: 28 }}>
+<h1 style={{ fontSize: 22, fontWeight: 700, color: "#f8fafc", margin: 0, fontFamily: "'JetBrains Mono', monospace", letterSpacing: -0.5 }}>
 SIMPLEX + DUAL
 </h1>
-<p style={{ color: “#64748b”, fontSize: 12, margin: “6px 0 0”, fontFamily: “monospace” }}>
+<p style={{ color: "#64748b", fontSize: 12, margin: "6px 0 0", fontFamily: "monospace" }}>
 LP Solver with Dual Problem & Shadow Prices
 </p>
 </div>
@@ -899,29 +899,29 @@ onSolve={handleSolve} error={inputError}
 
 const currentStep = solveResult.steps[step];
 const totalSteps = solveResult.steps.length;
-const isOptimalStep = currentStep.phase === “optimal”;
+const isOptimalStep = currentStep.phase === "optimal";
 
 return (
-<div style={{ minHeight: “100vh”, background: “#080e1a”, color: “#e2e8f0”, fontFamily: “‘IBM Plex Sans’, system-ui, sans-serif”, padding: “16px 12px”, boxSizing: “border-box” }}>
-<div style={{ maxWidth: 1200, margin: “0 auto” }}>
+<div style={{ minHeight: "100vh", background: "#080e1a", color: "#e2e8f0", fontFamily: "'IBM Plex Sans', system-ui, sans-serif", padding: "16px 12px", boxSizing: "border-box" }}>
+<div style={{ maxWidth: 1200, margin: "0 auto" }}>
 {/* Header */}
-<div style={{ display: “flex”, justifyContent: “space-between”, alignItems: “center”, marginBottom: 12 }}>
+<div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
 <div>
-<h1 style={{ fontSize: 16, fontWeight: 700, color: “#f8fafc”, margin: 0, fontFamily: “monospace” }}>
+<h1 style={{ fontSize: 16, fontWeight: 700, color: "#f8fafc", margin: 0, fontFamily: "monospace" }}>
 SIMPLEX + DUAL
 <span style={{
-marginLeft: 8, fontSize: 10, padding: “2px 8px”, borderRadius: 4,
-background: frozenIsMin ? “#b45309” : “#1e40af”, color: “#fff”,
-}}>{frozenIsMin ? “MIN” : “MAX”}</span>
+marginLeft: 8, fontSize: 10, padding: "2px 8px", borderRadius: 4,
+background: frozenIsMin ? "#b45309" : "#1e40af", color: "#fff",
+}}>{frozenIsMin ? "MIN" : "MAX"}</span>
 </h1>
-<p style={{ color: “#64748b”, fontSize: 10, margin: “2px 0 0”, fontFamily: “monospace” }}>
-{frozenIsMin ? “Min” : “Max”} {fmtNum(frozenObj[0])}x₁ + {fmtNum(frozenObj[1])}x₂
+<p style={{ color: "#64748b", fontSize: 10, margin: "2px 0 0", fontFamily: "monospace" }}>
+{frozenIsMin ? "Min" : "Max"} {fmtNum(frozenObj[0])}x₁ + {fmtNum(frozenObj[1])}x₂
 {frozenConstraints.map((c, i) => ` | ${fmtNum(c.coeffs[0])}x₁ + ${fmtNum(c.coeffs[1])}x₂ ≤ ${fmtNum(c.rhs)}`)}
 </p>
 </div>
 <button onClick={handleBack} style={{
-background: “#1e293b”, color: “#94a3b8”, border: “1px solid #334155”,
-borderRadius: 8, padding: “6px 14px”, fontSize: 11, cursor: “pointer”, fontFamily: “monospace”,
+background: "#1e293b", color: "#94a3b8", border: "1px solid #334155",
+borderRadius: 8, padding: "6px 14px", fontSize: 11, cursor: "pointer", fontFamily: "monospace",
 }}>← Edit</button>
 </div>
 
@@ -1024,16 +1024,16 @@ borderRadius: 8, padding: “6px 14px”, fontSize: 11, cursor: “pointer”, f
 
 function Legend({ color, label }) {
 return (
-<div style={{ display: “flex”, alignItems: “center”, gap: 4 }}>
+<div style={{ display: "flex", alignItems: "center", gap: 4 }}>
 <div style={{ width: 8, height: 8, borderRadius: 2, background: color }} />
-<span style={{ fontSize: 10, color: “#94a3b8”, fontFamily: “monospace” }}>{label}</span>
+<span style={{ fontSize: 10, color: "#94a3b8", fontFamily: "monospace" }}>{label}</span>
 </div>
 );
 }
 
 const btnS = {
-background: “#1e293b”, color: “#e2e8f0”, border: “1px solid #334155”, borderRadius: 8,
-padding: “7px 12px”, fontSize: 12, fontFamily: “monospace”, cursor: “pointer”,
+background: "#1e293b", color: "#e2e8f0", border: "1px solid #334155", borderRadius: 8,
+padding: "7px 12px", fontSize: 12, fontFamily: "monospace", cursor: "pointer",
 };
 
 const zoomBtn = {
