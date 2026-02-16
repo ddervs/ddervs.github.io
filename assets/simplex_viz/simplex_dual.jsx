@@ -90,7 +90,6 @@ if (obj[j] < minVal) { minVal = obj[j]; enterCol = j; }
 }
 if (enterCol === -1) break;
 
-```
 const enterName = varName(enterCol, m);
 
 steps.push({
@@ -212,7 +211,6 @@ if (isOptimal) {
   });
 }
 iteration++;
-```
 
 }
 
@@ -410,7 +408,6 @@ padding: "14px 16px",
 Dual Problem
 </div>
 
-```
   {/* Dual formulation */}
   <div style={{ fontSize: 12, fontFamily: "monospace", color: "#cbd5e1", marginBottom: 12, lineHeight: 1.8 }}>
     <div>
@@ -497,7 +494,6 @@ Dual Problem
     )}
   </div>
 </div>
-```
 
 );
 }
@@ -536,7 +532,6 @@ return (
 <filter id="gl2"><feGaussianBlur stdDeviation="3" result="b" /><feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
 </defs>
 
-```
   {gridVals.map(v => (
     <g key={`gy${v}`}>
       <line x1={sx(0)} y1={sy(v)} x2={sx(maxCoord)} y2={sy(v)} stroke="#1e293b" strokeWidth="0.5" />
@@ -642,7 +637,6 @@ return (
     {isMin ? "Min" : "Max"}: <tspan fill="#f8fafc" fontWeight="700">{fmtNum(stepData.objValue)}</tspan>
   </text>
 </svg>
-```
 
 );
 }
@@ -725,7 +719,6 @@ padding: "24px 28px", maxWidth: 560, margin: "0 auto",
 Define Your Problem (2D, ≤ 5 Constraints) — With Dual
 </div>
 
-```
   {/* Max / Min toggle */}
   <div style={{ marginBottom: 16, display: "flex", gap: 0, borderRadius: 8, overflow: "hidden", border: "1px solid #334155", width: "fit-content" }}>
     <button onClick={() => setIsMin(false)} style={{
@@ -798,7 +791,6 @@ Define Your Problem (2D, ≤ 5 Constraints) — With Dual
     Solve &amp; Animate →
   </button>
 </div>
-```
 
 );
 }
@@ -845,7 +837,6 @@ if (c.coeffs[0] === 0 && c.coeffs[1] === 0) { setInputError("A constraint has al
 if (objCoeffs[0] === 0 && objCoeffs[1] === 0) { setInputError("Objective function is zero."); return; }
 setInputError(null);
 
-```
 const result = solveSimplex(objCoeffs, constraints, isMin);
 setSolveResult(result);
 setFrozenConstraints([...constraints]);
@@ -855,7 +846,6 @@ setStep(0);
 setIsPlaying(false);
 setZoomLevel(1);
 setMode("solve");
-```
 
 };
 
@@ -925,7 +915,6 @@ borderRadius: 8, padding: "6px 14px", fontSize: 11, cursor: "pointer", fontFamil
 }}>← Edit</button>
 </div>
 
-```
     {/* Main 3-column layout */}
     <div style={{
       display: "grid",
@@ -1017,7 +1006,6 @@ borderRadius: 8, padding: "6px 14px", fontSize: 11, cursor: "pointer", fontFamil
     </div>
   </div>
 </div>
-```
 
 );
 }
