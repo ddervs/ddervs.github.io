@@ -323,7 +323,7 @@ const { tableau, highlight } = stepData;
 const showRatios = highlight?.type === "ratio";
 return (
 <div style={{ overflowX: "auto" }}>
-<table style={{ borderCollapse: "collapse", width: "100%", fontFamily: "monospace", fontSize: 12 }}>
+<table style={{ borderCollapse: "collapse", width: "100%", fontFamily: "monospace", fontSize: 12, border: "2px solid #334155" }}>
 <thead>
 <tr>
 <th style={thS}></th>
