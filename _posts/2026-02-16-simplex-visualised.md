@@ -16,7 +16,15 @@ Explanation in detail below the animation (also Claude).
 <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-<script type="text/babel" src="{{ '/assets/simplex_viz/simplex_dual.jsx' | relative_url }}"></script>
+<script>
+fetch('/assets/simplex_viz/simplex_dual.jsx')
+  .then(r => r.text())
+  .then(code => {
+    const output = Babel.transform(code, { presets: ['react'] }).code;
+    new Function(output)();
+  })
+  .catch(err => console.error('Failed to load simplex viz:', err));
+</script>
 
 # Companion to the Interactive Visualizer
 
