@@ -38,7 +38,7 @@ We’re solving a **linear program** (LP): optimize a linear objective function 
 
 **Standard form (maximization):**
 
-$$\max ; \mathbf{c}^\top \mathbf{x} \quad \text{subject to} \quad A\mathbf{x} \leq \mathbf{b}, ;; \mathbf{x} \geq \mathbf{0}$$
+$$\max \; \mathbf{c}^\top \mathbf{x} \quad \text{subject to} \quad A\mathbf{x} \leq \mathbf{b}, \;\; \mathbf{x} \geq \mathbf{0}$$
 
 In two dimensions, this means: maximize $c_1 x_1 + c_2 x_2$ subject to a set of half-plane constraints. The feasible region is a **convex polygon** (or polyhedron in higher dimensions), and a fundamental theorem of LP guarantees the optimum occurs at a vertex — if one exists.
 
@@ -65,12 +65,12 @@ The objective is rewritten as an equation too: $z - c_1 x_1 - c_2 x_2 = 0$. All 
 For the general case with $n$ decision variables and $m$ constraints, the initial tableau is:
 
 $$\begin{array}{c|cccc|cccc|c}
-& x_1 & x_2 & \cdots & x_n & s_1 & s_2 & \cdots & s_m & \text{RHS} \
+& x_1 & x_2 & \cdots & x_n & s_1 & s_2 & \cdots & s_m & \text{RHS} \\
 \hline
-s_1 & a_{11} & a_{12} & \cdots & a_{1n} & 1 & 0 & \cdots & 0 & b_1 \
-s_2 & a_{21} & a_{22} & \cdots & a_{2n} & 0 & 1 & \cdots & 0 & b_2 \
-\vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \
-s_m & a_{m1} & a_{m2} & \cdots & a_{mn} & 0 & 0 & \cdots & 1 & b_m \
+s_1 & a_{11} & a_{12} & \cdots & a_{1n} & 1 & 0 & \cdots & 0 & b_1 \\
+s_2 & a_{21} & a_{22} & \cdots & a_{2n} & 0 & 1 & \cdots & 0 & b_2 \\
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+s_m & a_{m1} & a_{m2} & \cdots & a_{mn} & 0 & 0 & \cdots & 1 & b_m \\
 \hline
 z & -c_1 & -c_2 & \cdots & -c_n & 0 & 0 & \cdots & 0 & 0
 \end{array}$$
@@ -80,12 +80,12 @@ The left column shows the **basic variables** — initially all slacks. The iden
 After one pivot (say $x_k$ enters and $s_r$ leaves), the tableau transforms so that column $x_k$ becomes a unit vector with the 1 in row $r$, and the row label changes from $s_r$ to $x_k$:
 
 $$\begin{array}{c|cccc|cccc|c}
-& x_1 & \cdots & x_k & \cdots & s_1 & \cdots & s_r & \cdots & \text{RHS} \
+& x_1 & \cdots & x_k & \cdots & s_1 & \cdots & s_r & \cdots & \text{RHS} \\
 \hline
-s_1 & \tilde{a}*{11} & \cdots & 0 & \cdots & 1 & \cdots & \tilde{a}*{1r} & \cdots & \tilde{b}*1 \
-\vdots & \vdots & & \vdots & & \vdots & & \vdots & & \vdots \
-x_k & \tilde{a}*{r1} & \cdots & 1 & \cdots & 0 & \cdots & \tilde{a}_{rr} & \cdots & \tilde{b}_r \
-\vdots & \vdots & & \vdots & & \vdots & & \vdots & & \vdots \
+s_1 & \tilde{a}_{11} & \cdots & 0 & \cdots & 1 & \cdots & \tilde{a}_{1r} & \cdots & \tilde{b}_1 \\
+\vdots & \vdots & & \vdots & & \vdots & & \vdots & & \vdots \\
+x_k & \tilde{a}_{r1} & \cdots & 1 & \cdots & 0 & \cdots & \tilde{a}_{rr} & \cdots & \tilde{b}_r \\
+\vdots & \vdots & & \vdots & & \vdots & & \vdots & & \vdots \\
 \hline
 z & \bar{c}_1 & \cdots & 0 & \cdots & 0 & \cdots & \bar{c}_r & \cdots & \bar{z}
 \end{array}$$
@@ -95,11 +95,11 @@ where $\tilde{a}_{ij}$ denotes the updated coefficients after row reduction and 
 In the visualizer’s 2-variable case ($n = 2$), the initial tableau looks like:
 
 $$\begin{array}{c|cc|ccc|c}
-& x_1 & x_2 & s_1 & s_2 & s_3 & \text{RHS} \
+& x_1 & x_2 & s_1 & s_2 & s_3 & \text{RHS} \\
 \hline
-s_1 & a_{11} & a_{12} & 1 & 0 & 0 & b_1 \
-s_2 & a_{21} & a_{22} & 0 & 1 & 0 & b_2 \
-s_3 & a_{31} & a_{32} & 0 & 0 & 1 & b_3 \
+s_1 & a_{11} & a_{12} & 1 & 0 & 0 & b_1 \\
+s_2 & a_{21} & a_{22} & 0 & 1 & 0 & b_2 \\
+s_3 & a_{31} & a_{32} & 0 & 0 & 1 & b_3 \\
 \hline
 z & -c_1 & -c_2 & 0 & 0 & 0 & 0
 \end{array}$$
@@ -174,11 +174,11 @@ Every LP has a **dual**. For the standard max problem, the dual is:
 
 **Primal:**
 
-$$\max ; \mathbf{c}^\top \mathbf{x} \quad \text{s.t.} \quad A\mathbf{x} \leq \mathbf{b}, ;; \mathbf{x} \geq \mathbf{0}$$
+$$\max \; \mathbf{c}^\top \mathbf{x} \quad \text{s.t.} \quad A\mathbf{x} \leq \mathbf{b}, \;\; \mathbf{x} \geq \mathbf{0}$$
 
 **Dual:**
 
-$$\min ; \mathbf{b}^\top \mathbf{y} \quad \text{s.t.} \quad A^\top \mathbf{y} \geq \mathbf{c}, ;; \mathbf{y} \geq \mathbf{0}$$
+$$\min \; \mathbf{b}^\top \mathbf{y} \quad \text{s.t.} \quad A^\top \mathbf{y} \geq \mathbf{c}, \;\; \mathbf{y} \geq \mathbf{0}$$
 
 The construction is mechanical: objective coefficients $\leftrightarrow$ constraint RHS, constraint matrix gets transposed, inequalities flip, and $\min \leftrightarrow \max$.
 
@@ -196,7 +196,7 @@ The visualizer verifies this at the optimal step.
 
 **Complementary slackness:** If a primal constraint has slack ($s_i > 0$), the corresponding dual variable must be zero ($y_i = 0$), and vice versa:
 
-$$s_i \cdot y_i = 0 \quad \forall ; i$$
+$$s_i \cdot y_i = 0 \quad \forall \; i$$
 
 The contrapositive: if $y_i > 0$, the primal constraint must be binding. Both being binding simultaneously is perfectly fine — this is the non-degenerate case.
 
@@ -206,7 +206,7 @@ The optimal dual variables $\mathbf{y}^*$ are the **shadow prices**. They appear
 
 The shadow price $y_i^*$ equals the partial derivative of the optimal value function with respect to the $i$-th constraint’s RHS:
 
-$$y_i^* = \frac{\partial , z^*}{\partial , b_i}$$
+$$y_i^* = \frac{\partial \, z^*}{\partial \, b_i}$$
 
 In economic terms: if constraint $i$ limits a resource, $y_i^*$ is the **marginal value** of one additional unit of that resource.
 
@@ -228,7 +228,7 @@ This is linear in $\mathbf{b}$ as long as the current basis $B$ remains optimal.
 
 To minimize $c_1 x_1 + c_2 x_2$, the visualizer internally negates the objective and solves:
 
-$$\max ; (-c_1) x_1 + (-c_2) x_2$$
+$$\max \; (-c_1) x_1 + (-c_2) x_2$$
 
 The simplex algorithm is identical; only the interpretation changes:
 
