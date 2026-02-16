@@ -323,7 +323,7 @@ const { tableau, highlight } = stepData;
 const showRatios = highlight?.type === "ratio";
 return (
 <div style={{ overflowX: "auto" }}>
-<table style={{ borderCollapse: "collapse", width: "100%", fontFamily: "monospace", fontSize: 12, tableLayout: "fixed" }}>
+<table style={{ borderCollapse: "collapse", width: "100%", fontFamily: "monospace", fontSize: 12 }}>
 <thead>
 <tr>
 <th style={thS}></th>
@@ -866,7 +866,7 @@ setStep(s => solveResult ? Math.min(solveResult.steps.length - 1, s + 1) : s);
 
 if (mode === "input") {
 return (
-<div style={{ background: "#080e1a", color: "#e2e8f0", fontFamily: "'IBM Plex Sans', system-ui, sans-serif", padding: "32px 20px", borderRadius: 12 }}>
+<div style={{ background: "#080e1a", color: "#e2e8f0", fontFamily: "'IBM Plex Sans', system-ui, sans-serif", padding: "32px 20px", borderRadius: 12, width: "100vw", position: "relative", left: "50%", transform: "translateX(-50%)", boxSizing: "border-box" }}>
 <div style={{ maxWidth: 600, margin: "0 auto" }}>
 <div style={{ textAlign: "center", marginBottom: 28 }}>
 <h1 style={{ fontSize: 22, fontWeight: 700, color: "#f8fafc", margin: 0, fontFamily: "'JetBrains Mono', monospace", letterSpacing: -0.5 }}>
@@ -892,8 +892,8 @@ const totalSteps = solveResult.steps.length;
 const isOptimalStep = currentStep.phase === "optimal";
 
 return (
-<div style={{ background: "#080e1a", color: "#e2e8f0", fontFamily: "'IBM Plex Sans', system-ui, sans-serif", padding: "16px 12px", boxSizing: "border-box", borderRadius: 12 }}>
-<div style={{ maxWidth: "100%", margin: "0 auto" }}>
+<div style={{ background: "#080e1a", color: "#e2e8f0", fontFamily: "'IBM Plex Sans', system-ui, sans-serif", padding: "16px 12px", boxSizing: "border-box", borderRadius: 12, width: "100vw", position: "relative", left: "50%", transform: "translateX(-50%)" }}>
+<div style={{ maxWidth: 1200, margin: "0 auto" }}>
 {/* Header */}
 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
 <div>
