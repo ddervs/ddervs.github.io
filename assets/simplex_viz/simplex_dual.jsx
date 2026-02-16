@@ -866,7 +866,7 @@ setStep(s => solveResult ? Math.min(solveResult.steps.length - 1, s + 1) : s);
 
 if (mode === "input") {
 return (
-<div style={{ minHeight: "100vh", background: "#080e1a", color: "#e2e8f0", fontFamily: "'IBM Plex Sans', system-ui, sans-serif", padding: "32px 20px" }}>
+<div style={{ background: "#080e1a", color: "#e2e8f0", fontFamily: "'IBM Plex Sans', system-ui, sans-serif", padding: "32px 20px", borderRadius: 12 }}>
 <div style={{ maxWidth: 600, margin: "0 auto" }}>
 <div style={{ textAlign: "center", marginBottom: 28 }}>
 <h1 style={{ fontSize: 22, fontWeight: 700, color: "#f8fafc", margin: 0, fontFamily: "'JetBrains Mono', monospace", letterSpacing: -0.5 }}>
@@ -892,8 +892,8 @@ const totalSteps = solveResult.steps.length;
 const isOptimalStep = currentStep.phase === "optimal";
 
 return (
-<div style={{ minHeight: "100vh", background: "#080e1a", color: "#e2e8f0", fontFamily: "'IBM Plex Sans', system-ui, sans-serif", padding: "16px 12px", boxSizing: "border-box" }}>
-<div style={{ maxWidth: 1200, margin: "0 auto" }}>
+<div style={{ background: "#080e1a", color: "#e2e8f0", fontFamily: "'IBM Plex Sans', system-ui, sans-serif", padding: "16px 12px", boxSizing: "border-box", borderRadius: 12 }}>
+<div style={{ maxWidth: "100%", margin: "0 auto" }}>
 {/* Header */}
 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
 <div>
@@ -918,7 +918,7 @@ borderRadius: 8, padding: "6px 14px", fontSize: 11, cursor: "pointer", fontFamil
     {/* Main 3-column layout */}
     <div style={{
       display: "grid",
-      gridTemplateColumns: "minmax(240px, 1fr) minmax(340px, 1.4fr) minmax(240px, 1fr)",
+      gridTemplateColumns: "1fr 1.4fr 1fr",
       gap: 12, marginBottom: 12,
     }}>
       {/* Left: Graph */}
