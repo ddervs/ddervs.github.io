@@ -323,7 +323,7 @@ const { tableau, highlight } = stepData;
 const showRatios = highlight?.type === "ratio";
 return (
 <div style={{ overflowX: "auto" }}>
-<table style={{ borderCollapse: "collapse", width: "100%", fontFamily: "monospace", fontSize: 12 }}>
+<table style={{ borderCollapse: "collapse", width: "100%", fontFamily: "monospace", fontSize: 12, tableLayout: "fixed" }}>
 <thead>
 <tr>
 <th style={thS}></th>
@@ -922,7 +922,7 @@ borderRadius: 8, padding: "6px 14px", fontSize: 11, cursor: "pointer", fontFamil
       gap: 12, marginBottom: 12,
     }}>
       {/* Left: Graph */}
-      <div style={{ background: "#0c1222", borderRadius: 12, border: "1px solid #1e293b", padding: 8, position: "relative" }}>
+      <div style={{ background: "#0c1222", borderRadius: 12, border: "1px solid #1e293b", padding: 8, position: "relative", minWidth: 0 }}>
         <FeasibleGraph stepData={currentStep} constraints={frozenConstraints} maxCoord={maxCoord} isMin={frozenIsMin} objCoeffs={frozenObj} />
         <div style={{ position: "absolute", top: 8, right: 8, display: "flex", flexDirection: "column", gap: 3 }}>
           <button onClick={() => setZoomLevel(z => Math.max(0.2, z*0.7))} style={zoomBtn}>+</button>
@@ -932,7 +932,7 @@ borderRadius: 8, padding: "6px 14px", fontSize: 11, cursor: "pointer", fontFamil
       </div>
 
       {/* Center: Step info + Tableau */}
-      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 10, minWidth: 0, overflow: "hidden" }}>
         {/* Step info */}
         <div style={{ background: "#0c1222", borderRadius: 12, border: "1px solid #1e293b", padding: "12px 16px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
