@@ -68,7 +68,7 @@ social:
     link: https://scholar.google.com/citations?hl=en&user=ttWrIOcAAAAJ
 
 # Plugins
-gems:
+plugins:
   - jekyll-seo-tag
 
 # Disqus Comments
