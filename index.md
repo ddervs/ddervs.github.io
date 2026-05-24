@@ -6,7 +6,7 @@ layout: default
                                    
 <!-- <img src="assets/photos/dallemini_cropped.png" alt="ddervs_photo" style="width:100%; display: block; margin-left: auto; margin-right: auto;"> -->
 
-Hi, I'm Dan. I work for the [J.P. Morgan AI Research lab](https://www.jpmorgan.com/global/technology/artificial-intelligence) where I work on a mixture of research questions and concrete applications of AI in Finance. 
+Hi, I'm Dan. I work for [J.P. Morgan Quantitative Trading & Research](https://www.bloomberg.com/news/articles/2026-01-15/jpmorgan-forms-new-quant-group-to-fend-off-market-maker-rivals), after many years in the [J.P. Morgan AI Research lab](https://www.jpmorgan.com/global/technology/artificial-intelligence). I work on a mixture of research questions and concrete applications of AI in Finance. 
 
 I earned a PhD from the [UCL Department of Computer Science](http://www.cs.ucl.ac.uk/home/), supervised by [Prof Simone Severini](http://www.ucl.ac.uk/~ucapsse/), embedded in the [CS Quantum](https://quantum.cs.ucl.ac.uk) group. I was in the second cohort of the [EPSRC Centre for Doctoral Training in Delivering Quantum Technologies](www.uclq.org/centre-for-doctoral-training/). Previously, I've worked part-time as a Machine Learning Engineer at [Curvestone](https://www.curvestone.io/) and done an internship in the Data Science team at [Tesco](https://www.tesco.com) working on Operations Research. 
 
