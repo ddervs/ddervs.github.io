@@ -868,7 +868,7 @@ setStep(s => solveResult ? Math.min(solveResult.steps.length - 1, s + 1) : s);
 
 if (mode === "input") {
 return (
-<div style={{ background: "#080e1a", color: "#e2e8f0", fontFamily: "'IBM Plex Sans', system-ui, sans-serif", padding: "32px 20px", borderRadius: 12, width: "calc(100vw - 24px)", position: "relative", left: "50%", transform: "translateX(-50%)", boxSizing: "border-box" }}>
+<div style={{ background: "#080e1a", color: "#e2e8f0", fontFamily: "'IBM Plex Sans', system-ui, sans-serif", padding: "32px 20px", borderRadius: 12, width: "100%", boxSizing: "border-box" }}>
 <div style={{ maxWidth: 600, margin: "0 auto" }}>
 <div style={{ textAlign: "center", marginBottom: 28 }}>
 <h1 style={{ fontSize: 22, fontWeight: 700, color: "#f8fafc", margin: 0, fontFamily: "'JetBrains Mono', monospace", letterSpacing: -0.5 }}>
@@ -894,7 +894,7 @@ const totalSteps = solveResult.steps.length;
 const isOptimalStep = currentStep.phase === "optimal";
 
 return (
-<div style={isFullscreen ? { background: "#080e1a", color: "#e2e8f0", fontFamily: "'IBM Plex Sans', system-ui, sans-serif", padding: "16px 12px", boxSizing: "border-box", position: "fixed", top: 0, left: 0, right: 0, bottom: 0, zIndex: 9999, overflow: "auto" } : { background: "#080e1a", color: "#e2e8f0", fontFamily: "'IBM Plex Sans', system-ui, sans-serif", padding: "16px 12px", boxSizing: "border-box", borderRadius: 12, width: "calc(100vw - 24px)", position: "relative", left: "50%", transform: "translateX(-50%)" }}>
+<div style={isFullscreen ? { background: "#080e1a", color: "#e2e8f0", fontFamily: "'IBM Plex Sans', system-ui, sans-serif", padding: "16px 12px", boxSizing: "border-box", position: "fixed", top: 0, left: 0, right: 0, bottom: 0, zIndex: 9999, overflow: "auto" } : { background: "#080e1a", color: "#e2e8f0", fontFamily: "'IBM Plex Sans', system-ui, sans-serif", padding: "16px 12px", boxSizing: "border-box", borderRadius: 12, width: "100%" }}>
 <div style={{ maxWidth: 1200, margin: "0 auto" }}>
 {/* Header */}
 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>

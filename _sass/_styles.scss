@@ -500,6 +500,44 @@ img {
   margin: 0 0 2em;
 }
 
+// Markdown headings within the post body: italic, dark, smaller —
+// matched to the post-title look so the chrome stays dominant.
+.post-content {
+  h1 {
+    font-family: $font-display;
+    font-size: 1.9rem;
+    font-weight: 500;
+    font-style: italic;
+    color: var(--accent);
+    line-height: 1.2;
+    margin: 2em 0 0.5em;
+    font-variation-settings: "opsz" 48;
+    letter-spacing: -0.012em;
+  }
+
+  h2 {
+    font-family: $font-display;
+    font-size: 1.5rem;
+    font-weight: 500;
+    font-style: italic;
+    color: var(--accent);
+    line-height: 1.2;
+    margin: 1.8em 0 0.4em;
+    font-variation-settings: "opsz" 36;
+  }
+
+  h3 {
+    font-family: $font-display;
+    font-size: 1.18rem;
+    font-weight: 500;
+    font-style: italic;
+    color: var(--accent);
+    line-height: 1.25;
+    margin: 1.6em 0 0.35em;
+    font-variation-settings: "opsz" 24;
+  }
+}
+
 // Opt-in drop cap: add `{:.lede}` to a paragraph in kramdown to apply.
 // Not enabled by default because many posts start with a $\newcommand$
 // MathJax preamble that would render a `$` as a giant capital.
