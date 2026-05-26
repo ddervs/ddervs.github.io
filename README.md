@@ -78,7 +78,7 @@ To retint the site, edit the CSS variables under `:root` (light) and `[data-mode
 | --- | --- |
 | `_posts/` | Blog posts |
 | `_layouts/` | Page chrome (`default.html`, `post.html`) |
-| `_includes/` | Head, nav, footer, GitHub ribbon, social icons |
+| `_includes/` | Head, nav, footer, social icons |
 | `_sass/_styles.scss` | All theme styles (palette, typography, layout) |
 | `css/main.scss` | SCSS entrypoint — just imports `_styles` |
 | `css/syntax.css` | Rouge token styling — references theme vars |
