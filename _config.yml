@@ -21,9 +21,6 @@ highlighter: rouge
 sass:
   style: compressed
 
-# Theme settings
-theme_mode: markdown  # choices are: 'dark', 'standard', 'markdown'
-
 # Customizations
 your_name: Danial Dervovic
 email: contact@danialdervovic.com

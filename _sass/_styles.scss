@@ -1,91 +1,493 @@
-// This file contains custom (non hack.css) styles
+// Magazine theme · Newsreader + IBM Plex Sans + JetBrains Mono
+// Palette: sage paper, deep teal accent, burnt mustard secondary
+// Treatment: italic teal H1, mustard meta, mustard highlighter on <strong>
 
-.t-hackcss {  // Main prefix to avoid collisions
+// -------------------------------------------------------------
+//  Fonts
+// -------------------------------------------------------------
+$font-display: 'Newsreader', Georgia, serif;
+$font-sans:    'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+$font-mono:    'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
 
-  // navigation.html
+// -------------------------------------------------------------
+//  Palette (light)
+// -------------------------------------------------------------
+:root {
+  --bg:          #e9ead6;
+  --bg-elev:     #dadcc0;
+  --fg:          #14211a;
+  --fg-soft:     #56695b;
+  --accent:      #0d6e6e;
+  --accent-2:    #d97706;
+  --rule:        rgba(20, 33, 26, 0.18);
+  --code-bg:     #dde0c8;
+  --code-border: rgba(20, 33, 26, 0.10);
 
-  &-navigation {
-    padding-right: $spacing-unit;
+  --tok-comment:  #7a8475;
+  --tok-keyword:  #b86310;
+  --tok-string:   #0d6e6e;
+  --tok-number:   #8a3a1f;
+  --tok-function: #3a4a8a;
+  --tok-operator: #56695b;
+  --tok-variable: #6a2a6a;
+  --tok-punct:    #56695b;
+  --tok-error:    #a61717;
+}
+
+// -------------------------------------------------------------
+//  Palette (dark) — applied when <html data-mode="dark">
+// -------------------------------------------------------------
+[data-mode="dark"] {
+  --bg:          #0f1815;
+  --bg-elev:     #182520;
+  --fg:          #ecede1;
+  --fg-soft:     #95a098;
+  --accent:      #5dd5c5;
+  --accent-2:    #f5c249;
+  --rule:        rgba(236, 237, 225, 0.18);
+  --code-bg:     #182520;
+  --code-border: rgba(236, 237, 225, 0.08);
+
+  --tok-comment:  #6a7570;
+  --tok-keyword:  #f5c249;
+  --tok-string:   #5dd5c5;
+  --tok-number:   #ffb088;
+  --tok-function: #b8c5ff;
+  --tok-operator: #95a098;
+  --tok-variable: #e8a8d8;
+  --tok-punct:    #95a098;
+  --tok-error:    #e89c95;
+}
+
+// -------------------------------------------------------------
+//  Reset + base
+// -------------------------------------------------------------
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: $font-sans;
+  font-size: 17px;
+  line-height: 1.7;
+  font-feature-settings: "kern", "liga";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+::selection { background: var(--accent-2); color: var(--bg); }
+
+// -------------------------------------------------------------
+//  Layout
+// -------------------------------------------------------------
+.site-container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 700px);
+  gap: 56px;
+  padding: 64px 0 48px;
+}
+
+.sidebar {
+  position: sticky;
+  top: 32px;
+  align-self: start;
+  font-family: $font-sans;
+  font-size: 0.9rem;
+}
+
+.main { min-width: 0; }
+
+@media (max-width: 720px) {
+  .site-container { padding: 0 20px; }
+  .layout { grid-template-columns: 1fr; gap: 28px; padding: 28px 0 32px; }
+  .sidebar { position: static; }
+}
+
+// -------------------------------------------------------------
+//  Typography
+// -------------------------------------------------------------
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-display;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.012em;
+  color: var(--fg);
+}
+
+h1 {
+  font-size: 3rem;
+  margin: 0 0 0.5em;
+  font-variation-settings: "opsz" 72;
+  font-style: italic;
+  color: var(--accent);
+}
+
+h2 {
+  font-size: 1.7rem;
+  margin: 2.2em 0 0.4em;
+  font-variation-settings: "opsz" 48;
+  color: var(--accent);
+}
+
+h3 {
+  font-size: 1.22rem;
+  margin: 1.8em 0 0.35em;
+  font-variation-settings: "opsz" 24;
+}
+
+h4 {
+  font-size: 1.05rem;
+  margin: 1.6em 0 0.3em;
+  font-variation-settings: "opsz" 18;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--fg-soft);
+  font-family: $font-sans;
+  font-weight: 600;
+}
+
+p { margin: 0 0 1.1em; }
+
+em {
+  font-family: $font-display;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.04em;
+  font-variation-settings: "opsz" 14;
+}
+
+strong {
+  font-weight: 600;
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--accent-2) 35%, transparent) 0 35%,
+    transparent 35% 100%
+  );
+  padding: 0 1px;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 50%, transparent);
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+a:hover { border-bottom-color: currentColor; }
+
+hr {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 2.4em 0;
+}
+
+ul, ol {
+  padding-left: 1.2em;
+  margin: 0 0 1.1em;
+  li { margin-bottom: 0.35em; }
+  ul, ol { margin: 0.35em 0 0.6em; }
+}
+
+blockquote {
+  border-left: 3px solid var(--accent);
+  padding: 0.1em 0 0.1em 1.2em;
+  font-family: $font-display;
+  font-size: 1.2em;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--fg);
+  margin: 1.6em 0;
+  line-height: 1.4;
+  font-variation-settings: "opsz" 36;
+}
+
+// -------------------------------------------------------------
+//  Code
+// -------------------------------------------------------------
+code {
+  font-family: $font-mono;
+  font-size: 0.86em;
+  background: var(--code-bg);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+pre {
+  font-family: $font-mono;
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
+  padding: 14px 18px;
+  border-radius: 4px;
+  overflow-x: auto;
+  line-height: 1.55;
+  font-size: 0.85rem;
+  margin: 1.4em 0;
+  color: var(--fg);
+
+  code {
+    background: none;
+    padding: 0;
+    font-size: inherit;
+    font-family: $font-mono;
+    font-style: normal;
+    color: inherit;
+  }
+}
+
+// Rouge wraps highlighted output in <div class="highlight"><pre class="highlight">
+// so the <pre> already carries all the styling above. The <figure class="highlight">
+// variant (used when Kramdown wraps in a figure) needs a small reset.
+.highlight {
+  background: var(--code-bg);
+  border-radius: 4px;
+  margin: 1.4em 0;
+
+  pre.highlight, pre {
+    margin: 0;
+    border: none;
+  }
+}
+
+figure.highlight {
+  margin: 1.4em 0;
+}
+
+// -------------------------------------------------------------
+//  Tables
+// -------------------------------------------------------------
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  margin: 1.2em 0;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.2em 0;
+  font-size: 0.92rem;
+
+  th, td {
+    padding: 8px 12px;
+    border: 1px solid var(--rule);
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--bg-elev);
+    font-weight: 600;
+    font-family: $font-sans;
+  }
+}
+
+// -------------------------------------------------------------
+//  Images
+// -------------------------------------------------------------
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+// -------------------------------------------------------------
+//  Sidebar (nav + brand + theme toggle)
+// -------------------------------------------------------------
+.brand-name {
+  display: block;
+  font-family: $font-display;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.1;
+  font-variation-settings: "opsz" 36;
+  color: var(--fg);
+  text-decoration: none;
+  border: none;
+  margin: 0 0 24px;
+  &:hover { color: var(--accent); border: none; }
+}
+
+.nav-label {
+  font-family: $font-sans;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--fg-soft);
+  margin: 0 0 12px;
+  font-weight: 600;
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px;
+  li { margin-bottom: 0; }
+}
+
+.nav-link {
+  display: block;
+  color: var(--fg);
+  text-decoration: none;
+  padding: 4px 0;
+  border: none;
+  font-weight: 500;
+  &:hover { color: var(--accent); border: none; }
+  &.active { color: var(--accent); }
+}
+
+.theme-toggle {
+  font-family: $font-sans;
+  background: transparent;
+  border: 1px solid var(--rule);
+  color: var(--fg-soft);
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  &:hover {
+    background: var(--bg-elev);
+    color: var(--fg);
+    border-color: var(--fg-soft);
+  }
+}
+
+// -------------------------------------------------------------
+//  Post chrome
+// -------------------------------------------------------------
+.post-header { margin-bottom: 1.6em; }
+
+.post-title {
+  // h1 already styled
+  margin-bottom: 0.2em;
+}
+
+.post-meta {
+  font-family: $font-sans;
+  font-size: 0.76rem;
+  color: var(--accent-2);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 600;
+  margin: 0 0 2em;
+}
+
+// Opt-in drop cap: add `{:.lede}` to a paragraph in kramdown to apply.
+// Not enabled by default because many posts start with a $\newcommand$
+// MathJax preamble that would render a `$` as a giant capital.
+.lede::first-letter {
+  font-family: $font-display;
+  font-size: 3.6em;
+  float: left;
+  line-height: 0.85;
+  padding: 0.05em 0.12em 0 0;
+  font-weight: 500;
+  color: var(--accent-2);
+  font-variation-settings: "opsz" 72;
+}
+
+// -------------------------------------------------------------
+//  Footer
+// -------------------------------------------------------------
+.site-footer {
+  border-top: 1px solid var(--rule);
+  padding: 32px 0 48px;
+  font-family: $font-sans;
+  font-size: 0.88rem;
+  color: var(--fg-soft);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+
+  h3 {
+    font-family: $font-display;
+    font-size: 1.2rem;
+    color: var(--fg);
+    margin: 0 0 10px;
+    font-variation-settings: "opsz" 36;
+    font-style: italic;
+    font-weight: 500;
   }
 
-  @at-root .hack &-navigation-heading {
-    padding-top: 20px;
+  a { color: var(--accent); }
+}
+
+.social-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 22px;
+}
+
+.social-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.social-icon {
+  display: inline-flex;
+  width: 16px;
+  height: 16px;
+  align-items: center;
+  justify-content: center;
+  color: var(--fg-soft);
+
+  svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
   }
+}
 
-  // footer.html
+@media (max-width: 720px) {
+  .site-footer { grid-template-columns: 1fr; gap: 16px; }
+}
 
-  @at-root body &-footer {
-    padding-bottom: $spacing-unit;
-    flex-direction: column;
-  }
+// -------------------------------------------------------------
+//  GitHub corner ribbon — themed via CSS vars
+// -------------------------------------------------------------
+.github-corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  display: block;
+  width: 80px;
+  height: 80px;
 
-  &-social {
-    display: inline-block;
-  }
+  svg { display: block; }
+  .gh-corner-bg   { fill: var(--fg); }
+  .gh-corner-arm  { fill: var(--bg); transform-origin: 130px 106px; }
+  .gh-corner-body { fill: var(--bg); }
 
-  &-social + &-social {
-    padding-left: $spacing-unit;
-  }
+  &:hover .octo-arm { animation: octocat-wave 560ms ease-in-out; }
+}
 
-  &-sm-reversed-grid.grid {
-    @include media-query($on-palm) {
-      flex-direction: column-reverse;
-    }
-  }
+@keyframes octocat-wave {
+  0%, 100% { transform: rotate(0); }
+  20%, 60% { transform: rotate(-25deg); }
+  40%, 80% { transform: rotate(10deg); }
+}
 
-  &-icon {
-    display: inline-block;
-    vertical-align: middle;
-    width: $icon-size;
-    height: $icon-size;
+@media (max-width: 500px) {
+  .github-corner:hover .octo-arm { animation: none; }
+  .github-corner .octo-arm { animation: octocat-wave 560ms ease-in-out; }
+}
 
-    > svg {
-      width: $icon-size;
-      height: $icon-size;
-      vertical-align: middle;
-    }
-  }
-
-  // examples.html
-
-  &-media {
-    margin-bottom: 1.25rem;
-  }
-
-  &-media-shift {
-    max-width: $image-size;
-  }
-
-  &-media-image {
-    display: block;
-    max-width: 100%;
-    height: auto;
-  }
-
-  &-cards {
-    flex-wrap: wrap;
-    @include media-query($on-palm) {
-      flex-wrap: nowrap;
-    }
-  }
-
-  &-cards-cell {
-    padding-bottom: $spacing-unit;
-    padding-right: $spacing-unit;
-  }
-
-  &-cards-text {
-    margin: 0
-  }
-
-  &-cards-image {
-    display: block;
-    max-width: 50%;
-    height: auto;
-    margin: 0 auto;
-  }
-
-  &-cards-link {
-    text-align: center;
-  }
+// -------------------------------------------------------------
+//  MathJax: inherit body color so it adapts to dark mode
+// -------------------------------------------------------------
+.MathJax, .MathJax_Display, .mjx-chtml {
+  color: var(--fg);
 }

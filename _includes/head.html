@@ -3,34 +3,50 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Favicon -->
+  <!-- Pick light/dark mode early to avoid a flash of the wrong theme. -->
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('theme-mode');
+        var mode = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-mode', mode);
+      } catch (e) {
+        document.documentElement.setAttribute('data-mode', 'light');
+      }
+    })();
+  </script>
+
   <link rel="icon" href="{{ "/favicon.png" | prepend: site.baseurl }}">
 
-  <!-- Meta information -->
   <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
   <meta name="description"
         content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
   <link rel="canonical"
         href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}" />
 
-  <!-- hack.css -->
-  <link rel="stylesheet" href="https://npmcdn.com/hack/dist/hack.css" />
-  {% if site.theme_mode == 'standard' %}
-  <link rel="stylesheet" href="https://npmcdn.com/hack/dist/standard.css" />
-  {% elsif site.theme_mode == 'dark' %}
-  <link rel="stylesheet" href="https://npmcdn.com/hack/dist/dark.css" />
-  {% endif %}
+  <!-- Web fonts: Newsreader (display), IBM Plex Sans (body), JetBrains Mono (code) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500;1,6..72,600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500;600&display=swap">
 
-  <!-- syntax highlighting -->
-  <link href="{{ "/css/syntax.css" | prepend: site.baseurl }}" rel="stylesheet">
-
-  <!-- Custom style -->
+  <!-- Site styles -->
   <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}" />
+  <link rel="stylesheet" href="{{ "/css/syntax.css" | prepend: site.baseurl }}" />
 
-  <!-- Feed -->
+  <!-- MathJax (kept on v2.7.5 to match the existing site behaviour) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}"
         href="{{ "/feed.xml" | prepend: site.baseurl }}" />
 
-  <!-- 'jekyll-seo' plugin -->
   {% seo %}
 </head>

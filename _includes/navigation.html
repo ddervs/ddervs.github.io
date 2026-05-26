@@ -1,14 +1,17 @@
-<div class="t-hackcss-navigation">
-  <h2 class="t-hackcss-navigation-heading">Menu</h2>
+<a class="brand-name" href="{{ "/" | prepend: site.baseurl }}">{{ site.title }}</a>
 
-  <nav class="menu" role="menubar">
-    {% assign url = page.url|remove:'index.html' %}
-    {% for link in site.navigation %}
-      <a class="menu-item {% if url == link.url %}active{% endif %}"
-        role="menuitem" href="{{ link.url | prepend: site.baseurl }}" title="{{ link.title }}">
-        {{ link.text }} <div class="pull-right">»</div>
-      </a>
-    {% endfor %}
-  </nav>
+<p class="nav-label">Menu</p>
+<ul class="nav-list">
+  {% assign url = page.url | remove:'index.html' %}
+  {% for link in site.navigation %}
+    <li>
+      <a class="nav-link{% if url == link.url %} active{% endif %}"
+         href="{{ link.url | prepend: site.baseurl }}"
+         title="{{ link.text }}">{{ link.text }}</a>
+    </li>
+  {% endfor %}
+</ul>
 
-</div>
+<button class="theme-toggle" type="button" aria-label="Toggle dark mode">
+  <span class="theme-toggle-label">Dark mode</span>
+</button>
