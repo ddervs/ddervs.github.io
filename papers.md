@@ -5,6 +5,7 @@ permalink: papers
 
 Selected Papers
 ===============
+{:.page-title}
 
 Here are some papers I've written with a high-level overview of what's in them. I've included a [notes](#notes) section at the bottom of the page to help unpack the jargon.
 

@@ -3,7 +3,9 @@ layout: default
 ---
 
 # Danial Dervovic
-                                   
+{:.page-title}
+
+
 <!-- <img src="assets/photos/dallemini_cropped.png" alt="ddervs_photo" style="width:100%; display: block; margin-left: auto; margin-right: auto;"> -->
 
 Hi, I'm Dan. I work for [J.P. Morgan Quantitative Trading & Research](https://www.bloomberg.com/news/articles/2026-01-15/jpmorgan-forms-new-quant-group-to-fend-off-market-maker-rivals), after many years in the [J.P. Morgan AI Research lab](https://www.jpmorgan.com/global/technology/artificial-intelligence). I work on a mixture of research questions and concrete applications of AI in Finance. 

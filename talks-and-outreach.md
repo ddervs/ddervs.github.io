@@ -4,6 +4,7 @@ permalink: talks-and-outreach
 ---
 
 # Talks and Outreach
+{:.page-title}
 
 ## Talks and Seminars
 

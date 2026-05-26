@@ -4,6 +4,7 @@ permalink: notes
 ---
 
 # Notes
+{:.page-title}
 
 ## Graphs
 
