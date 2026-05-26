@@ -126,6 +126,17 @@ body {
   .site-container { padding: 0 20px; }
   .layout { grid-template-columns: 1fr; gap: 28px; padding: 28px 0 32px; }
   .sidebar { position: static; }
+
+  // Compact horizontal nav: hide the "Pages" label, lay the
+  // links out in a flex row that wraps if it must.
+  .sidebar .nav-label { display: none; }
+  .nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 18px;
+    margin: 0 0 18px;
+  }
+  .nav-link { padding: 2px 0; }
 }
 
 // -------------------------------------------------------------
@@ -471,6 +482,7 @@ img {
     gap: 6px;
   }
   .post-entry-date { padding-top: 0; }
+  .post-entry-date br { display: none; }
 }
 
 // -------------------------------------------------------------
