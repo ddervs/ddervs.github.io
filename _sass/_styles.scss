@@ -576,6 +576,8 @@ img {
   }
 
   a { color: var(--accent); }
+
+  .footer-block:last-child { text-align: right; }
 }
 
 .social-list {
@@ -610,6 +612,7 @@ img {
 
 @media (max-width: 720px) {
   .site-footer { grid-template-columns: 1fr; gap: 16px; }
+  .site-footer .footer-block:last-child { text-align: left; }
 }
 
 // -------------------------------------------------------------

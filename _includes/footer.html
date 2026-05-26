@@ -1,7 +1,10 @@
 <footer class="site-footer">
   <div class="footer-block">
     <h3>{{ site.title }}</h3>
-    <p>{{ site.your_name }}, <a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+    <p class="social-item">
+      <span class="social-icon">{% include icon-email.html %}</span>
+      <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+    </p>
     <ul class="social-list">
       {% for social in site.social %}
         {% assign template = social.service | prepend:"icon-" | append:".html" %}
