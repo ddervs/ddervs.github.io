@@ -182,13 +182,7 @@ em {
 }
 
 strong {
-  font-weight: 600;
-  background: linear-gradient(
-    to top,
-    color-mix(in srgb, var(--accent-2) 35%, transparent) 0 35%,
-    transparent 35% 100%
-  );
-  padding: 0 1px;
+  font-weight: 700;
 }
 
 a {
