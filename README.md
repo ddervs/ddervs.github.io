@@ -62,9 +62,11 @@ In life it seems as if it's always tough to make the right decision...
 
 Off by default because some posts open with a `$\newcommand$` MathJax preamble — auto-applying the drop cap would render a giant `$`.
 
-### Disabling comments on a single post
+### Comments (Disqus)
 
-Add `comments: false` to that post's front matter. To disable site-wide, blank the `disqus.shortname` in [`_config.yml`](_config.yml).
+The Disqus thread only renders when `jekyll.environment == "production"` — so it's invisible during `bundle exec jekyll serve` and shows up once GitHub Pages builds the site (Pages sets `JEKYLL_ENV=production` automatically). This keeps localhost URLs out of Disqus's thread index, avoids inflating view counts, and lets local dev run without the third-party script. To preview the thread locally, run `JEKYLL_ENV=production bundle exec jekyll serve`.
+
+To disable comments on a single post, add `comments: false` to its front matter. To disable site-wide, blank the `disqus.shortname` in [`_config.yml`](_config.yml).
 
 ## Theme
 
