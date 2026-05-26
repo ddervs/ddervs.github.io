@@ -2,7 +2,7 @@
 layout: default
 ---
 
-# Danial Dervovic
+# Home
 {:.page-title}
 
 
