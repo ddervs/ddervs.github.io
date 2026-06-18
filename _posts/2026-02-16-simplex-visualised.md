@@ -108,7 +108,11 @@ This is exactly what you see at Step 1 of the animation. As the simplex progress
 
 ### Why This Representation?
 
-The tableau is just a bookkeeping device. At every step, it encodes the current system of equations after row reduction, in a form where the solution is immediately readable. The key property is that each **basic variable** has a column that’s a standard basis vector (a single 1, rest 0s), so setting non-basic variables to zero gives you the basic variable values directly from the RHS column.
+Here is the key idea that makes everything else click. **Every row of the tableau is a linear equation that is true at every step of the algorithm.** The slack-variable equations $a_{i1}x_1 + a_{i2}x_2 + s_i = b_i$ and the objective equation $z - c_1x_1 - c_2x_2 = 0$ hold simultaneously, and they continue to hold no matter what we do to the tableau — they are *invariants*. The tableau is just a compact way of writing this system down.
+
+Now, a system of $m$ equations in $n + m$ unknowns is underdetermined: it has infinitely many solutions. To pin down a *single* one, we choose $m$ variables to **solve for** (the basic variables) and force the remaining $n$ to zero (the non-basic variables). This is exactly what a vertex is.
+
+The reason we want the tableau in a special form is so that this solution can be **read off without any algebra**. If each basic variable’s column is a standard basis vector — a single 1, the rest 0s — then setting the non-basic variables to zero makes every equation collapse to “basic variable = its RHS entry.” The solution falls straight out of the RHS column. Achieving and preserving this clean, identity-pattern form is the *entire point* of the row operations that follow. We are never changing the underlying equations; we are only re-expressing them so that a different vertex becomes the one we can read directly.
 
 -----
 
@@ -145,12 +149,18 @@ If no entry in the entering column is positive, the problem is **unbounded** —
 
 ### 4.3 Pivoting (Row Reduction)
 
-The pivot operation is standard Gaussian elimination, targeted to maintain the tableau’s structure:
+This is where the “why” from Section 2 pays off. We have chosen a new variable to bring into the basis (the entering variable) and one to remove (the leaving variable). But the tableau equations are still written in terms of the *old* basis — the entering variable’s column is not yet a unit vector, so we can’t just read its value off the RHS. **Pivoting re-expresses the exact same system of equations** so that the new basic set once again sits in identity-pattern form.
 
-1. **Divide the pivot row** by the pivot element, making it 1
+Crucially, the operations we use — scaling a row, and adding a multiple of one row to another — are **reversible** and **preserve the solution set** of the linear system. We are not changing what the equations *say*; we are only changing which variables they are solved for. That is why the answer we eventually read off is genuinely a solution to the original program.
+
+The pivot operation is standard Gaussian elimination, targeted to restore the structure:
+
+1. **Divide the pivot row** by the pivot element, making the entering variable’s coefficient 1
 1. **Eliminate** the entering variable from all other rows (including the objective row) using row operations
 
-After pivoting, the entering variable’s column becomes a standard basis vector (with the 1 in the pivot row), and the solution is again readable from the RHS. The row label updates to reflect the new basic variable.
+After pivoting, the entering variable’s column has become a standard basis vector (with the 1 in the pivot row), the leaving variable’s column is no longer a unit vector, and the solution is again readable straight from the RHS. The row label updates to reflect the new basic variable — geometrically, we have slid to an adjacent vertex.
+
+The algorithm terminates when the basis can no longer be improved (Section 4.4). At that point the basic variables — typically a mix of decision variables $x_j$ and any slacks still carrying spare capacity — form the identity block, and the optimal vertex is read directly from the RHS. Watch this happen in the visualizer: the identity columns march from the slack block over to the $x_1, x_2$ columns as the origin’s slacks are swapped out for genuine decision variables.
 
 ### 4.4 Optimality Check
 
