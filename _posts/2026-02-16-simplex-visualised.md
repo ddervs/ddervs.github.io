@@ -20,7 +20,7 @@ Explanation in detail below the animation (also Claude).
 fetch('/assets/simplex_viz/simplex_dual.jsx')
   .then(r => r.text())
   .then(code => {
-    const output = Babel.transform(code, { presets: ['react'] }).code;
+    const output = Babel.transform(code, { presets: [['react', { runtime: 'classic' }]] }).code;
     new Function(output)();
   })
   .catch(err => console.error('Failed to load simplex viz:', err));

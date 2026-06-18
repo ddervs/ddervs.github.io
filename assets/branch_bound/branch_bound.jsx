@@ -107,16 +107,16 @@ function GeometryPane({ step, base, isMin, objCoeffs, maxCoord }) {
         <g key={`g${v}`}>
           <line x1={sx(0)} y1={sy(v)} x2={sx(maxCoord)} y2={sy(v)} stroke="#1e293b" strokeWidth="0.5" />
           <line x1={sx(v)} y1={sy(0)} x2={sx(v)} y2={sy(maxCoord)} stroke="#1e293b" strokeWidth="0.5" />
-          <text x={sx(0) - 5} y={sy(v) + 3} fill="#475569" fontSize="8" textAnchor="end" fontFamily="monospace">{v}</text>
-          <text x={sx(v)} y={sy(0) + 12} fill="#475569" fontSize="8" textAnchor="middle" fontFamily="monospace">{v}</text>
+          <text x={sx(0) - 6} y={sy(v) + 3.5} fill="#64748b" fontSize="10.5" textAnchor="end" fontFamily="monospace">{v}</text>
+          <text x={sx(v)} y={sy(0) + 14} fill="#64748b" fontSize="10.5" textAnchor="middle" fontFamily="monospace">{v}</text>
         </g>
       ))}
 
       {/* axes */}
       <line x1={sx(0)} y1={sy(0)} x2={sx(maxCoord)} y2={sy(0)} stroke="#475569" strokeWidth="1.5" />
       <line x1={sx(0)} y1={sy(0)} x2={sx(0)} y2={sy(maxCoord)} stroke="#475569" strokeWidth="1.5" />
-      <text x={sx(maxCoord) + 3} y={sy(0) + 4} fill="#94a3b8" fontSize="10" fontFamily="monospace">x₁</text>
-      <text x={sx(0) - 10} y={sy(maxCoord)} fill="#94a3b8" fontSize="10" fontFamily="monospace">x₂</text>
+      <text x={sx(maxCoord) + 4} y={sy(0) + 5} fill="#cbd5e1" fontSize="13" fontFamily="monospace">x₁</text>
+      <text x={sx(0) - 13} y={sy(maxCoord)} fill="#cbd5e1" fontSize="13" fontFamily="monospace">x₂</text>
 
       {/* base constraint lines (faint) */}
       {base.map((c, i) => {
@@ -167,7 +167,7 @@ function GeometryPane({ step, base, isMin, objCoeffs, maxCoord }) {
           <g>
             <line x1={ox} y1={oy} x2={tx} y2={ty} stroke="#86efac" strokeWidth="2" strokeLinecap="round" strokeDasharray="6,2" />
             <polygon points={`${tx},${ty} ${tx - hl * Math.cos(ang - 0.35)},${ty - hl * Math.sin(ang - 0.35)} ${tx - hl * Math.cos(ang + 0.35)},${ty - hl * Math.sin(ang + 0.35)}`} fill="#86efac" />
-            <text x={ox} y={oy + 12} fill="#86efac" fontSize="7" fontFamily="monospace" textAnchor="middle">{isMin ? "improve ↓" : "improve ↑"}</text>
+            <text x={ox} y={oy + 14} fill="#86efac" fontSize="9.5" fontFamily="monospace" textAnchor="middle">{isMin ? "improve ↓" : "improve ↑"}</text>
           </g>
         );
       })()}
@@ -177,8 +177,8 @@ function GeometryPane({ step, base, isMin, objCoeffs, maxCoord }) {
         const [px, py] = toSvg(inc.x);
         return (
           <g>
-            <circle cx={px} cy={py} r="7" fill="none" stroke="#fcd34d" strokeWidth="1.5" />
-            <text x={px} y={py + 3} fill="#fcd34d" fontSize="9" textAnchor="middle" fontWeight="700">★</text>
+            <circle cx={px} cy={py} r="8" fill="none" stroke="#fcd34d" strokeWidth="1.5" />
+            <text x={px} y={py + 4} fill="#fcd34d" fontSize="12" textAnchor="middle" fontWeight="700">★</text>
           </g>
         );
       })()}
@@ -190,7 +190,7 @@ function GeometryPane({ step, base, isMin, objCoeffs, maxCoord }) {
           <g filter="url(#bbGlow)">
             <polygon points={diamond(px, py, 6)}
               fill={lpFrac ? "none" : "#f59e0b"} stroke={lpFrac ? "#f8fafc" : "#fff"} strokeWidth="2" />
-            <text x={px + 9} y={py - 7} fill="#f8fafc" fontSize="8.5" fontFamily="monospace" fontWeight="700">
+            <text x={px + 10} y={py - 8} fill="#f8fafc" fontSize="11" fontFamily="monospace" fontWeight="700">
               ({fmt(lp[0])}, {fmt(lp[1])})
             </text>
           </g>
@@ -205,7 +205,7 @@ function GeometryPane({ step, base, isMin, objCoeffs, maxCoord }) {
    ============================================================ */
 function TreePane({ step }) {
   const nodes = step.tree;
-  const W = 360, H = 360, pad = 26;
+  const W = 360, H = 360, pad = 26, topPad = 46;   // extra top room for the root's z= label (incl. highlight ring)
   const childrenMap = {};
   nodes.forEach(n => { if (n.parentId !== null) (childrenMap[n.parentId] = childrenMap[n.parentId] || []).push(n.id); });
 
@@ -228,15 +228,15 @@ function TreePane({ step }) {
 
   // centre the layout: a lone node sits mid-top; otherwise fill the width
   const px = id => span < 1e-9 ? W / 2 : pad + ((xpos[id] - lo) / span) * (W - 2 * pad);
-  const py = d => pad + (d / maxD) * (H - 2 * pad);
+  const py = d => topPad + (d / maxD) * (H - topPad - pad);
   const byId = {};
   nodes.forEach(n => { byId[n.id] = n; });
 
   // adaptive sizing: shrink nodes/labels as the tree grows so big trees stay legible
   const hSpace = span < 1e-9 ? W : (W - 2 * pad) / Math.max(span, 1);
-  const vSpace = (H - 2 * pad) / maxD;
+  const vSpace = (H - topPad - pad) / maxD;
   const r = Math.max(5, Math.min(14, Math.min(hSpace, vSpace) * 0.38));
-  const fs = Math.max(6.5, r * 0.72);
+  const fs = Math.max(9, r * 0.9);
   const dense = r < 9.5;          // hide per-node bound + edge labels when crowded
 
   return (
@@ -251,8 +251,8 @@ function TreePane({ step }) {
           <g key={`e${n.id}`}>
             <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#334155" strokeWidth="1.2" />
             {!dense && <>
-              <rect x={mx - 22} y={my - 7} width="44" height="14" rx="3" fill="#0c1222" opacity="0.85" />
-              <text x={mx} y={my + 3} fill="#94a3b8" fontSize="8" textAnchor="middle" fontFamily="monospace">{n.label}</text>
+              <rect x={mx - 26} y={my - 8} width="52" height="16" rx="3" fill="#0c1222" opacity="0.85" />
+              <text x={mx} y={my + 3.5} fill="#cbd5e1" fontSize="10" textAnchor="middle" fontFamily="monospace">{n.label}</text>
             </>}
           </g>
         );
@@ -270,10 +270,10 @@ function TreePane({ step }) {
             {cur && <circle cx={x} cy={y} r={r + 4} fill="none" stroke="#fff" strokeWidth="2" opacity="0.9" />}
             <circle cx={x} cy={y} r={r} fill={s.fill} stroke={s.stroke} strokeWidth="1.6" />
             <text x={x} y={y + fs * 0.35} fill="#f8fafc" fontSize={fs} textAnchor="middle" fontWeight="700" fontFamily="monospace">{n.id}</text>
-            {showZ && <text x={x} y={y - r - 4} fill="#cbd5e1" fontSize={Math.max(7, fs * 0.85)} textAnchor="middle" fontFamily="monospace">z={bound}</text>}
-            {n.isIncumbent && <text x={x + r} y={y - r + 4} fill="#fcd34d" fontSize={fs + 1} fontWeight="700">★</text>}
-            {n.status === "pruned-bound" && <text x={x} y={y + r + 11} fill="#f87171" fontSize="9" textAnchor="middle">✂</text>}
-            {n.status === "pruned-infeasible" && <text x={x} y={y + r + 11} fill="#9ca3af" fontSize="9" textAnchor="middle">✗</text>}
+            {showZ && <text x={x} y={y - (cur ? r + 6 : r) - 6} fill="#cbd5e1" fontSize={Math.max(9, fs * 0.9)} textAnchor="middle" fontFamily="monospace">z={bound}</text>}
+            {n.isIncumbent && <text x={x + r} y={y - r + 4} fill="#fcd34d" fontSize={fs + 2} fontWeight="700">★</text>}
+            {n.status === "pruned-bound" && <text x={x} y={y + r + 13} fill="#f87171" fontSize="11" textAnchor="middle">✂</text>}
+            {n.status === "pruned-infeasible" && <text x={x} y={y + r + 13} fill="#9ca3af" fontSize="11" textAnchor="middle">✗</text>}
           </g>
         );
       })}

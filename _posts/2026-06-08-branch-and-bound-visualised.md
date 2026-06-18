@@ -24,7 +24,7 @@ short_description: An interactive visualisation of branch and bound, branch and 
 fetch('/assets/branch_bound/branch_bound.jsx')
   .then(r => r.text())
   .then(code => {
-    const output = Babel.transform(code, { presets: ['react'] }).code;
+    const output = Babel.transform(code, { presets: [['react', { runtime: 'classic' }]] }).code;
     new Function(output)();
   })
   .catch(err => console.error('Failed to load branch & bound viz:', err));

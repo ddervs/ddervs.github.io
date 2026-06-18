@@ -19,7 +19,7 @@
   <script>
     fetch('branch_bound.jsx')
       .then(r => r.text())
-      .then(code => { new Function(Babel.transform(code, { presets: ['react'] }).code)(); })
+      .then(code => { new Function(Babel.transform(code, { presets: [['react', { runtime: 'classic' }]] }).code)(); })
       .catch(err => console.error('Failed to load branch & bound viz:', err));
   </script>
 </body>
