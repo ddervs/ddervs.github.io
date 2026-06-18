@@ -282,6 +282,118 @@ function TreePane({ step }) {
 }
 
 /* ============================================================
+   TABLEAU PANE  (replaces the tree in pure cutting-plane mode)
+   Shows the optimal tableau's decision rows in the nonbasic
+   slacks, highlights the fractional source row, and derives the
+   Gomory cut beneath it.
+   ============================================================ */
+function gcd(a, b) { a = Math.abs(Math.round(a)); b = Math.abs(Math.round(b)); while (b) { [a, b] = [b, a % b]; } return a; }
+function simplifyCut(a1, a2, rhs) {
+  if (![a1, a2, rhs].every(v => Math.abs(v - Math.round(v)) < 1e-6)) return null;
+  let g = gcd(a1, a2); g = gcd(g, rhs);
+  if (g <= 1) return null;
+  return { a1: Math.round(a1) / g, a2: Math.round(a2) / g, rhs: Math.round(rhs) / g };
+}
+function cutText(c) {
+  const t = [];
+  if (Math.abs(c.a1) > 1e-9) t.push(`${fmt(c.a1)}x₁`);
+  if (Math.abs(c.a2) > 1e-9) t.push(`${fmt(c.a2)}x₂`);
+  return `${t.join(" + ")} ≤ ${fmt(c.rhs)}`;
+}
+
+function TableauPane({ step }) {
+  const t = step.tableau;
+  const base = { display: "flex", flexDirection: "column", boxSizing: "border-box", padding: "6px 8px", fontFamily: "'JetBrains Mono', monospace", color: "#e2e8f0" };
+  if (!t) {
+    return <div style={{ ...base, minHeight: 200, justifyContent: "center", alignItems: "center", color: "#64748b", fontSize: 12, textAlign: "center" }}>
+      The tableau appears once the root relaxation is solved.
+    </div>;
+  }
+  const nb = t.nonbasic, src = t.sourceRow, cut = t.cut;
+  const simp = cut ? simplifyCut(cut.a1, cut.a2, cut.rhs) : null;
+  // illustrate the floor-wrap only when the source row actually has a negative coefficient
+  let wrapNote = null;
+  if (cut && src >= 0) {
+    const sc = t.rows[src].coeffs;
+    for (let i = 0; i < sc.length; i++) {
+      if (sc[i] < -1e-9 && t.fracCoeffs[i] > 1e-9) { wrapNote = { c: sc[i], fl: Math.floor(sc[i]), fr: t.fracCoeffs[i] }; break; }
+    }
+  }
+
+  const th = { padding: "5px 10px", fontWeight: 600, color: "#64748b", borderBottom: "1px solid #334155", textAlign: "right" };
+  const thL = { ...th, textAlign: "left" };
+  const td = { padding: "6px 10px", textAlign: "right" };
+  const tdL = { ...td, textAlign: "left" };
+
+  return (
+    <div style={base}>
+      <div style={{ fontSize: 11, color: "#94a3b8", marginBottom: 10, lineHeight: 1.45 }}>
+        Optimal tableau — decision variables <span style={{ color: "#e2e8f0" }}>x₁, x₂</span> written in the nonbasic slacks. The slack <span style={{ color: "#e2e8f0" }}>s<sub>k</sub></span> belongs to the k-th constraint (cuts included).
+      </div>
+
+      <table style={{ borderCollapse: "collapse", fontSize: 14, width: "100%" }}>
+        <thead>
+          <tr>
+            <th style={thL}>basis</th>
+            {nb.map((s, i) => <th key={i} style={th}>{s.label}</th>)}
+            <th style={{ ...th, color: "#94a3b8" }}>value</th>
+          </tr>
+        </thead>
+        <tbody>
+          {t.rows.map((r, ri) => {
+            const isSrc = ri === src;
+            return (
+              <tr key={ri} style={{ background: isSrc ? "rgba(232,121,249,0.10)" : "transparent" }}>
+                <td style={{ ...tdL, color: isSrc ? "#f0abfc" : "#cbd5e1", fontWeight: 700 }}>
+                  {r.label}{isSrc ? "  ◀" : ""}
+                </td>
+                {r.coeffs.map((c, ci) => <td key={ci} style={{ ...td, color: "#cbd5e1" }}>{fmt(c)}</td>)}
+                <td style={{ ...td, fontWeight: 700, color: "#f8fafc" }}>{fmt(r.rhs)}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+
+      <div style={{ height: 1, background: "#1e293b", margin: "12px 0" }} />
+
+      {cut ? (
+        <div style={{ fontSize: 13, lineHeight: 1.7 }}>
+          <div style={{ color: "#94a3b8", fontSize: 11, marginBottom: 6 }}>
+            Take the fractional part <span style={{ color: "#cbd5e1" }}>{"f = v − ⌊v⌋ ∈ [0,1)"}</span> of each entry in the <span style={{ color: "#f0abfc" }}>source row</span> ({t.rows[src].label} = {fmt(t.rows[src].rhs)}).{wrapNote ? <> A negative wraps <em>up</em>: {`⌊${fmt(wrapNote.c)}⌋ = ${wrapNote.fl}`}, so {`frac(${fmt(wrapNote.c)}) = ${fmt(wrapNote.fr)}`}.</> : null}
+          </div>
+          <div style={{ color: "#94a3b8" }}>
+            {t.rows[src].coeffs.map((c, i) => (
+              <span key={i}>{i > 0 ? " + " : ""}{"frac("}{fmt(c)}{") "}{nb[i].label}</span>
+            ))} {"≥ frac("}{fmt(t.rows[src].rhs)}{")"}
+          </div>
+          <div style={{ color: "#cbd5e1" }}>
+            {"= "}
+            {t.fracCoeffs.map((f, i) => (
+              <span key={i}>{i > 0 ? " + " : ""}{fmt(f)} {nb[i].label}</span>
+            ))} <span style={{ color: "#94a3b8" }}>≥</span> {fmt(t.fracRhs)}
+          </div>
+          <div style={{ marginTop: 8, color: "#94a3b8", fontSize: 11, marginBottom: 4 }}>
+            Substitute s<sub>k</sub> = b<sub>k</sub> − (row)·x and rearrange:
+          </div>
+          <div style={{ color: CUT_COLOR, fontWeight: 700, fontSize: 14 }}>
+            {cutText(cut)}{simp ? <span style={{ color: "#94a3b8", fontWeight: 400 }}>{"  ≡  "}{cutText(simp)}</span> : null}
+          </div>
+        </div>
+      ) : t.kind === "integer" ? (
+        <div style={{ fontSize: 13, color: "#5eead4", lineHeight: 1.6 }}>
+          Every value in the tableau is an integer — the vertex is integer-feasible, so the optimum is reached and no further cut is needed.
+        </div>
+      ) : (
+        <div style={{ fontSize: 13, color: "#a78bfa", lineHeight: 1.6 }}>
+          The vertex is still fractional, but no further improving cut was produced (round limit reached or the slice is degenerate). This is the "tailing-off" pure cutting planes are prone to.
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ============================================================
    STATUS STRIP
    ============================================================ */
 function StatusStrip({ step }) {
@@ -517,6 +629,11 @@ function BranchBoundApp() {
 
   const cur = result.steps[step];
   const total = result.steps.length;
+  // cutting-plane pane carries the last computed tableau forward over steps that don't recompute one
+  let tableauStep = cur;
+  if (algo === "cp" && !cur.tableau) {
+    for (let i = step; i >= 0; i--) if (result.steps[i].tableau) { tableauStep = { ...cur, tableau: result.steps[i].tableau }; break; }
+  }
   const nNodes = cur.tree.length;
   const nCuts = cur.tree.reduce((s, n) => s + n.cuts.length, 0);
 
@@ -549,13 +666,15 @@ function BranchBoundApp() {
 
         {/* panes */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 10 }}>
-          <Pane title="Search tree"><TreePane step={cur} /></Pane>
+          {algo === "cp"
+            ? <Pane title="Simplex tableau" square={false}><TableauPane step={tableauStep} /></Pane>
+            : <Pane title="Search tree"><TreePane step={cur} /></Pane>}
           <Pane title={`Geometry — node ${cur.nodeId ?? "—"}`}><GeometryPane step={cur} base={fBase} isMin={fMin} objCoeffs={fObj} maxCoord={maxCoord} /></Pane>
         </div>
 
-        {/* status + step info */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: 12, marginBottom: 10 }}>
-          <StatusStrip step={cur} />
+        {/* status + step info (no incumbent/gap strip in pure cutting-plane mode) */}
+        <div style={{ display: "grid", gridTemplateColumns: algo === "cp" ? "1fr" : "1fr 1.4fr", gap: 12, marginBottom: 10 }}>
+          {algo !== "cp" && <StatusStrip step={cur} />}
           <div style={{ background: "#0c1222", borderRadius: 10, border: "1px solid #1e293b", padding: "10px 14px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
               <span style={{ background: phaseColor(cur.phase), color: "#fff", fontSize: 9, fontWeight: 700, padding: "2px 6px", borderRadius: 4, fontFamily: "monospace", textTransform: "uppercase", letterSpacing: 0.5 }}>{cur.phase}</span>
@@ -566,14 +685,25 @@ function BranchBoundApp() {
           </div>
         </div>
 
-        {/* legend */}
+        {/* legend (tree node colours only apply when the tree is shown) */}
         <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 10, justifyContent: "center" }}>
-          {["active", "incumbent", "pruned-bound", "pruned-infeasible", "branched"].map(k => (
+          {algo !== "cp" && ["active", "incumbent", "pruned-bound", "pruned-infeasible", "branched"].map(k => (
             <div key={k} style={{ display: "flex", alignItems: "center", gap: 4 }}>
               <div style={{ width: 9, height: 9, borderRadius: 9, background: STATUS[k].fill, border: `1px solid ${STATUS[k].stroke}` }} />
               <span style={{ fontSize: 10, color: "#94a3b8", fontFamily: "monospace" }}>{STATUS[k].label}</span>
             </div>
           ))}
+          {algo === "cp" && (
+            <>
+              <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                <span style={{ color: "#f0abfc", fontFamily: "monospace", fontSize: 11 }}>◀</span>
+                <span style={{ fontSize: 10, color: "#94a3b8", fontFamily: "monospace" }}>fractional source row</span>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                <span style={{ color: "#fcd34d", fontSize: 11 }}>★</span><span style={{ fontSize: 10, color: "#94a3b8", fontFamily: "monospace" }}>integer optimum</span>
+              </div>
+            </>
+          )}
           <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
             <div style={{ width: 12, height: 0, borderTop: `2px dashed ${CUT_COLOR}` }} /><span style={{ fontSize: 10, color: "#94a3b8", fontFamily: "monospace" }}>cut</span>
           </div>
@@ -595,11 +725,11 @@ function BranchBoundApp() {
   );
 }
 
-function Pane({ title, children }) {
+function Pane({ title, children, square = true }) {
   return (
     <div style={{ background: "#0c1222", borderRadius: 12, border: "1px solid #1e293b", padding: 8 }}>
       <div style={{ fontSize: 10, color: "#64748b", fontFamily: "monospace", margin: "2px 4px 4px", textTransform: "uppercase", letterSpacing: 0.5 }}>{title}</div>
-      <div style={{ width: "100%", aspectRatio: "1 / 1" }}>{children}</div>
+      <div style={square ? { width: "100%", aspectRatio: "1 / 1" } : { width: "100%" }}>{children}</div>
     </div>
   );
 }

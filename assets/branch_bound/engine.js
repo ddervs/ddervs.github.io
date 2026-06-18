@@ -172,6 +172,9 @@ function branchAndBound(objCoeffs, baseConstraints, isMin, opts = {}) {
     })),
   }, extra);
 
+  // tableau for the cutting-plane pane (decision rows + Gomory derivation)
+  const tableauOf = (node) => { const d = gomoryDerivation(node, effObj); return d ? d.tableau : null; };
+
   // ---- root ----
   const root = makeNode(null, [], 0, "root");
   root.lp = solveLP(effObj, root.constraints);
@@ -179,6 +182,7 @@ function branchAndBound(objCoeffs, baseConstraints, isMin, opts = {}) {
     phase: "solve", nodeId: root.id,
     title: "Solve the root LP relaxation",
     desc: lpDesc(root, displayZ),
+    tableau: tableauOf(root, effObj),
   }));
 
   if (root.lp.status !== "optimal") {
@@ -215,7 +219,8 @@ function branchAndBound(objCoeffs, baseConstraints, isMin, opts = {}) {
     for (let r = 0; r < maxCutRounds; r++) {
       if (node.lp.status !== "optimal") break;
       if (isInt(node.lp.x[0]) && isInt(node.lp.x[1])) break;   // integral, no cut needed
-      const cut = gomoryCut(node, effObj);
+      const deriv = gomoryDerivation(node, effObj);   // tableau the cut is read from (pre-cut)
+      const cut = deriv && deriv.cut;
       if (!cut) break;
       node.cuts.push(cut);
       node.constraints.push({ coeffs: [cut.a1, cut.a2], rhs: cut.rhs, op: "<=" });
@@ -224,7 +229,8 @@ function branchAndBound(objCoeffs, baseConstraints, isMin, opts = {}) {
       steps.push(snapshot({ phase: "cut", nodeId: node.id,
         title: `Add cutting plane at node ${node.id} (round ${r + 1})`,
         desc: `Gomory cut ${cutLabel(cut)} removes the fractional point ${pt(before.x)} ` +
-              `without cutting off any integer point. Re-solving gives ${lpShort(node.lp, displayZ)}.` }));
+              `without cutting off any integer point. Re-solving gives ${lpShort(node.lp, displayZ)}.`,
+        tableau: deriv.tableau }));
       if (incumbent && node.lp.status === "optimal" && node.lp.z <= incumbent.z + INT_TOL) {
         node.status = "pruned-bound";
         steps.push(snapshot({ phase: "prune", nodeId: node.id,
@@ -255,12 +261,14 @@ function branchAndBound(objCoeffs, baseConstraints, isMin, opts = {}) {
         node.status = "incumbent";
         steps.push(snapshot({ phase: "incumbent", nodeId: node.id,
           title: `New incumbent at node ${node.id}`,
-          desc: `LP optimum ${pt(node.lp.x)} is all-integer with value ${fmt(displayZ(node.lp.z))} — a new best feasible solution.` }));
+          desc: `LP optimum ${pt(node.lp.x)} is all-integer with value ${fmt(displayZ(node.lp.z))} — a new best feasible solution.`,
+          tableau: tableauOf(node) }));
       } else {
         node.status = "integer";
         steps.push(snapshot({ phase: "integer", nodeId: node.id,
           title: `Integer solution at node ${node.id}`,
-          desc: `Integer point ${pt(node.lp.x)} value ${fmt(displayZ(node.lp.z))} does not improve the incumbent.` }));
+          desc: `Integer point ${pt(node.lp.x)} value ${fmt(displayZ(node.lp.z))} does not improve the incumbent.`,
+          tableau: tableauOf(node) }));
       }
       continue;
     }
@@ -271,7 +279,8 @@ function branchAndBound(objCoeffs, baseConstraints, isMin, opts = {}) {
       steps.push(snapshot({ phase: "stall", nodeId: node.id,
         title: `Node ${node.id} still fractional`,
         desc: `Cutting planes alone did not reach an integer point (no more cuts, or round limit hit). ` +
-              `Branching is disabled in pure cutting-plane mode.` }));
+              `Branching is disabled in pure cutting-plane mode.`,
+        tableau: tableauOf(node) }));
       continue;
     }
 
@@ -312,31 +321,37 @@ function branchAndBound(objCoeffs, baseConstraints, isMin, opts = {}) {
 }
 
 /* ============================================================
-   GOMORY FRACTIONAL CUT (for branch & cut)
-   Derives a cut from the optimal vertex of the node's LP.
-   Strategy: reconstruct the simplex tableau row for a fractional
-   basic decision variable from the two binding constraints, then
-   form the Gomory fractional cut in terms of the slacks and
-   translate back to x-space.  Returns {a1,a2,rhs,...} or null.
+   SIMPLEX TABLEAU (at a node's optimal LP vertex)
+   Reconstructs the optimal tableau's *decision-variable rows*
+   (x1, x2) expressed in the two nonbasic slacks — the slacks of
+   the two constraints binding at the vertex. This is exactly the
+   data a Gomory cut is read from, and it stays a constant 2x2
+   regardless of how many cuts have been added.
+     x_i + sum_j (Binv[i][j]) s_j = (Binv b)_i
+   Returns { nonbasic:[{label,idx}], rows:[{label,coeffs,rhs}],
+             Binv, xb, r1, r2 } or null when no clean 2-constraint
+   basis exists (degenerate / <2 binding "<=" constraints).
    ============================================================ */
-function gomoryCut(node, effObj) {
+function subscript(n) {
+  return String(n).split("").map(d => "₀₁₂₃₄₅₆₇₈₉"[+d] || d).join("");
+}
+function slackLabel(i) { return "s" + subscript(i + 1); }
+
+function buildTableau(node) {
   const lp = node.lp;
   if (!lp || lp.status !== "optimal") return null;
-  if (isInt(lp.x[0]) && isInt(lp.x[1])) return null;   // nothing to cut
 
-  // Find the (up to two) constraints binding at the optimal vertex.
+  // constraints binding at the optimal vertex (only "<=" carry slacks here)
   const cons = node.constraints;
   const binding = [];
   for (let i = 0; i < cons.length; i++) {
     const c = cons[i];
+    if ((c.op || "<=") !== "<=") continue;
     const lhs = c.coeffs[0] * lp.x[0] + c.coeffs[1] * lp.x[1];
-    if (Math.abs(lhs - c.rhs) < 1e-6 && (c.op || "<=") === "<=") binding.push({ i, c });
+    if (Math.abs(lhs - c.rhs) < 1e-6) binding.push({ i, c });
   }
   if (binding.length < 2) return null;
 
-  // Use the two binding "<=" constraints as the basis (slacks nonbasic).
-  // Rows: a_k1 x1 + a_k2 x2 + s_k = b_k,  s_k = 0 at vertex.
-  // Basis matrix B (columns x1,x2) from the two binding rows:
   const r1 = binding[0].c, r2 = binding[1].c;
   const B = [[r1.coeffs[0], r1.coeffs[1]], [r2.coeffs[0], r2.coeffs[1]]];
   const detB = B[0][0] * B[1][1] - B[0][1] * B[1][0];
@@ -345,38 +360,82 @@ function gomoryCut(node, effObj) {
     [ B[1][1] / detB, -B[0][1] / detB],
     [-B[1][0] / detB,  B[0][0] / detB],
   ];
-
-  // Tableau in terms of slacks of the two binding rows:
-  //   [x1;x2] = Binv*b  -  Binv*[s1;s2]
-  // Choose the fractional basic variable (x1 or x2) -> row of Binv.
+  // [x1;x2] = Binv*b - Binv*[s1;s2]  =>  x_i + Binv[i]·s = (Binv b)_i
   const xb = [
     Binv[0][0] * r1.rhs + Binv[0][1] * r2.rhs,
     Binv[1][0] * r1.rhs + Binv[1][1] * r2.rhs,
   ];
-  let row = -1;
-  if (!isInt(xb[0])) row = 0;
-  else if (!isInt(xb[1])) row = 1;
-  if (row === -1) return null;
+  return {
+    nonbasic: [
+      { label: slackLabel(binding[0].i), idx: binding[0].i },
+      { label: slackLabel(binding[1].i), idx: binding[1].i },
+    ],
+    rows: [
+      { label: "x₁", coeffs: [Binv[0][0], Binv[0][1]], rhs: xb[0] },
+      { label: "x₂", coeffs: [Binv[1][0], Binv[1][1]], rhs: xb[1] },
+    ],
+    Binv, xb, r1, r2,
+  };
+}
 
-  // Gomory cut:  sum_j frac(alpha_j) * s_j >= frac(beta)
-  // where x_row + alpha_1 s1 + alpha_2 s2 = beta  (alpha = Binv row).
-  const beta = xb[row];
-  const alpha = [Binv[row][0], Binv[row][1]];
+/* ============================================================
+   GOMORY FRACTIONAL CUT + derivation (for branch & cut / cutting
+   planes).  Reads the tableau above, picks a fractional decision
+   row, and forms  sum_j frac(alpha_j) s_j >= frac(beta), then
+   translates back to x-space.  Returns
+     { tableau, cut:{a1,a2,rhs,fromVar} | null }
+   where `tableau` is a display-ready copy (no Binv/r1/r2) annotated
+   with the chosen source row and fractional parts, or null when no
+   tableau can be built.
+   ============================================================ */
+function gomoryDerivation(node, effObj) {
+  const tab = buildTableau(node);
+  if (!tab) return null;
+  const lp = node.lp;
+
+  const clean = {
+    nonbasic: tab.nonbasic,
+    rows: tab.rows.map(r => ({ label: r.label, coeffs: [...r.coeffs], rhs: r.rhs })),
+    sourceRow: -1, fracCoeffs: null, fracRhs: null, cut: null, kind: "integer",
+  };
+
+  // choose fractional basic decision variable (x1 first, then x2)
+  let row = -1;
+  if (!isInt(tab.xb[0])) row = 0;
+  else if (!isInt(tab.xb[1])) row = 1;
+  if (row === -1) return { tableau: clean, cut: null };
+
+  const beta = tab.xb[row];
+  const alpha = [tab.Binv[row][0], tab.Binv[row][1]];
   const fb = fracPart(beta);
   const fa = [fracPart(alpha[0]), fracPart(alpha[1])];
-  if (fb < INT_TOL) return null;
+  if (fb < INT_TOL) return { tableau: clean, cut: null };
 
-  // Substitute s_k = b_k - a_k·x  (>=0).  Cut: fa1*s1 + fa2*s2 >= fb.
-  //   fa1*(b1 - a1·x) + fa2*(b2 - a2·x) >= fb
-  //   -(fa1*a1 + fa2*a2)·x >= fb - (fa1*b1 + fa2*b2)
+  // Substitute s_k = b_k - a_k·x  (>=0).  Cut: fa1*s1 + fa2*s2 >= fb
   //   (fa1*a1 + fa2*a2)·x <= (fa1*b1 + fa2*b2) - fb
+  const r1 = tab.r1, r2 = tab.r2;
   const A1 = fa[0] * r1.coeffs[0] + fa[1] * r2.coeffs[0];
   const A2 = fa[0] * r1.coeffs[1] + fa[1] * r2.coeffs[1];
   const RHS = fa[0] * r1.rhs + fa[1] * r2.rhs - fb;
 
+  clean.sourceRow = row;
+  clean.fracCoeffs = fa;
+  clean.fracRhs = fb;
+
   // sanity: the cut must remove the current fractional vertex
-  if (A1 * lp.x[0] + A2 * lp.x[1] <= RHS + 1e-6) return null;
-  return { a1: A1, a2: A2, rhs: RHS, fromVar: row };
+  if (A1 * lp.x[0] + A2 * lp.x[1] <= RHS + 1e-6) {
+    clean.kind = "fractional-nocut";
+    return { tableau: clean, cut: null };
+  }
+  clean.kind = "fractional";
+  clean.cut = { a1: A1, a2: A2, rhs: RHS };
+  return { tableau: clean, cut: { a1: A1, a2: A2, rhs: RHS, fromVar: row } };
+}
+
+// Back-compat thin wrapper: the cut alone (unchanged behaviour).
+function gomoryCut(node, effObj) {
+  const d = gomoryDerivation(node, effObj);
+  return d && d.cut ? d.cut : null;
 }
 
 /* ---------- formatting helpers ---------- */
@@ -411,5 +470,5 @@ function lpDesc(node, dz) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { solveLP, selectBranchVar, branchAndBound, gomoryCut };
+  module.exports = { solveLP, selectBranchVar, branchAndBound, gomoryCut, gomoryDerivation, buildTableau };
 }
