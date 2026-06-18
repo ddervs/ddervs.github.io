@@ -68,7 +68,7 @@ Because the relaxation optimises over a *superset* of the integer-feasible point
 
 $$z_{\text{IP}}^* \;\le\; z_{\text{LP}}^*.$$
 
-This is the single most important fact in the whole subject. Every node of the search will solve a relaxation, and the bound it returns tells us the *best we could possibly hope for* in that part of the search — which is exactly what lets us discard parts of the search without exploring them.
+This is the single most important fact here. Every node of the search will solve a relaxation, and the bound it returns tells us the *best we could possibly hope for* in that part of the search — which is exactly what lets us discard parts of the search without exploring them.
 
 In the visualiser, the relaxation is solved (by the very simplex routine from the previous post) at every node; the result is the diamond marker in the geometry pane — **hollow** when the relaxation optimum is fractional, **filled gold** when it happens to be integer.
 
@@ -160,13 +160,53 @@ Take a row of the optimal tableau whose basic variable $x_{B(i)}$ is fractional:
 
 $$x_{B(i)} + \sum_{j \in \mathcal{N}} \bar{a}_{ij}\, x_j = \bar{b}_i,$$
 
-where $\mathcal{N}$ indexes the non-basic variables. Split each coefficient into its integer floor and fractional part, $\bar a_{ij} = \lfloor \bar a_{ij} \rfloor + f_{ij}$ with $0 \le f_{ij} < 1$, and likewise $\bar b_i = \lfloor \bar b_i \rfloor + f_i$. Because $x_{B(i)}$ and the floors are integers for any integer-feasible point, the fractional parts must satisfy
+where $\mathcal{N}$ indexes the non-basic variables — in our 2-D setting, the slack variables of the two binding constraints. Split each coefficient into its integer floor and a fractional remainder,
+
+$$\bar a_{ij} = \lfloor \bar a_{ij} \rfloor + f_{ij}, \quad 0 \le f_{ij} < 1, \qquad \bar b_i = \lfloor \bar b_i \rfloor + f_i, \quad 0 < f_i < 1,$$
+
+(the strict $f_i > 0$ is exactly the assumption that this row is fractional). Substitute these into the row and collect every term that is guaranteed to be an integer onto the right-hand side:
+
+$$\underbrace{\sum_{j \in \mathcal{N}} f_{ij}\, x_j - f_i}_{\text{left-hand side}} \;=\; \underbrace{\lfloor \bar b_i \rfloor - x_{B(i)} - \sum_{j \in \mathcal{N}} \lfloor \bar a_{ij} \rfloor\, x_j}_{\text{an integer whenever } x \text{ is integer-feasible}}.$$
+
+Now two observations pin down the left-hand side. First, the right-hand side is a sum and difference of integers (for any integer-feasible $x$ all the $x_j$ are integers, and the floors are integers by construction), so the left-hand side is an **integer**. Second, because every $x_j \ge 0$ and every $f_{ij} \ge 0$, the sum $\sum_{j} f_{ij}\, x_j \ge 0$, so the left-hand side is at least $-f_i$, and since $f_i < 1$ that means it is **strictly greater than $-1$**. An integer that is greater than $-1$ must be $\ge 0$. Putting the two together, $\sum_j f_{ij} x_j - f_i \ge 0$, i.e.
 
 $$\sum_{j \in \mathcal{N}} f_{ij}\, x_j \;\ge\; f_i.$$
 
-This is the **Gomory cut**. It is violated at the current vertex (where all non-basic $x_j = 0$, so the left side is $0$ but $f_i > 0$), yet valid for every integer point. The visualiser reconstructs this from the basis at the node's optimal vertex and translates it from slack-space back into $(x_1, x_2)$ coordinates so it can be drawn.
+This is the **Gomory cut**. The argument above shows it holds at every integer point, so it is a valid inequality — adding it loses no integer-feasible solution. But a valid inequality is only useful if it actually *does* something: it must be violated by the current fractional optimum, or we have cut nothing away. For a Gomory cut this is guaranteed by construction, and it is worth seeing exactly why.
 
-For the Textbook example the first Gomory cut works out to $2x_1 + 2x_2 \le 9$. Interestingly, if you keep adding cuts (the **Cutting Planes** mode), the iterates close in on the integer optimum, and the last two cuts generated are $x_1 + x_2 \le 4$ and $2x_1 + x_2 \le 6$ — *both* **facets of the integer hull**, and they intersect exactly at the integer optimum $(2,2)$. The procedure has, in effect, rediscovered the true integer description right where it matters.
+The key is that the cut is written **entirely in terms of the non-basic variables** $\mathcal{N}$. At the current LP optimal vertex every non-basic variable is zero by definition of a basic feasible solution, so the left-hand side $\sum_{j\in\mathcal N} f_{ij}\, x_j$ evaluates to exactly $0$ there. The cut demands this be $\ge f_i$, so at the current vertex it reads $0 \ge f_i$ — which is **false**, because we deliberately chose a source row whose basic value is *fractional*, making $f_i > 0$ strictly. The fractional vertex is therefore sliced off.
+
+So the cut points "in the right direction" not by luck but by two design choices acting together: it lives in non-basic space — exactly the coordinates pinned to zero at the current vertex — and its right-hand side $f_i$ is strictly positive precisely because the source row is fractional. The contrast is instructive: had we picked a row whose RHS were already integer, then $f_i = 0$ and the cut would read $\sum_j f_{ij} x_j \ge 0$, trivially true everywhere (every term is non-negative) and cutting off nothing. Fractionality of the chosen row is the whole reason the cut bites.
+
+So it slices off the fractional vertex without losing a single lattice point. The visualiser reconstructs this from the basis at the node's optimal vertex and translates it from slack-space back into $(x_1, x_2)$ coordinates so it can be drawn. In **Cutting Planes** mode the left pane shows this tableau directly: the fractional source row is highlighted, its fractional parts $f_{ij}$ and $f_i$ are listed, and the resulting cut is assembled beneath — updating each round as the basis changes.
+
+### Reading a cut off the optimal tableau
+
+To make the connection to the [simplex post]({% post_url 2026-02-16-simplex-visualised %}) concrete, here is the actual optimal tableau for the Textbook root relaxation, in the same format as that post — basic variables labelling the rows, non-basic slacks $s_1, s_2$ as the free columns, the identity block sitting under the basic columns, and the shadow prices in the $z$-row:
+
+$$\begin{array}{c|cc|cc|c}
+& x_1 & x_2 & \color{#1f77b4}{s_1} & \color{#1f77b4}{s_2} & \text{RHS} \\
+\hline
+\bbox[6px,#fff3b0]{\color{#b8860b}{x_1}} & \bbox[6px,#fff3b0]{1} & \bbox[6px,#fff3b0]{0} & \bbox[6px,#fff3b0]{\color{#1f77b4}{-\tfrac{1}{13}}} & \bbox[6px,#fff3b0]{\color{#1f77b4}{\tfrac{4}{13}}} & \bbox[6px,#ffd6d6]{\color{#cc0000}{\tfrac{32}{13}}} \\[2pt]
+x_2 & 0 & 1 & \tfrac{4}{13} & -\tfrac{3}{13} & \tfrac{28}{13} \\
+\hline
+z & 0 & 0 & \tfrac{5}{13} & \tfrac{6}{13} & \tfrac{152}{13}
+\end{array}$$
+
+The $\bbox[4px,#fff3b0]{\color{#b8860b}{x_1}}$ row is **highlighted in yellow** because its basic value $x_1 = \tfrac{32}{13} \approx 2.46$ is fractional — it is a valid **source row**. (The $x_2$ row, with $x_2 = \tfrac{28}{13}\approx 2.15$, would do just as well.) The ingredients of the cut are exactly the highlighted cells:
+
+- the $\color{#cc0000}{\text{RHS in red}}$ supplies the fractional part $f_i = \tfrac{32}{13} - 2 = \color{#cc0000}{\tfrac{6}{13}}$;
+- the $\color{#1f77b4}{\text{non-basic coefficients in blue}}$, under the slack columns, supply $f_{s_1} = -\tfrac{1}{13} - (-1) = \color{#1f77b4}{\tfrac{12}{13}}$ and $f_{s_2} = \tfrac{4}{13} - 0 = \color{#1f77b4}{\tfrac{4}{13}}$.
+
+Dropping these into $\sum_{j\in\mathcal N} f_{ij}\,x_j \ge f_i$ gives the cut in **slack-space**:
+
+$$\color{#1f77b4}{\tfrac{12}{13}}\, s_1 + \color{#1f77b4}{\tfrac{4}{13}}\, s_2 \;\ge\; \color{#cc0000}{\tfrac{6}{13}}.$$
+
+Finally substitute $s_1 = 16 - 3x_1 - 4x_2$ and $s_2 = 12 - 4x_1 - x_2$ (the slack definitions) and simplify, and the cut lands back in the original coordinates:
+
+$$2x_1 + 2x_2 \;\le\; 9.$$
+
+This is the first cut the visualiser adds, drawn as the first dashed magenta line. Interestingly, if you keep adding cuts (the **Cutting Planes** mode), the iterates close in on the integer optimum, and the last two cuts generated are $x_1 + x_2 \le 4$ and $2x_1 + x_2 \le 6$ — *both* **facets of the integer hull**, and they intersect exactly at the integer optimum $(2,2)$. The procedure has, in effect, rediscovered the true integer description right where it matters.
 
 -----
 
