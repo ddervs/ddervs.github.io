@@ -308,6 +308,20 @@ $$\nabla z = \sum_{i \in \mathcal{B}} y_i^* , \mathbf{a}_i$$
 
 where $\mathcal{B}$ is the set of binding constraints and $y_i^*$ are the shadow prices. This is precisely the KKT (Karush-Kuhn-Tucker) condition for optimality.
 
+### 8.7 When Decision Variables Can Be Negative
+
+The standard form — and the visualizer — assumes $\mathbf{x} \geq \mathbf{0}$. This non-negativity is not cosmetic: it is what makes the origin a vertex, what lets each non-basic variable sit at zero, and what gives the minimum-ratio test its meaning (variables *increase* from zero until a constraint stops them). A variable that is allowed to go negative — a **free** (or *unrestricted*) variable — breaks all three assumptions, because its $x_j \geq 0$ wall is gone.
+
+The fix is a reformulation, not a new algorithm. Split each free variable into the difference of two non-negative parts:
+
+$$x_j = x_j^+ - x_j^-, \qquad x_j^+, \, x_j^- \geq 0.$$
+
+Now $x_j^+ - x_j^-$ can take any sign, while both pieces obey the usual non-negativity, so the ordinary simplex method applies unchanged. A positive $x_j$ shows up as $x_j^+ > 0,\ x_j^- = 0$; a negative $x_j$ as the reverse. (At any basic feasible solution the two never both go positive — their columns are negatives of each other, so a sensible pivot keeps at most one in the basis. If both *were* positive you could subtract the common part from each and lower the objective slack, so it never helps.)
+
+The cost is one extra column per free variable, doubling that part of the tableau. A cheaper alternative when a variable is merely **bounded below** at some $\ell_j \neq 0$ (rather than truly free) is to *shift* it: substitute $x_j' = x_j - \ell_j \geq 0$, solve, and shift back. A box constraint $\ell_j \leq x_j \leq u_j$ is handled the same way (shift to put the lower bound at zero), with the upper bound carried as an ordinary constraint — or, in production solvers, via the **bounded-variable simplex** that treats $\ell_j$ and $u_j$ implicitly and lets non-basic variables rest at *either* bound, not only zero.
+
+Geometrically, dropping $x_j \geq 0$ removes one of the axes as a boundary, so the feasible region is no longer trapped in the first quadrant and the origin may not be a vertex at all. The visualizer always draws the first quadrant and treats $x_1, x_2 \geq 0$ as hard walls, so it cannot show a free variable directly; to model one you would split it as above and interpret the result through $x_j = x_j^+ - x_j^-$.
+
 -----
 
 ## 9. Summary: What to Watch in the Visualizer
