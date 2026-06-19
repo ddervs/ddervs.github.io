@@ -202,9 +202,18 @@ Dropping these into $\sum_{j\in\mathcal N} f_{ij}\,x_j \ge f_i$ gives the cut in
 
 $$\color{#1f77b4}{\tfrac{12}{13}}\, s_1 + \color{#1f77b4}{\tfrac{4}{13}}\, s_2 \;\ge\; \color{#cc0000}{\tfrac{6}{13}}.$$
 
-Finally substitute $s_1 = 16 - 3x_1 - 4x_2$ and $s_2 = 12 - 4x_1 - x_2$ (the slack definitions) and simplify, and the cut lands back in the original coordinates:
+This cut is expressed in the slacks, but the picture is drawn in $(x_1, x_2)$, so we translate. Each slack is defined by writing its constraint as an equality — $\text{(constraint LHS)} + s_i = b_i$ — and solving for the slack, so for the two Textbook constraints
+
+$$\begin{aligned}
+3x_1 + 4x_2 \le 16 \;&\Longrightarrow\; s_1 = 16 - 3x_1 - 4x_2, \\
+4x_1 + x_2 \le 12 \;&\Longrightarrow\; s_2 = 12 - 4x_1 - x_2.
+\end{aligned}$$
+
+Substituting these two identities into the slack-space cut and simplifying lands it back in the original coordinates:
 
 $$2x_1 + 2x_2 \;\le\; 9.$$
+
+It is worth being clear about what kind of operation each step is. This last substitution is **just Gaussian elimination** — using the constraint equalities $s_i = b_i - \mathbf{a}_i\cdot\mathbf{x}$ to eliminate the slacks is exactly the row-combination work from the [simplex post]({% post_url 2026-02-16-simplex-visualised %}), and it is legitimate because those equalities hold at *every* point, so it merely re-expresses the same inequality in different coordinates. The tableau row we started from was produced the same way — it is $B^{-1}$ applied to the original system. But the cut itself is **not** something elimination could ever have produced: any linear combination of the constraint equalities is satisfied at the current LP vertex, so row operations alone can never manufacture an inequality that excludes it. The step that does the real work is the **rounding** — splitting each coefficient into floor plus fractional part and invoking integrality. So the construction is bookended by elimination (build the source row, then translate coordinates) with the genuinely integer-programming step, the floor, in the middle.
 
 This is the first cut the visualiser adds, drawn as the first dashed magenta line. Interestingly, if you keep adding cuts (the **Cutting Planes** mode), the iterates close in on the integer optimum, and the last two cuts generated are $x_1 + x_2 \le 4$ and $2x_1 + x_2 \le 6$ — *both* **facets of the integer hull**, and they intersect exactly at the integer optimum $(2,2)$. The procedure has, in effect, rediscovered the true integer description right where it matters.
 
@@ -213,6 +222,13 @@ This is the first cut the visualiser adds, drawn as the first dashed magenta lin
 ## 10. Branch and Cut: The Best of Both
 
 **Branch and cut** is the combination that powers every serious MIP solver: at each node, add a few cutting planes to tighten the relaxation *before* deciding whether to branch. Cuts raise the bound (sharpening pruning and sometimes producing an integer optimum outright); branching guarantees the search terminates even when cuts stall.
+
+The precise rule the visualiser follows at each node makes the "when to cut, when to branch" decision concrete. Having selected the strongest open node (best-bound, as in §7) and survived the prune-by-bound test, it does the following:
+
+1. **Cut, up to a fixed budget.** While the node's LP optimum is fractional *and* a Gomory cut can be read off its tableau, add the cut and re-solve — but **at most a fixed number of rounds per node** (two, in the visualiser). The loop also stops early if the LP turns integer, if no valid cut exists, or if the tightened bound drops to the incumbent (in which case the node is pruned by bound right there).
+2. **Then branch on whatever fractionality survives.** Once the cut budget is spent, inspect the resulting LP optimum: if it is integer, the node is a feasible solution (a new incumbent if it improves); if it is infeasible, prune; otherwise it is *still fractional*, and we **branch** on the most-fractional variable exactly as in §4 — handing the two children back to the open pool.
+
+So cutting and branching are not alternatives chosen by some test; they are applied in sequence at every node — cut a bounded amount to tighten, then branch on whatever the cuts could not resolve. The **cut budget** is the single knob that interpolates between the three methods: a budget of **zero** rounds is pure branch and bound, an **unbounded** budget with branching switched off is pure cutting planes, and a **small finite** budget with branching on is branch and cut.
 
 The visualiser lets you run the same instance three ways and compare. The contrast is the whole point, and the presets are chosen to make it vivid:
 
