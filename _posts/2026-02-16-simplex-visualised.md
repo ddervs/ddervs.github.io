@@ -20,7 +20,7 @@ Explanation in detail below the animation (also Claude).
 fetch('/assets/simplex_viz/simplex_dual.jsx')
   .then(r => r.text())
   .then(code => {
-    const output = Babel.transform(code, { presets: ['react'] }).code;
+    const output = Babel.transform(code, { presets: [['react', { runtime: 'classic' }]] }).code;
     new Function(output)();
   })
   .catch(err => console.error('Failed to load simplex viz:', err));
@@ -108,7 +108,11 @@ This is exactly what you see at Step 1 of the animation. As the simplex progress
 
 ### Why This Representation?
 
-The tableau is just a bookkeeping device. At every step, it encodes the current system of equations after row reduction, in a form where the solution is immediately readable. The key property is that each **basic variable** has a column that’s a standard basis vector (a single 1, rest 0s), so setting non-basic variables to zero gives you the basic variable values directly from the RHS column.
+Here is the key idea that makes everything else click. **Every row of the tableau is a linear equation that is true at every step of the algorithm.** The slack-variable equations $a_{i1}x_1 + a_{i2}x_2 + s_i = b_i$ and the objective equation $z - c_1x_1 - c_2x_2 = 0$ hold simultaneously, and they continue to hold no matter what we do to the tableau — they are *invariants*. The tableau is just a compact way of writing this system down.
+
+Now, a system of $m$ equations in $n + m$ unknowns is underdetermined: it has infinitely many solutions. To pin down a *single* one, we choose $m$ variables to **solve for** (the basic variables) and force the remaining $n$ to zero (the non-basic variables). This is exactly what a vertex is.
+
+The reason we want the tableau in a special form is so that this solution can be **read off without any algebra**. If each basic variable’s column is a standard basis vector — a single 1, the rest 0s — then setting the non-basic variables to zero makes every equation collapse to “basic variable = its RHS entry.” The solution falls straight out of the RHS column. Achieving and preserving this clean, identity-pattern form is the *entire point* of the row operations that follow. We are never changing the underlying equations; we are only re-expressing them so that a different vertex becomes the one we can read directly.
 
 -----
 
@@ -145,12 +149,18 @@ If no entry in the entering column is positive, the problem is **unbounded** —
 
 ### 4.3 Pivoting (Row Reduction)
 
-The pivot operation is standard Gaussian elimination, targeted to maintain the tableau’s structure:
+This is where the “why” from Section 2 pays off. We have chosen a new variable to bring into the basis (the entering variable) and one to remove (the leaving variable). But the tableau equations are still written in terms of the *old* basis — the entering variable’s column is not yet a unit vector, so we can’t just read its value off the RHS. **Pivoting re-expresses the exact same system of equations** so that the new basic set once again sits in identity-pattern form.
 
-1. **Divide the pivot row** by the pivot element, making it 1
+Crucially, the operations we use — scaling a row, and adding a multiple of one row to another — are **reversible** and **preserve the solution set** of the linear system. We are not changing what the equations *say*; we are only changing which variables they are solved for. That is why the answer we eventually read off is genuinely a solution to the original program.
+
+The pivot operation is standard Gaussian elimination, targeted to restore the structure:
+
+1. **Divide the pivot row** by the pivot element, making the entering variable’s coefficient 1
 1. **Eliminate** the entering variable from all other rows (including the objective row) using row operations
 
-After pivoting, the entering variable’s column becomes a standard basis vector (with the 1 in the pivot row), and the solution is again readable from the RHS. The row label updates to reflect the new basic variable.
+After pivoting, the entering variable’s column has become a standard basis vector (with the 1 in the pivot row), the leaving variable’s column is no longer a unit vector, and the solution is again readable straight from the RHS. The row label updates to reflect the new basic variable — geometrically, we have slid to an adjacent vertex.
+
+The algorithm terminates when the basis can no longer be improved (Section 4.4). At that point the basic variables — typically a mix of decision variables $x_j$ and any slacks still carrying spare capacity — form the identity block, and the optimal vertex is read directly from the RHS. Watch this happen in the visualizer: the identity columns march from the slack block over to the $x_1, x_2$ columns as the origin’s slacks are swapped out for genuine decision variables.
 
 ### 4.4 Optimality Check
 
@@ -163,8 +173,6 @@ After each pivot, check the objective row. If all coefficients are **non-negativ
 On the graph, the arrow labeled “improve ↑” (or “improve ↓” for minimization) shows the **gradient of the objective function** $\nabla z = (c_1, c_2)$ — the direction in which $z$ increases most rapidly.
 
 Geometrically, the simplex method is sliding along the boundary of the feasible polygon in the direction that has the largest positive component along this gradient. The optimal vertex is the one where you can’t move along any edge without going *against* the gradient (or leaving the feasible region).
-
-The **level curves** (iso-value lines) of the objective are perpendicular to this arrow. The optimum is where the last level curve just touches the feasible region.
 
 -----
 
@@ -216,7 +224,7 @@ A zero shadow price means the constraint has slack — you already have more of 
 
 The simplex method solves the primal and dual simultaneously. The dual variables at any stage are $\mathbf{c}_B^\top B^{-1}$, where $B$ is the current basis matrix. Through the row operations of the simplex method, this vector is maintained in the objective row under the slack columns. At optimality, it gives the optimal dual solution — no separate computation needed.
 
-More precisely, the optimal value function $z^*(\mathbf{b})$ is **piecewise linear and concave**, and the dual solution $\mathbf{y}^*$ is a subgradient:
+More precisely, the optimal value function $z^\ast(\mathbf{b})$ is **piecewise linear and concave**, and the dual solution $\mathbf{y}^\ast$ is a subgradient:
 
 $$z^*(\mathbf{b}) = \mathbf{c}_B^\top B^{-1} \mathbf{b}$$
 
@@ -262,7 +270,7 @@ A basic feasible solution is **degenerate** if one or more basic variables equal
 
 Degeneracy causes problems because a pivot may not actually move to a new vertex — the objective value stays the same. In theory, this can cause **cycling** (visiting the same sequence of bases forever). In practice this is rare, but Bland’s rule guarantees it never happens.
 
-With degeneracy, shadow prices may not be unique: different optimal bases (all representing the same vertex) can give different dual values. The shadow price interpretation becomes a subgradient rather than a gradient — formally, $\mathbf{y}^*$ lies in the **subdifferential** $\partial z^*(\mathbf{b})$.
+With degeneracy, shadow prices may not be unique: different optimal bases (all representing the same vertex) can give different dual values. The shadow price interpretation becomes a subgradient rather than a gradient — formally, $\mathbf{y}^\ast$ lies in the **subdifferential** $\partial z^\ast(\mathbf{b})$.
 
 ### 8.3 Objective Parallel to a Constraint (Alternate Optima)
 
@@ -298,6 +306,20 @@ $$\nabla z = \sum_{i \in \mathcal{B}} y_i^* , \mathbf{a}_i$$
 
 where $\mathcal{B}$ is the set of binding constraints and $y_i^*$ are the shadow prices. This is precisely the KKT (Karush-Kuhn-Tucker) condition for optimality.
 
+### 8.7 When Decision Variables Can Be Negative
+
+The standard form — and the visualizer — assumes $\mathbf{x} \geq \mathbf{0}$. This non-negativity is not cosmetic: it is what makes the origin a vertex, what lets each non-basic variable sit at zero, and what gives the minimum-ratio test its meaning (variables *increase* from zero until a constraint stops them). A variable that is allowed to go negative — a **free** (or *unrestricted*) variable — breaks all three assumptions, because its $x_j \geq 0$ wall is gone.
+
+The fix is a reformulation, not a new algorithm. Split each free variable into the difference of two non-negative parts:
+
+$$x_j = x_j^+ - x_j^-, \qquad x_j^+, \, x_j^- \geq 0.$$
+
+Now $x_j^+ - x_j^-$ can take any sign, while both pieces obey the usual non-negativity, so the ordinary simplex method applies unchanged. A positive $x_j$ shows up as $x_j^+ > 0,\ x_j^- = 0$; a negative $x_j$ as the reverse. (At any basic feasible solution the two never both go positive — their columns are negatives of each other, so a sensible pivot keeps at most one in the basis. If both *were* positive you could subtract the common part from each and lower the objective slack, so it never helps.)
+
+The cost is one extra column per free variable, doubling that part of the tableau. A cheaper alternative when a variable is merely **bounded below** at some $\ell_j \neq 0$ (rather than truly free) is to *shift* it: substitute $x_j' = x_j - \ell_j \geq 0$, solve, and shift back. A box constraint $\ell_j \leq x_j \leq u_j$ is handled the same way (shift to put the lower bound at zero), with the upper bound carried as an ordinary constraint — or, in production solvers, via the **bounded-variable simplex** that treats $\ell_j$ and $u_j$ implicitly and lets non-basic variables rest at *either* bound, not only zero.
+
+Geometrically, dropping $x_j \geq 0$ removes one of the axes as a boundary, so the feasible region is no longer trapped in the first quadrant and the origin may not be a vertex at all. The visualizer always draws the first quadrant and treats $x_1, x_2 \geq 0$ as hard walls, so it cannot show a free variable directly; to model one you would split it as above and interpret the result through $x_j = x_j^+ - x_j^-$.
+
 -----
 
 ## 9. Summary: What to Watch in the Visualizer
@@ -308,7 +330,7 @@ As you step through the animation, pay attention to:
 1. **Row labels changing** — each swap tells you a slack variable (resource with room) became tight, and a decision variable entered production.
 1. **Objective row coefficients** — negative values drive the next pivot. When they all go non-negative, you’ve arrived.
 1. **Shadow prices** appearing at optimality under the slack columns — they tell you which constraints are worth relaxing.
-1. **The dual panel** tracking along — dual variables evolve with each pivot, converging to the shadow prices at the optimal step. Strong duality confirms $\mathbf{c}^\top \mathbf{x}^* = \mathbf{b}^\top \mathbf{y}^*$.
+1. **The dual panel** tracking along — dual variables evolve with each pivot, converging to the shadow prices at the optimal step. Strong duality confirms $\mathbf{c}^\top \mathbf{x}^\ast = \mathbf{b}^\top \mathbf{y}^\ast$.
 1. **Zero reduced costs at optimality** — if a non-basic variable has a zero in the objective row, alternate optima exist along a constraint edge.
 
 -----

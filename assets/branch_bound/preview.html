@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!-- Local preview harness. Serve from this directory:
+       cd assets/branch_bound && python3 -m http.server 8123
+     then open http://localhost:8123/preview.html
+     (Not used by the blog post; the post embeds the viz itself.) -->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Branch &amp; Bound / Cut — preview</title>
+  <style>body { margin: 0; background: #05080f; }</style>
+</head>
+<body>
+  <div id="branch-bound-app"></div>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="engine.js"></script>
+  <script>
+    fetch('branch_bound.jsx')
+      .then(r => r.text())
+      .then(code => { new Function(Babel.transform(code, { presets: [['react', { runtime: 'classic' }]] }).code)(); })
+      .catch(err => console.error('Failed to load branch & bound viz:', err));
+  </script>
+</body>
+</html>

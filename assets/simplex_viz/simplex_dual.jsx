@@ -516,7 +516,7 @@ const toSvg = ([x, y]) => [sx(x), sy(y)];
 const polyPoints = poly.map(v => toSvg(v).join(",")).join(" ");
 const pathPts = stepData.path.map(toSvg);
 
-const gridStep = maxCoord <= 20 ? 5 : maxCoord <= 60 ? 10 : maxCoord <= 150 ? 25 : 50;
+const gridStep = maxCoord <= 8 ? 1 : maxCoord <= 20 ? 2 : maxCoord <= 60 ? 10 : maxCoord <= 150 ? 25 : 50;
 const gridVals = [];
 for (let v = 0; v <= maxCoord; v += gridStep) gridVals.push(v);
 
@@ -800,10 +800,11 @@ MAIN APP
 ============================================================ */
 
 function SimplexDualApp() {
-const [objCoeffs, setObjCoeffs] = useState([20, 30]);
+const [objCoeffs, setObjCoeffs] = useState([2, 3]);
 const [constraints, setConstraints] = useState([
-{ coeffs: [2, 4], rhs: 120 },
-{ coeffs: [4, 2], rhs: 80 },
+{ coeffs: [1, 2], rhs: 8 },
+{ coeffs: [3, 2], rhs: 12 },
+{ coeffs: [1, 0], rhs: 3 },
 ]);
 const [isMin, setIsMin] = useState(false);
 const [mode, setMode] = useState("input");
@@ -821,6 +822,12 @@ const [frozenIsMin, setFrozenIsMin] = useState(false);
 
 const baseMaxCoord = useMemo(() => {
 if (!frozenConstraints) return 50;
+// size the axes to the actual feasible region, not the (often far larger) axis intercepts
+const poly = computeFeasibleRegion(frozenConstraints, 1e6);
+let ext = 0, unbounded = false;
+for (const [x, y] of poly) { ext = Math.max(ext, x, y); if (x > 1e5 || y > 1e5) unbounded = true; }
+if (poly.length && !unbounded && ext > 0) return Math.max(ext * 1.15, 4);
+// fallback for unbounded / degenerate regions: largest intercept
 let mx = 0;
 for (const c of frozenConstraints) {
 if (c.coeffs[0] > 0) mx = Math.max(mx, c.rhs / c.coeffs[0]);
