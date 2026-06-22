@@ -174,8 +174,6 @@ On the graph, the arrow labeled “improve ↑” (or “improve ↓” for mini
 
 Geometrically, the simplex method is sliding along the boundary of the feasible polygon in the direction that has the largest positive component along this gradient. The optimal vertex is the one where you can’t move along any edge without going *against* the gradient (or leaving the feasible region).
 
-The **level curves** (iso-value lines) of the objective are perpendicular to this arrow. The optimum is where the last level curve just touches the feasible region.
-
 -----
 
 ## 6. The Dual Problem
@@ -226,7 +224,7 @@ A zero shadow price means the constraint has slack — you already have more of 
 
 The simplex method solves the primal and dual simultaneously. The dual variables at any stage are $\mathbf{c}_B^\top B^{-1}$, where $B$ is the current basis matrix. Through the row operations of the simplex method, this vector is maintained in the objective row under the slack columns. At optimality, it gives the optimal dual solution — no separate computation needed.
 
-More precisely, the optimal value function $z^*(\mathbf{b})$ is **piecewise linear and concave**, and the dual solution $\mathbf{y}^*$ is a subgradient:
+More precisely, the optimal value function $z^\ast(\mathbf{b})$ is **piecewise linear and concave**, and the dual solution $\mathbf{y}^\ast$ is a subgradient:
 
 $$z^*(\mathbf{b}) = \mathbf{c}_B^\top B^{-1} \mathbf{b}$$
 
@@ -272,7 +270,7 @@ A basic feasible solution is **degenerate** if one or more basic variables equal
 
 Degeneracy causes problems because a pivot may not actually move to a new vertex — the objective value stays the same. In theory, this can cause **cycling** (visiting the same sequence of bases forever). In practice this is rare, but Bland’s rule guarantees it never happens.
 
-With degeneracy, shadow prices may not be unique: different optimal bases (all representing the same vertex) can give different dual values. The shadow price interpretation becomes a subgradient rather than a gradient — formally, $\mathbf{y}^*$ lies in the **subdifferential** $\partial z^*(\mathbf{b})$.
+With degeneracy, shadow prices may not be unique: different optimal bases (all representing the same vertex) can give different dual values. The shadow price interpretation becomes a subgradient rather than a gradient — formally, $\mathbf{y}^\ast$ lies in the **subdifferential** $\partial z^\ast(\mathbf{b})$.
 
 ### 8.3 Objective Parallel to a Constraint (Alternate Optima)
 
@@ -332,7 +330,7 @@ As you step through the animation, pay attention to:
 1. **Row labels changing** — each swap tells you a slack variable (resource with room) became tight, and a decision variable entered production.
 1. **Objective row coefficients** — negative values drive the next pivot. When they all go non-negative, you’ve arrived.
 1. **Shadow prices** appearing at optimality under the slack columns — they tell you which constraints are worth relaxing.
-1. **The dual panel** tracking along — dual variables evolve with each pivot, converging to the shadow prices at the optimal step. Strong duality confirms $\mathbf{c}^\top \mathbf{x}^* = \mathbf{b}^\top \mathbf{y}^*$.
+1. **The dual panel** tracking along — dual variables evolve with each pivot, converging to the shadow prices at the optimal step. Strong duality confirms $\mathbf{c}^\top \mathbf{x}^\ast = \mathbf{b}^\top \mathbf{y}^\ast$.
 1. **Zero reduced costs at optimality** — if a non-basic variable has a zero in the objective row, alternate optima exist along a constraint edge.
 
 -----
